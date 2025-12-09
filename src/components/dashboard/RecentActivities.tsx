@@ -1,7 +1,7 @@
 /** @format */
 
 import { Clock, Wallet, Eye, Target, Shield } from "lucide-react";
-import { RecentActivity } from "../types";
+import { RecentActivity } from "./data/dashboard-data";
 
 interface RecentActivitiesProps {
 	activities: RecentActivity[];

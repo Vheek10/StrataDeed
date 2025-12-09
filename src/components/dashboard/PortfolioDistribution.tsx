@@ -1,13 +1,13 @@
 /** @format */
 
 import { PieChart, Shield } from "lucide-react";
-import { PortfolioDistribution } from "../types";
+import { PortfolioDistribution as PortfolioDistributionType } from "./data/dashboard-data";
 
 interface PortfolioDistributionProps {
-	data: PortfolioDistribution[];
+	data: PortfolioDistributionType[];
 }
 
-export default function PortfolioDistributionComponent({
+export default function PortfolioDistribution({
 	data,
 }: PortfolioDistributionProps) {
 	return (
