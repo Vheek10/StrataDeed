@@ -13,9 +13,17 @@ import {
 	Users,
 	Briefcase,
 	Phone,
+	User,
+	LogOut,
+	Settings,
+	Wallet,
+	CheckCircle,
+	ChevronDown,
 } from "lucide-react";
 import MobileSidebar from "./MobileSidebar";
 import { cn } from "@/lib/utils";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
 
 // Icon mapping for navigation items
 const navIcons = {
@@ -28,7 +36,10 @@ const navIcons = {
 export default function Navbar() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 	const pathname = usePathname();
+	const { address, isConnected } = useAccount();
+	const { disconnect } = useDisconnect();
 
 	const navItems = [
 		{ href: "/", label: "Home", key: "home" },
@@ -174,26 +185,159 @@ export default function Navbar() {
 							</div>
 						</nav>
 
-						{/* Right Section: Signup Buttons */}
+						{/* Right Section: Authentication State */}
 						<div className="flex items-center gap-3 lg:gap-4 xl:gap-5 flex-shrink-0">
-							{/* Mobile/Tablet Signup Button (Visible on small and medium screens) */}
-							<div className="flex lg:hidden items-center">
-								<Link
-									href="/signup"
-									className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/40">
-									<span className="hidden sm:inline">Sign Up</span>
-									<span className="sm:hidden">Join</span>
-								</Link>
-							</div>
+							{isConnected ? (
+								// User is connected - Show wallet info
+								<div className="flex items-center gap-3">
+									{/* Desktop: Full wallet info */}
+									<div className="hidden lg:flex items-center gap-3">
+										<div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-emerald-900/30 to-green-900/30 border border-emerald-800/50 rounded-lg backdrop-blur-sm">
+											<CheckCircle className="w-4 h-4 text-emerald-400" />
+											<span className="text-sm font-medium text-emerald-400">
+												{address?.slice(0, 6)}...{address?.slice(-4)}
+											</span>
+										</div>
 
-							{/* Desktop Signup Button */}
-							<div className="hidden lg:flex items-center">
-								<Link
-									href="/signup"
-									className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/40">
-									Sign Up
-								</Link>
-							</div>
+										{/* User Menu */}
+										<div className="relative">
+											<button
+												onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+												className="flex items-center gap-2 px-3 py-2 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-700/50 rounded-lg backdrop-blur-sm transition-colors">
+												<User className="w-4 h-4 text-gray-300" />
+												<ChevronDown className="w-3 h-3 text-gray-400" />
+											</button>
+
+											{/* Dropdown Menu */}
+											{isUserMenuOpen && (
+												<>
+													<div
+														className="fixed inset-0 z-40"
+														onClick={() => setIsUserMenuOpen(false)}
+													/>
+													<div className="absolute right-0 mt-2 w-48 bg-gray-900/95 backdrop-blur-xl border border-gray-800/50 rounded-lg shadow-2xl shadow-black/20 z-50 overflow-hidden">
+														<div className="p-4 border-b border-gray-800/50">
+															<div className="text-sm font-medium text-gray-300">
+																Connected Wallet
+															</div>
+															<div className="text-xs text-gray-400 mt-1">
+																{address?.slice(0, 8)}...{address?.slice(-6)}
+															</div>
+														</div>
+
+														<div className="p-1">
+															<Link
+																href="/dashboard"
+																className="flex items-center gap-3 px-3 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-gray-800/50 rounded transition-colors"
+																onClick={() => setIsUserMenuOpen(false)}>
+																<Briefcase className="w-4 h-4" />
+																Dashboard
+															</Link>
+
+															<Link
+																href="/settings"
+																className="flex items-center gap-3 px-3 py-2 text-sm text-gray-300 hover:text-blue-400 hover:bg-gray-800/50 rounded transition-colors"
+																onClick={() => setIsUserMenuOpen(false)}>
+																<Settings className="w-4 h-4" />
+																Settings
+															</Link>
+
+															<button
+																onClick={() => {
+																	disconnect();
+																	setIsUserMenuOpen(false);
+																}}
+																className="flex items-center gap-3 w-full px-3 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded transition-colors">
+																<LogOut className="w-4 h-4" />
+																Disconnect
+															</button>
+														</div>
+													</div>
+												</>
+											)}
+										</div>
+									</div>
+
+									{/* Mobile: Connect button */}
+									<div className="lg:hidden">
+										<ConnectButton.Custom>
+											{({
+												account,
+												openAccountModal,
+												authenticationStatus,
+												mounted,
+											}) => {
+												const ready =
+													mounted && authenticationStatus !== "loading";
+												const connected = ready && account;
+
+												if (!ready) {
+													return (
+														<div className="w-24 h-9 bg-gray-800 rounded-lg animate-pulse" />
+													);
+												}
+
+												if (connected) {
+													return (
+														<button
+															onClick={openAccountModal}
+															className="px-3 py-1.5 bg-emerald-900/30 border border-emerald-800/50 text-emerald-400 rounded-lg text-sm font-medium">
+															{account.displayName.slice(0, 8)}...
+														</button>
+													);
+												}
+
+												return null;
+											}}
+										</ConnectButton.Custom>
+									</div>
+								</div>
+							) : (
+								// User is not connected - Show sign in/up options
+								<>
+									{/* Desktop: Full buttons */}
+									<div className="hidden lg:flex items-center gap-3">
+										<Link
+											href="/signin"
+											className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors">
+											Sign In
+										</Link>
+										<Link
+											href="/signup"
+											className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-600/40 transition-all duration-300 hover:scale-105">
+											Sign Up
+										</Link>
+									</div>
+
+									{/* Mobile: Connect button */}
+									<div className="lg:hidden">
+										<ConnectButton.Custom>
+											{({
+												openConnectModal,
+												authenticationStatus,
+												mounted,
+											}) => {
+												const ready =
+													mounted && authenticationStatus !== "loading";
+
+												if (!ready) {
+													return (
+														<div className="w-20 h-9 bg-gray-800 rounded-lg animate-pulse" />
+													);
+												}
+
+												return (
+													<button
+														onClick={openConnectModal}
+														className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-600/40 transition-all duration-300">
+														Connect
+													</button>
+												);
+											}}
+										</ConnectButton.Custom>
+									</div>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
@@ -205,6 +349,8 @@ export default function Navbar() {
 				onClose={() => setIsMobileMenuOpen(false)}
 				navItems={navItems}
 				isActive={isActive}
+				isConnected={isConnected}
+				address={address}
 			/>
 		</>
 	);

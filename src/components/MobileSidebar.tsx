@@ -2,8 +2,22 @@
 "use client";
 
 import Link from "next/link";
-import { X, Home, Info, Building, Users, Briefcase, Phone } from "lucide-react";
+import {
+	X,
+	Home,
+	Info,
+	Building,
+	Users,
+	Briefcase,
+	Phone,
+	Wallet,
+	CheckCircle,
+	LogOut,
+	Settings,
+	User,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAccount, useDisconnect } from "wagmi";
 
 // Icon mapping for navigation items
 const navIcons = {
@@ -27,6 +41,8 @@ interface MobileSidebarProps {
 		key: string;
 	}[];
 	isActive: (href: string) => boolean;
+	isConnected?: boolean;
+	address?: string;
 }
 
 export default function MobileSidebar({
@@ -34,8 +50,17 @@ export default function MobileSidebar({
 	onClose,
 	navItems,
 	isActive,
+	isConnected,
+	address,
 }: MobileSidebarProps) {
+	const { disconnect } = useDisconnect();
+
 	if (!isOpen) return null;
+
+	const handleDisconnect = () => {
+		disconnect();
+		onClose();
+	};
 
 	return (
 		<>
@@ -109,21 +134,132 @@ export default function MobileSidebar({
 							})}
 						</nav>
 
-						{/* Mobile Auth Section */}
-						<div className="mt-auto">
-							<div className="space-y-3">
+						{/* Mobile Auth Section - Dynamic based on connection state */}
+						<div className="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800">
+							{isConnected && address ? (
+								// User is connected - Show wallet info and options
+								<div className="space-y-4">
+									{/* Wallet Info */}
+									<div className="px-4 py-3 bg-gradient-to-r from-emerald-900/10 to-green-900/10 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-800/30 dark:border-emerald-800/50 rounded-lg">
+										<div className="flex items-center gap-2 mb-2">
+											<CheckCircle className="w-4 h-4 text-emerald-500" />
+											<span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+												Wallet Connected
+											</span>
+										</div>
+										<div className="text-xs text-emerald-700 dark:text-emerald-300 font-mono bg-emerald-900/10 dark:bg-emerald-900/20 px-2 py-1 rounded">
+											{address.slice(0, 8)}...{address.slice(-6)}
+										</div>
+									</div>
+
+									{/* Connected User Options */}
+									<div className="space-y-2">
+										<Link
+											href="/dashboard"
+											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+											onClick={onClose}>
+											<Briefcase className="w-4 h-4" />
+											Dashboard
+										</Link>
+
+										<Link
+											href="/profile"
+											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+											onClick={onClose}>
+											<User className="w-4 h-4" />
+											Profile
+										</Link>
+
+										<Link
+											href="/settings"
+											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+											onClick={onClose}>
+											<Settings className="w-4 h-4" />
+											Settings
+										</Link>
+
+										<button
+											onClick={handleDisconnect}
+											className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-left">
+											<LogOut className="w-4 h-4" />
+											Disconnect Wallet
+										</button>
+									</div>
+								</div>
+							) : (
+								// User is not connected - Show sign in/up options
+								<div className="space-y-3">
+									<Link
+										href="/signin"
+										className="flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-500 text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-semibold transition-all duration-300 rounded-lg group"
+										onClick={onClose}>
+										<User className="w-4 h-4 group-hover:scale-110 transition-transform" />
+										Sign In
+									</Link>
+
+									<Link
+										href="/signup"
+										className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/40 rounded-lg group"
+										onClick={onClose}>
+										<Wallet className="w-4 h-4 group-hover:scale-110 transition-transform" />
+										Sign Up with Wallet
+									</Link>
+
+									<div className="relative my-3">
+										<div className="absolute inset-0 flex items-center">
+											<div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
+										</div>
+										<div className="relative flex justify-center">
+											<span className="px-3 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-xs font-medium">
+												Or connect directly
+											</span>
+										</div>
+									</div>
+
+									<Link
+										href="/marketplace"
+										className="flex items-center justify-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white text-sm font-semibold transition-all duration-300 rounded-lg group"
+										onClick={onClose}>
+										<Building className="w-4 h-4 group-hover:scale-110 transition-transform" />
+										Browse Marketplace
+									</Link>
+								</div>
+							)}
+						</div>
+
+						{/* Footer Links */}
+						<div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+							<div className="grid grid-cols-2 gap-2">
 								<Link
-									href="/signup"
-									className="flex items-center justify-center px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/40 rounded-lg"
+									href="/terms"
+									className="text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
 									onClick={onClose}>
-									Sign Up
+									Terms
 								</Link>
 								<Link
-									href="/login"
-									className="flex items-center justify-center px-6 py-2.5 border border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-500 text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-semibold transition-all duration-300 rounded-lg"
+									href="/privacy"
+									className="text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
 									onClick={onClose}>
-									Log In
+									Privacy
 								</Link>
+								<Link
+									href="/help"
+									className="text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+									onClick={onClose}>
+									Help
+								</Link>
+								<Link
+									href="/contact"
+									className="text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+									onClick={onClose}>
+									Contact
+								</Link>
+							</div>
+
+							<div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+								<p className="text-xs text-center text-gray-500 dark:text-gray-400">
+									© 2024 StrataDeed. All rights reserved.
+								</p>
 							</div>
 						</div>
 					</div>

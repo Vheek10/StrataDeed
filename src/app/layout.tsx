@@ -4,6 +4,8 @@ import "./globals.css";
 import { Montserrat } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Web3Provider } from "@/providers/web3-provider";
+import "@rainbow-me/rainbowkit/styles.css";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -11,10 +13,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-	title: "StrataDeed — Tokenized Property Deeds",
+	title: "StrataDeed — Tokenized Property Deeds on Mantle",
 	description:
-		"Mint, list, and discover tokenized property deeds (UI-only prototype)",
-	colorScheme: "dark",
+		"Mint, list, and discover tokenized property deeds on Mantle Network",
 };
 
 export default function RootLayout({
@@ -23,15 +24,15 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html
-			lang="en"
-			className="dark">
-			<body className={montserrat.className + " antialiased dark"}>
-				<div className="min-h-screen flex flex-col bg-gray-950">
-					<Navbar />
-					<main className="flex-1 w-full">{children}</main>
-					<Footer />
-				</div>
+		<html lang="en">
+			<body className={montserrat.className + " antialiased bg-gray-950"}>
+				<Web3Provider>
+					<div className="min-h-screen flex flex-col">
+						<Navbar />
+						<main className="flex-1 w-full">{children}</main>
+						<Footer />
+					</div>
+				</Web3Provider>
 			</body>
 		</html>
 	);

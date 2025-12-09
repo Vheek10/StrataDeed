@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -20,24 +20,39 @@ import {
 	Sparkles,
 	Home,
 	Building2,
+	ExternalLink,
+	ChevronDown,
+	AlertCircle,
+	LogOut,
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 
 export default function SignUpPage() {
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [isConnectingWallet, setIsConnectingWallet] = useState(false);
+	const { isConnected } = useAccount();
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		password: "",
 		confirmPassword: "",
 		acceptTerms: false,
-		walletConnected: false,
 	});
+
+	// Redirect to dashboard when wallet connects
+	useEffect(() => {
+		if (isConnected) {
+			const timer = setTimeout(() => {
+				router.push("/dashboard");
+			}, 1500); // 1.5 second delay to show connected state
+			return () => clearTimeout(timer);
+		}
+	}, [isConnected, router]);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -55,19 +70,6 @@ export default function SignUpPage() {
 
 		setIsLoading(false);
 		router.push("/dashboard");
-	};
-
-	const handleConnectWallet = async () => {
-		setIsConnectingWallet(true);
-
-		// Simulate wallet connection
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		setFormData((prev) => ({ ...prev, walletConnected: true }));
-		setIsConnectingWallet(false);
-
-		// Show success message
-		alert("Wallet connected successfully!");
 	};
 
 	const handleChange = (
@@ -185,45 +187,129 @@ export default function SignUpPage() {
 								</p>
 							</div>
 
-							{/* Connect Wallet Button */}
-							<button
-								onClick={handleConnectWallet}
-								disabled={isConnectingWallet || formData.walletConnected}
-								className={cn(
-									"w-full flex items-center justify-center gap-2 px-4 py-3 mb-4 text-sm",
-									"bg-gradient-to-r from-gray-900 to-black dark:from-gray-800 dark:to-gray-900 text-white font-semibold rounded-lg",
-									"hover:shadow-lg hover:scale-[1.02] transition-all duration-300",
-									formData.walletConnected &&
-										"bg-gradient-to-r from-emerald-600 to-green-500",
-									"disabled:opacity-70 disabled:cursor-not-allowed",
-									"group",
-								)}>
-								{isConnectingWallet ? (
-									<>
-										<div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-										<span>Connecting...</span>
-									</>
-								) : formData.walletConnected ? (
-									<>
-										<CheckCircle className="w-4 h-4" />
-										<span>Wallet Connected ✓</span>
-									</>
-								) : (
-									<>
-										<Wallet className="w-4 h-4 group-hover:scale-110 transition-transform" />
-										<span>Connect Wallet</span>
-									</>
-								)}
-							</button>
+							{/* Connect Wallet Button - Using RainbowKit */}
+							<div className="mb-4">
+								<ConnectButton.Custom>
+									{({
+										account,
+										chain,
+										openAccountModal,
+										openChainModal,
+										openConnectModal,
+										authenticationStatus,
+										mounted,
+									}) => {
+										const ready = mounted && authenticationStatus !== "loading";
+										const connected =
+											ready &&
+											account &&
+											chain &&
+											(!authenticationStatus ||
+												authenticationStatus === "authenticated");
+
+										if (!ready) {
+											return (
+												<div className="w-full h-11 bg-gray-800/50 rounded-lg animate-pulse border border-gray-700/50" />
+											);
+										}
+
+										if (!connected) {
+											return (
+												<button
+													onClick={openConnectModal}
+													type="button"
+													className="group relative w-full px-4 py-3 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 overflow-hidden">
+													{/* Shine effect */}
+													<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+													<div className="relative flex items-center justify-center gap-2">
+														<Wallet className="w-5 h-5 group-hover:scale-110 transition-transform" />
+														<span className="text-sm font-bold tracking-wide">
+															Connect Wallet
+														</span>
+														<ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+													</div>
+												</button>
+											);
+										}
+
+										if (chain.unsupported) {
+											return (
+												<div className="flex items-center gap-3">
+													<div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-800/50 text-red-400 rounded-lg backdrop-blur-sm">
+														<AlertCircle className="w-4 h-4" />
+														<span className="text-sm font-medium">
+															Wrong Network
+														</span>
+													</div>
+													<button
+														onClick={openChainModal}
+														type="button"
+														className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
+														Switch Network
+													</button>
+												</div>
+											);
+										}
+
+										// Show connected state with redirect indicator
+										return (
+											<div className="space-y-2">
+												{/* Connected Badge with redirect animation */}
+												<div className="group relative px-4 py-3 bg-gradient-to-r from-emerald-900/30 via-green-900/30 to-emerald-900/30 border border-emerald-800/50 rounded-lg backdrop-blur-sm">
+													<div className="flex items-center justify-between">
+														<div className="flex items-center gap-2">
+															<CheckCircle className="w-5 h-5 text-emerald-400" />
+															<div>
+																<div className="text-sm font-medium text-emerald-400">
+																	{account.displayName}
+																</div>
+																<div className="text-xs text-emerald-500/80">
+																	{chain.name}
+																</div>
+															</div>
+														</div>
+														<button
+															onClick={openAccountModal}
+															className="p-1.5 hover:bg-emerald-800/20 rounded transition-colors"
+															title="Account Settings">
+															<ChevronDown className="w-4 h-4 text-emerald-400" />
+														</button>
+													</div>
+
+													{/* Redirecting progress indicator */}
+													<div className="mt-2">
+														<div className="flex items-center justify-between text-xs text-emerald-400/80 mb-1">
+															<span>Redirecting to Dashboard...</span>
+															<span className="animate-pulse">• • •</span>
+														</div>
+														<div className="w-full h-1 bg-emerald-900/50 rounded-full overflow-hidden">
+															<div className="h-full bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-400 animate-[shimmer_1.5s_ease-in-out_infinite]" />
+														</div>
+													</div>
+												</div>
+
+												{/* Quick disconnect button */}
+												<button
+													onClick={openAccountModal}
+													className="w-full px-3 py-2 bg-red-900/10 border border-red-800/20 text-red-400 text-xs font-medium rounded hover:bg-red-800/20 hover:border-red-700/30 transition-colors flex items-center justify-center gap-2">
+													<LogOut className="w-3 h-3" />
+													Disconnect & Cancel Redirect
+												</button>
+											</div>
+										);
+									}}
+								</ConnectButton.Custom>
+							</div>
 
 							{/* Divider */}
-							<div className="relative my-4">
+							<div className="relative my-6">
 								<div className="absolute inset-0 flex items-center">
 									<div className="w-full border-t border-gray-200 dark:border-gray-700"></div>
 								</div>
 								<div className="relative flex justify-center">
-									<span className="px-3 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-xs font-medium">
-										Or use email
+									<span className="px-4 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-xs font-medium">
+										Or continue with email
 									</span>
 								</div>
 							</div>
@@ -367,17 +453,20 @@ export default function SignUpPage() {
 										"bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg",
 										"hover:shadow-lg hover:shadow-blue-500/30 hover:scale-[1.02] transition-all duration-300",
 										"disabled:opacity-70 disabled:cursor-not-allowed",
-										"group",
+										"group relative overflow-hidden",
 									)}>
+									{/* Shine effect */}
+									<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
 									{isLoading ? (
 										<>
 											<div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-											<span>Creating Account...</span>
+											<span className="relative">Creating Account...</span>
 										</>
 									) : (
 										<>
-											<UserPlus className="w-4 h-4 group-hover:scale-110 transition-transform" />
-											<span>Create Account</span>
+											<UserPlus className="w-4 h-4 group-hover:scale-110 transition-transform relative" />
+											<span className="relative">Create Account</span>
 										</>
 									)}
 								</button>
