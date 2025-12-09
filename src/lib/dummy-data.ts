@@ -2,30 +2,42 @@
 
 export const sampleProperties = [
 	{
-		id: "1",
-		title: "3-Bedroom Duplex",
-		location: "Lekki Phase 1, Lagos",
-		valuation: "₦120,000,000",
-		description: "Modern duplex with sea breeze and secure compound.",
+		id: 1,
+		title: "Luxury Penthouse with Ocean View",
+		description:
+			"Stunning penthouse with panoramic ocean views, private terrace, and smart home features.",
+		price: 2500000,
+		location: "Miami, Florida",
+		type: "Luxury",
+		bedrooms: 4,
+		bathrooms: 3,
+		squareFeet: 3200,
+		capacity: 8,
+		views: 245,
+		isFeatured: true,
+		createdAt: "2024-01-15",
 		image:
-			"https://images.unsplash.com/photo-1599423300746-b62533397364?w=1200&q=80",
+			"https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&auto=format&fit=crop",
+		country: "USA",
 	},
 	{
-		id: "2",
-		title: "Luxury Apartment",
-		location: "VI, Lagos",
-		valuation: "₦85,000,000",
-		description: "High-floor apartment near business district.",
+		id: 2,
+		title: "Modern Downtown Loft",
+		description:
+			"Industrial-chic loft in the heart of downtown with exposed brick and high ceilings.",
+		price: 850000,
+		location: "New York, NY",
+		type: "Apartments",
+		bedrooms: 2,
+		bathrooms: 2,
+		squareFeet: 1800,
+		capacity: 4,
+		views: 189,
+		isFeatured: false,
+		createdAt: "2024-01-20",
 		image:
-			"https://images.unsplash.com/photo-1560184897-6b2162c3c8b7?w=1200&q=80",
+			"https://images.unsplash.com/photo-1613977257363-707ba9348227?w-800&auto=format&fit=crop",
+		country: "USA",
 	},
-	{
-		id: "3",
-		title: "Commercial Lot",
-		location: "Ikeja, Lagos",
-		valuation: "₦45,000,000",
-		description: "Prime corner lot with road frontage.",
-		image:
-			"https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1200&q=80",
-	},
+	// Add more properties...
 ];
