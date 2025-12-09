@@ -39,12 +39,9 @@ export default function PropertyGrid({
 	removeFromCart,
 	toggleWishlist,
 	clearFilters,
-	viewMode = "grid", // Add default value
+	viewMode = "grid",
 }: PropertyGridProps) {
 	const [isLoading, setIsLoading] = useState(false);
-	const [currentViewMode, setCurrentViewMode] = useState<"grid" | "list">(
-		viewMode,
-	);
 
 	// Simulate loading state
 	useEffect(() => {
@@ -214,28 +211,6 @@ export default function PropertyGrid({
 							</div>
 						</div>
 					)}
-
-					{/* View Mode Toggle */}
-					<div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-						<button
-							onClick={() => setViewMode("grid")}
-							className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-								viewMode === "grid"
-									? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
-									: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-							}`}>
-							Grid View
-						</button>
-						<button
-							onClick={() => setViewMode("list")}
-							className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-								viewMode === "list"
-									? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
-									: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-							}`}>
-							List View
-						</button>
-					</div>
 
 					{/* Sort Options */}
 					<select className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
