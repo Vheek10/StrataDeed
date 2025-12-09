@@ -41,30 +41,6 @@ export default function About() {
 		},
 	];
 
-	const team = [
-		{
-			name: "Alex Morgan",
-			role: "Founder & CEO",
-			bio: "Former real estate developer with 10+ years in property tech",
-			image:
-				"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-		},
-		{
-			name: "Sarah Chen",
-			role: "CTO",
-			bio: "Blockchain architect with expertise in real estate tokenization",
-			image:
-				"https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-		},
-		{
-			name: "Marcus Rodriguez",
-			role: "Head of Legal",
-			bio: "Real estate attorney specializing in digital asset regulation",
-			image:
-				"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-		},
-	];
-
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
 			{/* Hero Section */}
@@ -286,45 +262,6 @@ export default function About() {
 									<div className="text-sm text-cyan-200">Title Disputes</div>
 								</div>
 							</div>
-						</div>
-					</div>
-
-					{/* Team Section */}
-					<div className="mt-20">
-						<div className="text-center mb-12">
-							<h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-								Meet Our Team
-							</h3>
-							<p className="text-lg text-gray-600 dark:text-gray-400">
-								Building the future of real estate technology
-							</p>
-						</div>
-
-						<div className="grid md:grid-cols-3 gap-8">
-							{team.map((member, index) => (
-								<div
-									key={member.name}
-									className="group text-center bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300 hover:scale-[1.02]">
-									<div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
-										<Image
-											src={member.image}
-											alt={member.name}
-											fill
-											className="object-cover group-hover:scale-110 transition-transform duration-500"
-											sizes="128px"
-										/>
-									</div>
-									<h4 className="font-bold text-gray-900 dark:text-white mb-1">
-										{member.name}
-									</h4>
-									<div className="text-blue-600 dark:text-blue-400 font-medium mb-3">
-										{member.role}
-									</div>
-									<p className="text-sm text-gray-600 dark:text-gray-400">
-										{member.bio}
-									</p>
-								</div>
-							))}
 						</div>
 					</div>
 

@@ -1,0 +1,41 @@
+/** @format */
+
+interface MarketInsightsProps {
+	title?: string;
+	description?: string;
+	metrics?: Array<{ label: string; value: string }>;
+}
+
+export default function MarketInsights({
+	title = "Market Insights",
+	description = "Real estate market is trending upward with a projected 15% growth in premium properties this quarter.",
+	metrics = [
+		{ label: "Property Value", value: "+8.5%" },
+		{ label: "Investor Demand", value: "+22%" },
+		{ label: "Avg. Yield", value: "4.2%" },
+	],
+}: MarketInsightsProps) {
+	return (
+		<div className="bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl p-6 text-white">
+			<div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+				<div>
+					<h3 className="text-xl font-bold mb-2">{title}</h3>
+					<p className="text-blue-100 mb-4 max-w-lg">{description}</p>
+					<button className="px-4 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
+						View Market Report
+					</button>
+				</div>
+				<div className="grid grid-cols-3 gap-4">
+					{metrics.map((metric, index) => (
+						<div
+							key={index}
+							className="text-center">
+							<div className="text-2xl font-bold">{metric.value}</div>
+							<div className="text-xs text-blue-200">{metric.label}</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	);
+}
