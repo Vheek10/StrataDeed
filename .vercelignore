@@ -1,69 +1,23 @@
 <!-- @format -->
 
-/\*_ @type {import('next').NextConfig} _/
-const nextConfig = {
-images: {
-remotePatterns: [
-{
-protocol: "https",
-hostname: "lh3.googleusercontent.com",
-},
-{
-protocol: "https",
-hostname: "images.unsplash.com",
-},
-{
-protocol: "https",
-hostname: "picsum.photos",
-},
-{
-protocol: "https",
-hostname: "source.unsplash.com",
-},
-],
-},
+# Build caches
 
-// Build optimizations
-swcMinify: true,
+.next/cache/
+node_modules/.cache/
 
-// Temporary: Disable type checking and eslint during build
-typescript: {
-ignoreBuildErrors: true,
-},
-eslint: {
-ignoreDuringBuilds: true,
-},
+# Test files
 
-// Transpile problematic packages
-transpilePackages: [
-'@rainbow-me/rainbowkit',
-'@wagmi/connectors',
-'@walletconnect/ethereum-provider',
-'@walletconnect/utils',
-'@walletconnect/logger',
-'@mantleio/sdk',
-],
+**/\*.test.js
+**/_.test.ts
+\*\*/_.spec.js \*_/_.spec.ts
 
-// Webpack configuration
-webpack: (config, { isServer }) => {
-// Don't bundle Node.js modules on client
-if (!isServer) {
-config.resolve.fallback = {
-fs: false,
-net: false,
-tls: false,
-crypto: false,
-stream: false,
-path: false,
-os: false,
-http: false,
-https: false,
-};
-}
+# Ignore problematic package test directories
 
-    return config;
+node_modules/thread-stream/test/
+node_modules/pino/test/
 
-},
-};
+# Environment files (except .env.production)
 
-module.exports = nextConfig;
+.env\*.local
+.env.development
+.env.test
