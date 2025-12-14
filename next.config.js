@@ -8,10 +8,25 @@ const nextConfig = {
 	// Explicitly disable Turbopack to use webpack
 	experimental: {
 		// Remove or set to false to disable Turbopack
-		turbo: undefined, // or remove this line entirely
+		turbo: false, // or remove this line entirely
 	},
 
 	swcMinify: true, // Keep SWC minification
+
+	// Add image configuration for external domains
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'images.unsplash.com',
+			},
+			// Add other image domains here if needed
+			// {
+			// 	protocol: 'https',
+			// 	hostname: 'example.com',
+			// },
+		],
+	},
 
 	webpack: (config, { isServer, dev }) => {
 		// Client-specific configurations

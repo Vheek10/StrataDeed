@@ -108,6 +108,11 @@ body {
 	color-scheme: dark;
 }
 
+/* Cursor pointer on all buttons */
+button {
+	cursor: pointer;
+}
+
 /* ... rest of your CSS remains the same ... */
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
