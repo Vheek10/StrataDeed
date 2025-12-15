@@ -1,8 +1,9 @@
+```javascript
 /** @format */
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Upload, 
   Home, 
@@ -10,13 +11,23 @@ import {
   DollarSign, 
   FileText, 
   CheckCircle,
-  Building2
+  Building2,
+  Loader2
 } from "lucide-react";
+import { useAccount, useWaitForTransactionReceipt } from "wagmi";
+import { useStrataDeed } from "@/hooks/useStrataDeed";
 
 export default function MintPage() {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { address, isConnected } = useAccount();
+  const { deployStrataDeed, isDeploying } = useStrataDeed();
   
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+  
+  const { data: receipt, isLoading: isWaitingReceipt } = useWaitForTransactionReceipt({
+    hash: txHash,
+  });
+
   const [formData, setFormData] = useState({
     title: "",
     location: "",
@@ -51,66 +62,54 @@ export default function MintPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!isConnected || !address) {
+        alert("Please connect your wallet first");
+        return;
+    }
+
     if (!formData.title || !formData.location || !formData.valuation) {
       alert("Please fill in all required fields");
       return;
     }
 
     try {
-      setIsProcessing(true);
+      console.log("Deploying contract for property:", formData.title);
       
-      // Prepare property data for display
-      const propertyData = {
-        title: formData.title,
-        location: formData.location,
-        valuation: `$${parseFloat(formData.valuation).toLocaleString()}`,
-        propertyType: formData.propertyType,
-        totalTokens: parseInt(formData.totalTokens).toLocaleString(),
-        pricePerToken: `$${formData.pricePerToken}`,
-        filesCount: selectedFiles.length
-      };
-      
-      console.log("Property Tokenization Data:", propertyData);
-      
-      // Show success message
-      const successMessage = `✅ Property Tokenization Ready
-
-Property: ${propertyData.title}
-Location: ${propertyData.location}
-Valuation: ${propertyData.valuation}
-Tokens: ${propertyData.totalTokens} SDPT
-Price per Token: ${propertyData.pricePerToken}
-
-Files: ${propertyData.filesCount} documents
-
-This demonstration shows property tokenization data.
-In production, this would be recorded on blockchain.`;
-
-      alert(successMessage);
-      
-      // Reset form after success
-      setFormData({
-        title: "",
-        location: "",
-        valuation: "",
-        description: "",
-        propertyType: "residential",
-        totalTokens: "100000",
-        pricePerToken: ""
-      });
-      setSelectedFiles([]);
+      const hash = await deployStrataDeed(formData.valuation, address);
+      if (hash) {
+          setTxHash(hash);
+      }
       
     } catch (error: any) {
       console.error("Error:", error);
-      alert(`Error: ${error.message || "Failed to process property data"}`);
-    } finally {
-      setIsProcessing(false);
+      alert(`Error: ${error.message || "Failed to deploy contract"}`);
     }
   };
 
   const handleRemoveFile = (index: number) => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
+  
+  // Effect to handle success
+  useEffect(() => {
+      if (receipt && receipt.status === "success") {
+          alert(`✅ Property Contract Deployed!\n\nAddress: ${receipt.contractAddress}\n\nNote: Metadata would be uploaded to IPFS in production.`);
+          setTxHash(undefined); // Reset
+          // Reset form after success
+          setFormData({
+            title: "",
+            location: "",
+            valuation: "",
+            description: "",
+            propertyType: "residential",
+            totalTokens: "100000",
+            pricePerToken: ""
+          });
+          setSelectedFiles([]);
+      }
+  }, [receipt]);
+
+  const isProcessing = isDeploying || isWaitingReceipt;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 py-8">
