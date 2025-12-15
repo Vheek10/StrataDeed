@@ -5,14 +5,7 @@
 
 const nextConfig = {
 	reactStrictMode: true,
-	// Explicitly disable Turbopack to use webpack
-	experimental: {
-		// Remove or set to false to disable Turbopack
-		turbo: false, // or remove this line entirely
-	},
-
-	swcMinify: true, // Keep SWC minification
-
+	
 	// Add image configuration for external domains
 	images: {
 		remotePatterns: [
@@ -20,11 +13,6 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'images.unsplash.com',
 			},
-			// Add other image domains here if needed
-			// {
-			// 	protocol: 'https',
-			// 	hostname: 'example.com',
-			// },
 		],
 	},
 
