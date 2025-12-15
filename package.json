@@ -7,9 +7,10 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
-    "deploy:mantle": "hardhat run scripts/deploy.js --network mantleTestnet",
+    "deploy:mantle": "hardhat run scripts/deploy.js --network mantleSepolia",
     "test:contracts": "hardhat test",
-    "compile": "hardhat compile"
+    "compile": "hardhat compile",
+    "test": "hardhat test"
   },
   "dependencies": {
     "@base-org/account": "^2.5.0",
@@ -33,7 +34,10 @@
     "wagmi": "^3.1.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ignition": "^0.15.0",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "@shadcn/ui": "^0.0.4",
     "@tailwindcss/postcss": "^4",
@@ -41,6 +45,7 @@
     "@types/qs": "^6.14.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "chai": "^4.3.10",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
@@ -48,6 +53,8 @@
     "hardhat": "2.22.3",
     "ignore-loader": "^0.1.2",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.0",
     "typescript": "^5"
   },
   "type": "module"

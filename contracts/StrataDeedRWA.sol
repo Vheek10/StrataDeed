@@ -7,32 +7,17 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-/**
- * @title StrataDeed RWA Token - Secured Version
- * @notice Fractional ownership of real-estate asset with privacy-preserving compliance.
- * @dev ERC-20 with restricted transfers, escrow funding, and yield distribution.
- * Fixed critical security vulnerabilities including reentrancy, state validation, and access control.
- */
 contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
     
-    // ============================
-    // Constants & State Variables
-    // ============================
     uint256 public constant PROPERTY_TOKEN_SUPPLY = 100_000 * 10**18;
     uint256 public minDepositForTokens = 0.001 ether;
     uint256 private constant TIMELOCK_DURATION = 2 days;
 
-    // ============================
-    // Compliance State
-    // ============================
     mapping(address => bytes32) private _credentialHashes;
     mapping(bytes32 => bool) public isCredentialRevoked;
     mapping(address => bool) public isWalletFrozen;
 
-    // ============================
-    // Escrow State
-    // ============================
     enum EscrowState { Funding, Finalized, Cancelled }
     EscrowState public escrowState;
     uint256 public immutable fundingCap;
@@ -40,24 +25,15 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
     mapping(address => uint256) public escrowDeposits;
     uint256 public totalEscrowRaisedBeforeFinalization;
     
-    // Timelock for escrow cancellation
     uint256 public escrowCancelTimestamp;
     string public escrowCancelReason;
     bool public escrowCancelPending;
 
-    // ============================
-    // Yield State
-    // ============================
     uint256 public accYieldPerShare;
     mapping(address => uint256) public rewardDebt;
     uint256 public totalYieldDistributed;
-    
-    // Pull payment pattern for yield (prevents DoS)
     mapping(address => uint256) private _yieldBalances;
 
-    // ============================
-    // Events
-    // ============================
     event CredentialApproved(address indexed wallet, bytes32 indexed credentialHash);
     event CredentialRevoked(bytes32 indexed credentialHash, string reason);
     event WalletFrozen(address indexed wallet);
@@ -72,9 +48,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
     event YieldWithdrawn(address indexed investor, uint256 amount);
     event MinDepositChanged(uint256 oldValue, uint256 newValue);
 
-    // ============================
-    // Constructor
-    // ============================
     constructor(
         uint256 _fundingCap,
         address _initialOwner
@@ -84,9 +57,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         escrowState = EscrowState.Funding;
     }
 
-    // ============================
-    // Modifiers
-    // ============================
     modifier onlyCompliant(address wallet) {
         require(isCompliant(wallet), "Address not compliant");
         _;
@@ -107,9 +77,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         _;
     }
 
-    // ============================
-    // Compliance Logic
-    // ============================
     function registerCredential(address wallet, bytes32 credentialHash) external onlyOwner {
         require(wallet != address(0), "Invalid wallet");
         require(credentialHash != bytes32(0), "Invalid hash");
@@ -140,38 +107,28 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         return true;
     }
 
-    // ============================
-    // ERC-20 Transfer Override (SECURED) - OpenZeppelin v5 Style
-    // ============================
-    function _update(address from, address to, uint256 amount) internal override nonReentrant {
-        // Apply compliance checks only for transfers (not mint/burn)
+    function _update(address from, address to, uint256 amount) internal override {
         if (from != address(0) && to != address(0)) {
             require(!paused(), "Contract is paused");
             require(isCompliant(from), "Sender not compliant");
             require(isCompliant(to), "Receiver not compliant");
         }
 
-        // Update reward debt BEFORE transfer (critical for yield calculation)
         uint256 fromBalance = balanceOf(from);
         uint256 toBalance = balanceOf(to);
         
         rewardDebt[from] = (fromBalance * accYieldPerShare) / 1e18;
         rewardDebt[to] = (toBalance * accYieldPerShare) / 1e18;
         
-        // Execute the transfer/mint/burn
         super._update(from, to, amount);
         
-        // Accrue yield for transfers only (not for mint/burn)
         if (from != address(0) && to != address(0)) {
             _accrueYield(from);
             _accrueYield(to);
         }
     }
 
-    // ============================
-    // Escrow Logic (SECURED)
-    // ============================
-    function depositEscrow() external payable nonReentrant onlyWhenFunding onlyCompliant(msg.sender) {
+    function depositEscrow() external payable nonReentrant onlyWhenFunding onlyCompliant(msg.sender) whenNotPaused {
         require(totalEscrowRaised + msg.value <= fundingCap, "Cap exceeded");
         require(msg.value > 0, "Zero deposit");
         require(msg.value >= minDepositForTokens, "Deposit below minimum for tokens");
@@ -191,7 +148,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         uint256 amountToRelease = totalEscrowRaised;
         totalEscrowRaised = 0;
 
-        // Transfer funds to owner safely
         (bool success, ) = owner().call{value: amountToRelease}("");
         require(success, "Fund release failed");
 
@@ -203,26 +159,20 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         require(depositAmount > 0, "No deposits");
         require(totalEscrowRaisedBeforeFinalization > 0, "Invalid total raised");
 
-        // Calculate tokens
         uint256 tokenAmount = (depositAmount * PROPERTY_TOKEN_SUPPLY) / totalEscrowRaisedBeforeFinalization;
         require(tokenAmount > 0, "Deposit too small for any tokens");
         
-        // CRITICAL FIX: Clear deposit BEFORE minting (prevents reentrancy)
         escrowDeposits[msg.sender] = 0;
         
-        // Mint tokens (this will call _update with from=address(0))
         _mint(msg.sender, tokenAmount);
     }
 
-    // ============================
-    // Timelock-Protected Escrow Cancellation
-    // ============================
     function requestCancelEscrow(string memory reason) external onlyOwner onlyWhenFunding {
         require(!escrowCancelPending, "Cancellation already pending");
         
         escrowCancelPending = true;
         escrowCancelReason = reason;
-        escrowCancelTimestamp = block.timestamp + TIMELOCK_DURATION; // 48-hour timelock
+        escrowCancelTimestamp = block.timestamp + TIMELOCK_DURATION;
         
         emit EscrowCancellationRequested(block.timestamp, reason, escrowCancelTimestamp);
     }
@@ -242,7 +192,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         uint256 amount = escrowDeposits[msg.sender];
         require(amount > 0, "Nothing to refund");
         
-        // Clear state BEFORE external call
         escrowDeposits[msg.sender] = 0;
         
         (bool success, ) = msg.sender.call{value: amount}("");
@@ -251,9 +200,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         emit RefundClaimed(msg.sender, amount);
     }
 
-    // ============================
-    // Yield Logic (SECURED - Pull Pattern)
-    // ============================
     function depositYield() external payable onlyOwner {
         require(totalSupply() > 0, "No tokens minted yet");
         require(msg.value > 0, "Zero yield");
@@ -268,10 +214,13 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         uint256 balance = balanceOf(user);
         if (balance == 0) return;
         
-        uint256 pending = (balance * accYieldPerShare) / 1e18 - rewardDebt[user];
-        if (pending > 0) {
-            // CRITICAL FIX: Update state BEFORE any external interaction
-            rewardDebt[user] = (balance * accYieldPerShare) / 1e18;
+        uint256 accumulatedYield = (balance * accYieldPerShare) / 1e18;
+        uint256 userDebt = rewardDebt[user];
+        
+        if (accumulatedYield > userDebt) {
+            uint256 pending = accumulatedYield - userDebt;
+            
+            rewardDebt[user] = accumulatedYield;
             _yieldBalances[user] += pending;
             
             emit YieldAccrued(user, pending);
@@ -287,13 +236,11 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
     }
     
     function claimYield() external nonReentrant onlyCompliant(msg.sender) {
-        // Accrue any pending yield first
         _accrueYield(msg.sender);
         
         uint256 amount = _yieldBalances[msg.sender];
         require(amount > 0, "No yield to claim");
         
-        // Clear state BEFORE external call
         _yieldBalances[msg.sender] = 0;
         
         (bool success, ) = msg.sender.call{value: amount}("");
@@ -302,7 +249,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         emit YieldWithdrawn(msg.sender, amount);
     }
     
-    // Batch yield claim for gas efficiency
     function claimYieldFor(address[] calldata users) external onlyOwner nonReentrant {
         for (uint256 i = 0; i < users.length; i++) {
             _accrueYield(users[i]);
@@ -316,9 +262,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         }
     }
 
-    // ============================
-    // Admin Utilities
-    // ============================
     function pauseContract() external onlyOwner { 
         _pause(); 
     }
@@ -332,14 +275,10 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         minDepositForTokens = newMinDeposit;
     }
 
-    // ============================
-    // Emergency Functions (SECURED)
-    // ============================
     function recoverERC20(address tokenAddress, uint256 amount) external onlyOwner {
         require(tokenAddress != address(0), "Invalid token");
         require(tokenAddress != address(this), "Cannot recover property token");
         
-        // Use SafeERC20 for safe transfer
         IERC20(tokenAddress).safeTransfer(owner(), amount);
     }
     
@@ -349,9 +288,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         require(success, "ETH recovery failed");
     }
 
-    // ============================
-    // View Functions
-    // ============================
     function getEscrowInfo() external view returns (
         EscrowState state,
         uint256 raised,
@@ -392,9 +328,6 @@ contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
         );
     }
 
-    // ============================
-    // Fallback & Receive
-    // ============================
     receive() external payable {
         revert("Use depositYield() or depositEscrow()");
     }
