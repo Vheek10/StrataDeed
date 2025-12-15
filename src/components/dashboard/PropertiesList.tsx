@@ -11,7 +11,7 @@ import {
 	Square,
 	Star,
 } from "lucide-react";
-import { Property } from "../types";
+import { Property } from "./types";
 
 interface PropertiesListProps {
 	properties: Property[];
