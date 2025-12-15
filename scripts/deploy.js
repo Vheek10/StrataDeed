@@ -8,7 +8,7 @@ const main = async () => {
   const balance = await hre.ethers.provider.getBalance(deployer.address);
   console.log("Account balance:", hre.ethers.formatEther(balance));
 
-  const fundingCap = hre.ethers.parseUnits("5000", 18); 
+  const fundingCap = hre.ethers.parseUnits("0.1", 18);  
   
   const StrataDeedRWA = await hre.ethers.getContractFactory("StrataDeedRWA");
   const strataDeed = await StrataDeedRWA.deploy(fundingCap, deployer.address);

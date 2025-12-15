@@ -16,7 +16,7 @@ const nextConfig = {
 		],
 	},
 
-	webpack: (config, { isServer, dev }) => {
+	webpack: (config, { isServer, dev, webpack }) => {
 		// Client-specific configurations
 		if (!isServer) {
 			config.resolve.fallback = {
@@ -35,7 +35,7 @@ const nextConfig = {
 			};
 
 			// Use IgnorePlugin to completely ignore problematic packages
-			const webpack = require("webpack");
+			// Note: webpack is provided by Next.js in the options object
 			config.plugins.push(
 				new webpack.IgnorePlugin({
 					resourceRegExp: /^thread-stream$/,
@@ -51,8 +51,6 @@ const nextConfig = {
 			use: "ignore-loader",
 		});
 
-
-
 		// Specifically ignore thread-stream test files
 		config.module.rules.push({
 			test: /[\\/]thread-stream[\\/].*[\\/]test[\\/]/,
@@ -65,11 +63,8 @@ const nextConfig = {
 			use: "ignore-loader",
 		});
 
-
 		// Ignore specific viem test files that are causing re-export errors
-		const webpack = require("webpack");
 		config.plugins.push(
-
 			new webpack.IgnorePlugin({
 				resourceRegExp: /^@gemini-wallet\/core$/,
 			}),
@@ -85,4 +80,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = nextConfig;
+export default nextConfig;

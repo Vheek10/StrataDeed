@@ -208,7 +208,7 @@ export default function MintPage() {
                     value={formData.totalTokens}
                     onChange={handleInputChange}
                     className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="100000"
+                    placeholder="1000"
                     type="number"
                   />
                 </div>
@@ -342,19 +342,19 @@ export default function MintPage() {
                 >
                   {isProcessing ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Processing...
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Deploying to Mantle Sepolia...
                     </>
                   ) : (
                     <>
                       <CheckCircle className="w-5 h-5" />
-                      Prepare Token Minting
+                      Mint Property
                     </>
                   )}
                 </button>
                 
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-                  This is a demonstration interface for property tokenization.
+                  This transaction will deploy a new contract on Mantle Sepolia.
                 </p>
               </div>
             </div>

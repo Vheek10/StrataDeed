@@ -10,8 +10,8 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 contract StrataDeedRWA is ERC20, Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
     
-    uint256 public constant PROPERTY_TOKEN_SUPPLY = 100_000 * 10**18;
-    uint256 public minDepositForTokens = 0.001 ether;
+    uint256 public constant PROPERTY_TOKEN_SUPPLY = 1_000 * 10**18;
+    uint256 public minDepositForTokens = 0.0001 ether;
     uint256 private constant TIMELOCK_DURATION = 2 days;
 
     mapping(address => bytes32) private _credentialHashes;
