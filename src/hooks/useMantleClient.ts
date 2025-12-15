@@ -15,7 +15,7 @@ export function useMantleClient() {
 	// Our Mantle-aware client mapped by chainId
 	const mantlePublicClient = getPublicClient(chainId);
 
-	const isMantle = chainId === 5000 || chainId === 5001;
+	const isMantle = chainId === 5000 || chainId === 5003;
 
 	return {
 		chainId,
@@ -24,6 +24,6 @@ export function useMantleClient() {
 		isConnected: !!walletClient,
 		isMantleNetwork: isMantle,
 		isMainnet: chainId === 5000,
-		isTestnet: chainId === 5001,
+		isTestnet: chainId === 5003,
 	};
 }

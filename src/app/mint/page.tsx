@@ -1,4 +1,4 @@
-```javascript
+
 /** @format */
 
 "use client";
