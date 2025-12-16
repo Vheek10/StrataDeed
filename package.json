@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "build": "hardhat compile && next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "deploy:mantle": "hardhat run scripts/deploy.js --network mantleSepolia",

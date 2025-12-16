@@ -1,6 +1,6 @@
 /** @format */
 
-import StrataDeedArtifact from "../../contracts/artifacts/contracts/StrataDeedRWA.sol/StrataDeedRWA.json";
+import StrataDeedArtifact from "../contracts/artifacts/contracts/StrataDeedRWA.sol/StrataDeedRWA.json";
 
 /**
  * Centralized configuration for Smart Contracts.
