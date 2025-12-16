@@ -101,7 +101,7 @@ export default function ComplianceSection() {
     REAL_ESTATE_IMAGES[complianceFeatures[activeFeature].imageIndex];
 
   // Fixed color classes to avoid dynamic template strings
-  const getFeatureButtonClasses = (index) => {
+  const getFeatureButtonClasses = (index: number) => {
     const isActive = activeFeature === index;
     const feature = complianceFeatures[index];
     
