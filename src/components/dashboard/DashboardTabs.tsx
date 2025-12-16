@@ -47,49 +47,44 @@ export default function DashboardTabs({
 	];
 
 	return (
-		<div className="mb-8">
+		<div className="mb-6 md:mb-8 sticky top-14 md:top-20 z-10 bg-gradient-to-b from-gray-50/95 to-gray-50/95 dark:from-gray-950/95 dark:to-gray-950/95 backdrop-blur-sm -mx-4 px-4 py-2 md:mx-0 md:px-0 md:py-0 md:static md:bg-none">
 			{/* Desktop Tabs */}
-			<div className="hidden md:flex items-center gap-1 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+			<div className="hidden md:flex items-center gap-1 p-1 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-800/50 shadow-sm">
 				{tabs.map((tab) => {
 					const Icon = tab.icon;
 					return (
 						<button
 							key={tab.id}
 							onClick={() => onTabChange(tab.id)}
-							className={`flex items-center gap-2 flex-shrink-0 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+							className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${
 								activeTab === tab.id
-									? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
-									: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+									? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+									: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white"
 							}`}>
-							<Icon
-								className={`w-4 h-4 ${activeTab === tab.id ? tab.color : ""}`}
-							/>
+							<Icon className="w-4 h-4" />
 							{tab.label}
 						</button>
 					);
 				})}
 			</div>
 
-			{/* Mobile Tabs - Scrollable */}
+			{/* Mobile Tabs - Horizontal Scroll */}
 			<div className="md:hidden">
-				<div className="flex overflow-x-auto scrollbar-hide space-x-2 pb-2">
+				<div className="flex overflow-x-auto scrollbar-hide gap-3 py-1">
 					{tabs.map((tab) => {
 						const Icon = tab.icon;
+						const isActive = activeTab === tab.id;
 						return (
 							<button
 								key={tab.id}
 								onClick={() => onTabChange(tab.id)}
-								className={`flex flex-col items-center flex-shrink-0 px-4 py-2 rounded-lg transition-all ${
-									activeTab === tab.id
-										? "bg-blue-600 text-white shadow-sm"
-										: "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+								className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium border transition-all ${
+									isActive
+										? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/25"
+										: "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400"
 								}`}>
-								<Icon
-									className={`w-5 h-5 mb-1 ${
-										activeTab === tab.id ? "text-white" : tab.color
-									}`}
-								/>
-								<span className="text-xs font-medium">{tab.label}</span>
+								<Icon className={`w-4 h-4 ${isActive ? "text-white" : ""}`} />
+								{tab.label}
 							</button>
 						);
 					})}

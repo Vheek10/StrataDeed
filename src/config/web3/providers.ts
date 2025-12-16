@@ -14,5 +14,5 @@ export const config = getDefaultConfig({
 		[mantleSepoliaTestnet.id]: http("https://rpc.sepolia.mantle.xyz"),
 		[mantle.id]: http("https://rpc.mantle.xyz"),
 	},
-	ssr: true,
+	ssr: false,
 });
