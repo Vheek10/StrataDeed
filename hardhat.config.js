@@ -5,7 +5,7 @@ dotenv.config({ path: ".env.local" });
 
 /** @type import('hardhat/config').HardhatUserConfig */
 export default {
-  solidity: "0.8.20",
+  solidity: "0.8.24",
   networks: {
     mantleSepolia: {
       url: "https://rpc.sepolia.mantle.xyz",
