@@ -13,11 +13,16 @@ import {
   AlertCircle,
   ExternalLink,
   ArrowRight,
-  Plus
+  Plus,
+  Zap,
+  DollarSign,
+  PieChart,
+  Target
 } from "lucide-react";
-import { useAccount, useWaitForTransactionReceipt } from "wagmi";
+import { useAccount, useWaitForTransactionReceipt, useChainId } from "wagmi";
 import { keccak256, encodePacked } from "viem";
 import { useTokenization } from "@/hooks/useTokenization";
+import { useStrataDeed } from "@/hooks/useStrataDeed";
 import { useRouter, useSearchParams } from "next/navigation";
 import AuthGuard from "@/components/AuthGuard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -25,14 +30,23 @@ import { motion, AnimatePresence } from "framer-motion";
 function MintForm() {
   const { address, isConnected } = useAccount();
   const { tokenizeProperty, loading: isMinting, error: mintError } = useTokenization();
+  const { deployStrataDeed, isDeploying } = useStrataDeed();
+  const chainId = useChainId();
   const router = useRouter();
   const searchParams = useSearchParams();
   
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+  const [rwaTxHash, setRwaTxHash] = useState<`0x${string}` | undefined>(undefined);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState<"idle" | "minting" | "tokenizing" | "success">("idle");
   
   const { data: receipt, isLoading: isWaitingReceipt } = useWaitForTransactionReceipt({
     hash: txHash,
+  });
+
+  const { data: rwaReceipt, isLoading: isWaitingRwaReceipt } = useWaitForTransactionReceipt({
+    hash: rwaTxHash,
   });
 
   const [formData, setFormData] = useState({
@@ -42,6 +56,9 @@ function MintForm() {
     description: "",
     propertyType: "residential",
     image: "",
+    tokenizationEnabled: true,
+    targetRaise: "",
+    tokenSupply: "1000",
   });
 
   // Effect to pre-fill form from query parameters
@@ -81,17 +98,28 @@ function MintForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isConnected || !address) {
-        alert("Please connect your wallet first");
+    setSubmitError(null);
+
+    // Network Validation
+    if (chainId !== 5003) {
+        setSubmitError("Please switch your network to Mantle Sepolia (5003) to mint property deeds.");
         return;
     }
 
     if (!formData.title || !formData.location || !formData.valuation) {
-      alert("Please fill in all required fields");
+      setSubmitError("Please fill in all required fields (Title, Location, Valuation)");
       return;
     }
 
+    setSubmitError(null);
+
+    setCurrentStep("minting");
     try {
+      // Validation for tokenization
+      if (formData.tokenizationEnabled && (!formData.targetRaise || Number(formData.targetRaise) <= 0)) {
+          throw new Error("Please specify a valid Target Raise for tokenization.");
+      }
+
       // 1. Generate Metadata (Simulated IPFS Upload)
       const metadata = {
         name: formData.title,
@@ -100,11 +128,19 @@ function MintForm() {
         type: formData.propertyType,
         valuation: formData.valuation,
         timestamp: new Date().toISOString(),
-        files: selectedFiles.map(f => f.name) // In prod, this would be IPFS hashes
+        files: selectedFiles.map(f => f.name),
+        tokenization: formData.tokenizationEnabled ? {
+            enabled: true,
+            targetRaise: formData.targetRaise,
+            tokenSupply: formData.tokenSupply,
+            tokenPrice: (Number(formData.targetRaise) / Number(formData.tokenSupply)).toFixed(2),
+            equityPercentage: ((Number(formData.targetRaise) / Number(formData.valuation)) * 100).toFixed(2)
+        } : { enabled: false }
       };
 
-      // Encode metadata as Data URI for immediate availability
-      const metadataURI = `data:application/json;base64,${btoa(JSON.stringify(metadata))}`;
+      // Robust Base64 encoding for UTF-8 compatibility (handles non-ASCII in titles/descriptions)
+      const metadataJSON = JSON.stringify(metadata);
+      const metadataURI = `data:application/json;base64,${btoa(encodeURIComponent(metadataJSON).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode(parseInt(p1, 16))))}`;
       
       // 2. Generate Property ID & Private Commitment (ZK-ready hash anchor)
       const propertyId = `PROP-${Date.now()}`;
@@ -113,13 +149,13 @@ function MintForm() {
       const privateDataString = JSON.stringify({
         valuation: formData.valuation,
         files: selectedFiles.map(f => f.name + f.size),
-        salt: propertyId // In real zk, this would be a high-entropy secret
+        salt: propertyId
       });
       const privateCommitment = keccak256(encodePacked(["string"], [privateDataString]));
 
       console.log("Minting Deed with ZK Privacy:", { propertyId, privateCommitment });
 
-      // 3. Call Contract
+      // 3. Call Contract for NFT Minting
       const { hash, success } = await tokenizeProperty(
         propertyId,
         metadataURI,
@@ -130,18 +166,44 @@ function MintForm() {
 
       if (success && hash) {
         setTxHash(hash);
+        
+        // If tokenization is disabled, we're done after this receipt
+        if (!formData.tokenizationEnabled) {
+          // Success view handled by receipt effect
+          return;
+        }
+
+        // 4. If enabled, we proceed to RWA Deployment
+        // In a real flow, we might wait for the NFT receipt first, 
+        // but for a smooth demo, we can trigger the next signature immediately or after receipt.
+        // Let's prompt for the second signature immediately to show the "Mint & Tokenize" power.
+        setCurrentStep("tokenizing");
+        const rwaHash = await deployStrataDeed(
+            formData.targetRaise,
+            address!,
+            [] // Additional admins (auto-filled by hook)
+        );
+
+        if (rwaHash) {
+            setRwaTxHash(rwaHash);
+        }
       } else {
-        throw new Error("Transaction failed to initiate");
+        throw new Error("Transaction failed to initiate. Please check your wallet connection or balance.");
       }
       
     } catch (error: any) {
       console.error("Mint Error:", error);
-      alert(`Error: ${error.message || "Failed to mint property deed"}`);
+      setSubmitError(error.message || "Failed to mint property deed");
+      setCurrentStep("idle");
     }
   };
   
-  // Success View Component
-  if (receipt && receipt.status === "success") {
+  // Success View Component (Wait for both if tokenizing)
+  const isFullySuccessful = formData.tokenizationEnabled 
+    ? (receipt?.status === "success" && rwaReceipt?.status === "success")
+    : (receipt?.status === "success");
+
+  if (isFullySuccessful) {
     return (
       <div className="min-h-[80vh] flex items-center justify-center px-4">
         <motion.div 
@@ -172,17 +234,31 @@ function MintForm() {
 
           <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 mb-8 border border-gray-100 dark:border-gray-800 text-left space-y-4">
              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-500">Transaction Hash</span>
+                <span className="text-gray-500">Deed NFT Transaction</span>
                 <a 
-                  href={`https://explorer.sepolia.mantle.xyz/tx/${receipt.transactionHash}`}
+                  href={`https://explorer.sepolia.mantle.xyz/tx/${receipt?.transactionHash || txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1 hover:underline"
                 >
-                  {receipt.transactionHash.slice(0, 8)}...{receipt.transactionHash.slice(-6)}
+                  {String(receipt?.transactionHash || txHash).slice(0, 8)}...{String(receipt?.transactionHash || txHash).slice(-6)}
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
              </div>
+             {rwaTxHash && (
+               <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-500">RWA Token Deployment</span>
+                  <a 
+                    href={`https://explorer.sepolia.mantle.xyz/tx/${rwaReceipt?.transactionHash || rwaTxHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1 hover:underline"
+                  >
+                    {String(rwaReceipt?.transactionHash || rwaTxHash).slice(0, 8)}...{String(rwaReceipt?.transactionHash || rwaTxHash).slice(-6)}
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+               </div>
+             )}
              <div className="flex justify-between items-center text-sm">
                 <span className="text-gray-500">Network</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
@@ -202,16 +278,21 @@ function MintForm() {
             </button>
             <button
                onClick={() => {
-                 setTxHash(undefined);
-                 setSelectedFiles([]);
-                 setFormData({
-                  title: "",
-                  location: "",
-                  valuation: "",
-                  description: "",
-                  propertyType: "residential",
-                  image: "",
-                 });
+                  setTxHash(undefined);
+                  setRwaTxHash(undefined);
+                  setCurrentStep("idle");
+                  setSelectedFiles([]);
+                  setFormData({
+                    title: "",
+                    location: "",
+                    valuation: "",
+                    description: "",
+                    propertyType: "residential",
+                    image: "",
+                    tokenizationEnabled: true,
+                    targetRaise: "",
+                    tokenSupply: "1000",
+                  });
                }}
                className="flex-1 px-6 py-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-bold rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2"
             >
@@ -224,7 +305,7 @@ function MintForm() {
     );
   }
 
-  const isProcessing = isMinting || isWaitingReceipt;
+  const isProcessing = isMinting || isWaitingReceipt || isDeploying || isWaitingRwaReceipt;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 py-8 transition-colors duration-300">
@@ -248,12 +329,46 @@ function MintForm() {
         </div>
 
         {/* Global Error Alert */}
-        {mintError && (
-          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3 text-red-700 dark:text-red-400">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <p className="text-sm font-medium">{mintError}</p>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {(submitError || mintError) && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              className="mb-8 p-6 bg-red-50/50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-3xl flex items-start gap-4 shadow-xl shadow-red-500/5 backdrop-blur-sm"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center flex-shrink-0">
+                 <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-lg font-black text-red-900 dark:text-red-300 tracking-tight">Minting Error</h4>
+                <p className="text-sm text-red-700/80 dark:text-red-400/80 mt-1 font-medium leading-relaxed">
+                  {submitError || (typeof mintError === 'string' ? mintError : "An unexpected error occurred during the minting process. Please check your network and try again.")}
+                </p>
+                <div className="mt-4 flex gap-3">
+                  <button 
+                    onClick={() => setSubmitError(null)}
+                    className="px-4 py-2 bg-white dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold rounded-lg border border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/50 transition-all"
+                  >
+                    Dismiss
+                  </button>
+                  <button 
+                    onClick={() => window.location.reload()}
+                    className="px-4 py-2 bg-red-600 text-white text-xs font-bold rounded-lg hover:bg-red-700 transition-all shadow-lg shadow-red-600/20"
+                  >
+                    Retry Page
+                  </button>
+                </div>
+              </div>
+              <button 
+                 onClick={() => setSubmitError(null)}
+                 className="p-2 text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-xl transition-all"
+              >
+                 <Plus className="w-5 h-5 rotate-45" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Main Form */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-300">
@@ -476,6 +591,130 @@ function MintForm() {
                 )}
               </div>
 
+              {/* Tokenization Strategy Section */}
+              <div className="space-y-6 pt-8 border-t border-gray-100 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                       <PieChart className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">Tokenization Strategy</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Fractionalize your property for investors</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+                    <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, tokenizationEnabled: !prev.tokenizationEnabled }))}
+                        className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                            formData.tokenizationEnabled 
+                            ? "bg-white dark:bg-gray-700 text-emerald-600 dark:text-emerald-400 shadow-sm" 
+                            : "text-gray-500"
+                        }`}
+                    >
+                        Enabled
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, tokenizationEnabled: !prev.tokenizationEnabled }))}
+                        className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                            !formData.tokenizationEnabled 
+                            ? "bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 shadow-sm" 
+                            : "text-gray-500"
+                        }`}
+                    >
+                        Disabled
+                    </button>
+                  </div>
+                </div>
+
+                {formData.tokenizationEnabled && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    className="grid sm:grid-cols-2 gap-6 bg-emerald-50/30 dark:bg-emerald-900/5 p-6 rounded-2xl border border-emerald-100 dark:border-emerald-800/30"
+                  >
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Target Raise (USD)
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <DollarSign className="w-4 h-4 text-emerald-500" />
+                        </div>
+                        <input
+                            name="targetRaise"
+                            type="number"
+                            value={formData.targetRaise}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                if (Number(val) > Number(formData.valuation)) return;
+                                setFormData(prev => ({ ...prev, targetRaise: val }));
+                            }}
+                            className="w-full border border-emerald-200 dark:border-emerald-800/50 rounded-lg pl-9 pr-4 py-3 text-base bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                            placeholder="Amount to raise"
+                        />
+                      </div>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400">
+                        Max raise: ${formData.valuation || "0"} (100% equity)
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Total Fractional Supply
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <Target className="w-4 h-4 text-emerald-500" />
+                        </div>
+                        <input
+                            name="tokenSupply"
+                            type="number"
+                            value={formData.tokenSupply}
+                            onChange={(e) => setFormData(prev => ({ ...prev, tokenSupply: e.target.value }))}
+                            className="w-full border border-emerald-200 dark:border-emerald-800/50 rounded-lg pl-9 pr-4 py-3 text-base bg-white dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                            placeholder="e.g. 1000"
+                        />
+                      </div>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400">
+                        Number of RWA tokens to mint
+                      </p>
+                    </div>
+
+                    {/* ROI & Price Summary */}
+                    <div className="sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-emerald-100 dark:border-emerald-800/30">
+                        <div className="p-3 bg-white dark:bg-gray-800 rounded-xl border border-emerald-50 dark:border-emerald-900/50">
+                            <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-tight">Token Price</span>
+                            <div className="text-lg font-black text-gray-900 dark:text-white">
+                                ${formData.targetRaise && formData.tokenSupply ? (Number(formData.targetRaise) / Number(formData.tokenSupply)).toFixed(2) : "0.00"}
+                            </div>
+                        </div>
+                        <div className="p-3 bg-white dark:bg-gray-800 rounded-xl border border-emerald-50 dark:border-emerald-900/50">
+                            <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-tight">Equity Offered</span>
+                            <div className="text-lg font-black text-emerald-600 dark:text-emerald-400">
+                                {formData.targetRaise && formData.valuation ? ((Number(formData.targetRaise) / Number(formData.valuation)) * 100).toFixed(1) : "0.0"}%
+                            </div>
+                        </div>
+                        <div className="p-3 bg-white dark:bg-gray-800 rounded-xl border border-emerald-50 dark:border-emerald-900/50">
+                            <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-tight">Status</span>
+                            <div className="text-sm font-bold text-gray-600 dark:text-gray-300 mt-1">
+                                Ready to Mint
+                            </div>
+                        </div>
+                        <div className="p-3 bg-white dark:bg-gray-800 rounded-xl border border-emerald-50 dark:border-emerald-900/50">
+                            <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-tight">Network</span>
+                            <div className="text-sm font-bold text-gray-600 dark:text-gray-300 mt-1 flex items-center gap-1">
+                                <Zap className="w-3 h-3 text-amber-500" />
+                                Mantle L2
+                            </div>
+                        </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
               {/* Submit Button */}
               <div className="pt-6 mt-8 border-t border-gray-200 dark:border-gray-700">
                 <button
@@ -490,12 +729,23 @@ function MintForm() {
                   {isProcessing ? (
                     <>
                       <Loader2 className="w-6 h-6 animate-spin" />
-                      {isWaitingReceipt ? "Confirming on Mantle..." : "Initiating Transaction..."}
+                      {currentStep === "minting" 
+                        ? (isWaitingReceipt ? "1/2: Confirming Deed..." : "1/2: Initiating Mint...") 
+                        : (isWaitingRwaReceipt ? "2/2: Confirming RWA..." : "2/2: Deploying Token portal...")}
                     </>
                   ) : (
                     <>
-                      <CheckCircle className="w-6 h-6" />
-                      Mint Property Deed
+                      {formData.tokenizationEnabled ? (
+                        <>
+                           <Zap className="w-6 h-6 text-amber-300" />
+                           Mint & Tokenize Property
+                        </>
+                      ) : (
+                        <>
+                           <CheckCircle className="w-6 h-6" />
+                           Mint Property Deed
+                        </>
+                      )}
                     </>
                   )}
                 </button>

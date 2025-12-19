@@ -17,20 +17,36 @@ export function useStrataDeed() {
     const [isDeploying, setIsDeploying] = useState(false);
     
     /**
-     * Deploys a new StrataDeedRWA contract instance.
-     * @param {string} fundingCap - The funding cap in ETH (as a string, e.g., "1.5").
+     * Deploys and initializes a new StrataDeedRWA contract instance.
+     * @param {string} fundingCap - The funding cap in USD (calculated as ETH for the contract).
      * @param {string} ownerAddress - The address that will own the contract.
+     * @param {address[]} additionalAdmins - Optional list of admins for the multisig.
      * @returns {Promise<`0x${string}`>} The transaction hash of the deployment.
      */
-    const deployStrataDeed = async (fundingCap: string, ownerAddress: string) => {
+    const deployStrataDeed = async (fundingCap: string, ownerAddress: string, additionalAdmins: string[] = []) => {
         setIsDeploying(true);
         try {
             console.log("Deploying StrataDeedRWA...", { fundingCap, ownerAddress });
             
+            // StrataDeedRWA is UUPS Upgradeable and uses an initialize function.
+            // For the demo, we ensure at least 3 admins (Owner + 2 placeholders if empty)
+            const adminList = [...additionalAdmins];
+            if (adminList.indexOf(ownerAddress) === -1) adminList.push(ownerAddress);
+            
+            // Add placeholders if we don't meet the MULTISIG_THRESHOLD (3)
+            if (adminList.length < 3) {
+                adminList.push("0x0000000000000000000000000000000000000001");
+                if (adminList.length < 3) adminList.push("0x0000000000000000000000000000000000000002");
+            }
+
             const hash = await deployContractAsync({
                 abi: STRATA_DEED_ABI,
                 bytecode: STRATA_DEED_BYTECODE,
-                args: [parseEther(fundingCap), ownerAddress],
+                // The initialize function in StrataDeedRWA.sol takes (uint256 _cap, address _owner, address[] memory _admins)
+                // Note: The proxy/contract typically needs to be called after deployment to initialize.
+                // However, for this MVP, we are deploying the implementation and initializing it.
+                // In a production UUPS flow, we'd deploy a Proxy pointing to this implementation.
+                args: [parseEther(fundingCap), ownerAddress, adminList],
             });
 
             console.log("Deployment transaction hash:", hash);

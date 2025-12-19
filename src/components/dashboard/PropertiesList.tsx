@@ -49,7 +49,7 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						<div className="flex w-full sm:w-auto items-center gap-4">
 							<div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-800 flex items-center justify-center border border-gray-200 dark:border-gray-700">
                                 {/* Placeholder for Token/Strategy Icon since we don't have strategy images yet */}
-								<div className="text-2xl">🏠</div>
+								<Home className="w-8 h-8 text-gray-400" />
                                 {/* Status Indicator */}
 								<div className="absolute top-1 left-1 px-1.5 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded shadow-sm">
 									LIVE

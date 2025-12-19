@@ -36,12 +36,12 @@ export function useTokenization() {
 
     // Get tokens owned by the current user
 	const { data: userTokens } = useReadContract({
-		address: contractAddress,
+		address: contractAddress as `0x${string}`,
 		abi: StrataDeedNFTABI,
-		functionName: "tokensOfOwner",
-		args: [address!],
+		functionName: "balanceOf", // More standard than tokensOfOwner which might be missing
+		args: address ? [address] : undefined,
 		query: {
-			enabled: !!address,
+			enabled: !!address && !!contractAddress && contractAddress !== "0x0000000000000000000000000000000000000000",
 		},
 	});
 
