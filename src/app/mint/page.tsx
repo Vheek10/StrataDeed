@@ -71,14 +71,15 @@ function MintForm() {
     const image = searchParams.get("image");
 
     if (title || location || valuation || description || type || image) {
-      setFormData({
+      setFormData(prev => ({
+        ...prev,
         title: title || "",
         location: location || "",
         valuation: valuation || "",
         description: description || "",
         propertyType: type || "residential",
         image: image || "",
-      });
+      }));
     }
   }, [searchParams]);
 

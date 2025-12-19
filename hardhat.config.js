@@ -5,7 +5,16 @@ dotenv.config({ path: ".env.local" });
 
 /** @type import('hardhat/config').HardhatUserConfig */
 export default {
-  solidity: "0.8.24",
+  solidity: {
+    version: "0.8.24",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1,
+      },
+      viaIR: true,
+    },
+  },
   networks: {
     mantleSepolia: {
       url: "https://rpc.sepolia.mantle.xyz",
