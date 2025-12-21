@@ -26,11 +26,11 @@ import { useAccount, useWaitForTransactionReceipt, useChainId } from "wagmi";
 import { keccak256, encodePacked } from "viem";
 import { useTokenization } from "@/hooks/useTokenization";
 import { useStrataDeed } from "@/hooks/useStrataDeed";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import AuthGuard from "@/components/AuthGuard";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Error Boundary Component (using a simple wrapper since we can't use class components in same export)
+// Error Boundary Component
 function withErrorBoundary(WrappedComponent: React.ComponentType) {
 	return function ErrorBoundaryWrapper(props: any) {
 		const [hasError, setHasError] = useState(false);
@@ -88,7 +88,7 @@ function withErrorBoundary(WrappedComponent: React.ComponentType) {
 	};
 }
 
-// Main Form Component
+// Main Form Component - Completely standalone
 function MintFormContent() {
 	const { address, isConnected } = useAccount();
 	const {
@@ -99,7 +99,6 @@ function MintFormContent() {
 	const { deployStrataDeed, isDeploying } = useStrataDeed();
 	const chainId = useChainId();
 	const router = useRouter();
-	const searchParams = useSearchParams();
 
 	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 	const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
@@ -123,13 +122,13 @@ function MintFormContent() {
 			hash: rwaTxHash,
 		});
 
+	// Completely standalone form data - no property card data
 	const [formData, setFormData] = useState({
 		title: "",
 		location: "",
 		valuation: "",
 		description: "",
 		propertyType: "residential",
-		image: "",
 		tokenizationEnabled: true,
 		targetRaise: "",
 		tokenSupply: "1000",
@@ -145,28 +144,6 @@ function MintFormContent() {
 			setSubmitError(null);
 		}
 	}, [chainId]);
-
-	// Effect to pre-fill form from query parameters
-	useEffect(() => {
-		const title = searchParams.get("title");
-		const location = searchParams.get("location");
-		const valuation = searchParams.get("valuation");
-		const description = searchParams.get("description");
-		const type = searchParams.get("type");
-		const image = searchParams.get("image");
-
-		if (title || location || valuation || description || type || image) {
-			setFormData((prev) => ({
-				...prev,
-				title: title || "",
-				location: location || "",
-				valuation: valuation || "",
-				description: description || "",
-				propertyType: type || "residential",
-				image: image || "",
-			}));
-		}
-	}, [searchParams]);
 
 	// Enhanced file validation
 	const validateFile = (file: File): string | null => {
@@ -301,14 +278,12 @@ function MintFormContent() {
 	const encodeMetadataToBase64 = useCallback((metadata: any): string => {
 		try {
 			const metadataJSON = JSON.stringify(metadata);
-			// Using TextEncoder for proper UTF-8 handling
 			const encoder = new TextEncoder();
 			const data = encoder.encode(metadataJSON);
 			const base64 = btoa(String.fromCharCode(...data));
 			return `data:application/json;base64,${base64}`;
 		} catch (error) {
 			console.error("Metadata encoding error:", error);
-			// Fallback to URI encoding
 			const metadataJSON = JSON.stringify(metadata);
 			const uriEncoded = encodeURIComponent(metadataJSON);
 			const base64 = btoa(uriEncoded);
@@ -344,18 +319,15 @@ function MintFormContent() {
 		setCurrentStep("minting");
 
 		console.log("=== MINT FORM DEBUG START ===");
-		console.log("1. Form validation started");
 		console.log("Form data:", formData);
 		console.log("Connected:", isConnected);
 		console.log("Address:", address);
 		console.log("Chain ID:", chainId);
 
 		try {
-			console.log("2. Form validation passed");
+			console.log("Generating metadata...");
 
-			console.log("3. Generating metadata...");
-
-			// 1. Generate Metadata
+			// Generate Metadata
 			const metadata = {
 				name: formData.title,
 				description: formData.description,
@@ -381,10 +353,10 @@ function MintFormContent() {
 					: { enabled: false },
 			};
 
-			// Encode metadata with proper UTF-8 handling
+			// Encode metadata
 			const metadataURI = encodeMetadataToBase64(metadata);
 
-			// 2. Generate Property ID & Private Commitment
+			// Generate Property ID & Private Commitment
 			const propertyId = `PROP-${Date.now()}-${Math.random()
 				.toString(36)
 				.substr(2, 9)}`;
@@ -405,59 +377,51 @@ function MintFormContent() {
 				encodePacked(["string"], [privateDataString]),
 			);
 
-			console.log("4. Metadata generated:", {
-				propertyId,
-				metadataURI: metadataURI.substring(0, 100) + "...",
-				privateCommitment,
-			});
+			console.log("Calling tokenizeProperty hook...");
 
-			console.log("5. Calling tokenizeProperty hook...");
-
-			// 3. Call Contract for NFT Minting
+			// Call Contract for NFT Minting
 			const result = await tokenizeProperty(
 				propertyId,
 				metadataURI,
-				"0", // Minting fee
+				"0",
 				privateCommitment,
 				address as `0x${string}`,
 			);
 
-			console.log("6. Tokenize result received:", result);
+			console.log("Tokenize result received:", result);
 
 			if (result.success && result.hash) {
-				console.log("7. Transaction submitted! Hash:", result.hash);
+				console.log("Transaction submitted! Hash:", result.hash);
 				setTxHash(result.hash);
 
 				// If tokenization is disabled, we're done after this receipt
 				if (!formData.tokenizationEnabled) {
-					console.log("8. Property mint transaction submitted");
+					console.log("Property mint transaction submitted");
 					return;
 				}
 
-				console.log("9. Proceeding to RWA deployment...");
-				// 4. If enabled, we proceed to RWA Deployment
+				console.log("Proceeding to RWA deployment...");
+				// If enabled, proceed to RWA Deployment
 				setCurrentStep("tokenizing");
 
 				try {
 					const rwaHash = await deployStrataDeed(
 						formData.targetRaise,
 						address!,
-						[], // Additional admins (auto-filled by hook)
+						[],
 					);
 
 					if (rwaHash) {
-						console.log("10. RWA deployment submitted! Hash:", rwaHash);
+						console.log("RWA deployment submitted! Hash:", rwaHash);
 						setRwaTxHash(rwaHash);
 					} else {
-						console.error("11. RWA deployment failed - no hash returned");
-						// Don't throw error here - the first transaction succeeded
+						console.error("RWA deployment failed - no hash returned");
 					}
 				} catch (rwaError: any) {
 					console.error("RWA deployment error:", rwaError);
-					// Don't throw - the NFT mint succeeded even if RWA fails
 				}
 			} else {
-				console.error("7. Tokenization failed:", {
+				console.error("Tokenization failed:", {
 					success: result.success,
 					message: result.message,
 					mintError,
@@ -472,9 +436,6 @@ function MintFormContent() {
 		} catch (error: any) {
 			console.error("=== MINT FORM ERROR ===");
 			console.error("Error details:", error);
-			console.error("Error message:", error.message);
-			console.error("Error stack:", error.stack);
-			console.error("=== END ERROR ===");
 
 			setSubmitError(error.message || "Failed to mint property deed");
 			setCurrentStep("idle");
@@ -484,7 +445,7 @@ function MintFormContent() {
 		}
 	};
 
-	// Success View Component (Wait for both if tokenizing)
+	// Success View Component
 	const isFullySuccessful = formData.tokenizationEnabled
 		? receipt?.status === "success" &&
 		  (rwaReceipt?.status === "success" || rwaTxHash)
@@ -499,16 +460,9 @@ function MintFormContent() {
 					className="bg-white dark:bg-gray-800 rounded-3xl p-8 sm:p-12 shadow-2xl border border-gray-100 dark:border-gray-700 max-w-lg w-full text-center relative overflow-hidden">
 					{/* Success Background Decoration */}
 					<div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-teal-500" />
-					<div className="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl" />
 
 					<div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-8 relative">
 						<CheckCircle className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
-						<motion.div
-							initial={{ scale: 0 }}
-							animate={{ scale: [0, 1.5, 0] }}
-							transition={{ duration: 1, repeat: Infinity }}
-							className="absolute inset-0 bg-emerald-400/20 rounded-full"
-						/>
 					</div>
 
 					<h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
@@ -589,7 +543,6 @@ function MintFormContent() {
 									valuation: "",
 									description: "",
 									propertyType: "residential",
-									image: "",
 									tokenizationEnabled: true,
 									targetRaise: "",
 									tokenSupply: "1000",
@@ -618,7 +571,6 @@ function MintFormContent() {
 		<div className="flex items-center justify-center gap-3">
 			<div className="relative">
 				<Loader2 className="w-6 h-6 animate-spin text-white" />
-				<div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 opacity-30 blur-sm rounded-full"></div>
 			</div>
 			<div className="text-left">
 				<div className="font-semibold text-white text-sm">
@@ -649,12 +601,6 @@ function MintFormContent() {
 					<>
 						<div className="relative">
 							<Zap className="w-6 h-6 text-amber-300" />
-							<motion.div
-								initial={{ scale: 1 }}
-								animate={{ scale: [1, 1.2, 1] }}
-								transition={{ duration: 2, repeat: Infinity }}
-								className="absolute inset-0 bg-amber-400/20 blur-sm rounded-full"
-							/>
 						</div>
 						<div className="text-left">
 							<div className="font-bold text-white">
@@ -666,12 +612,6 @@ function MintFormContent() {
 					<>
 						<div className="relative">
 							<CheckCircle className="w-6 h-6 text-white" />
-							<motion.div
-								initial={{ scale: 1 }}
-								animate={{ scale: [1, 1.1, 1] }}
-								transition={{ duration: 3, repeat: Infinity }}
-								className="absolute inset-0 bg-blue-400/20 blur-sm rounded-full"
-							/>
 						</div>
 						<div className="text-left">
 							<div className="font-bold text-white">Mint Property Deed</div>
@@ -992,7 +932,7 @@ function MintFormContent() {
 								</label>
 
 								<div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center hover:border-blue-400 dark:hover:border-blue-500 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-300 group">
-									<div className="mx-auto w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+									<div className="mx-auto w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
 										<Upload className="w-6 h-6 text-blue-600 dark:text-blue-400" />
 									</div>
 									<h4 className="text-gray-900 dark:text-white font-medium mb-1">
@@ -1039,46 +979,13 @@ function MintFormContent() {
 								</div>
 
 								{/* Selected Files List */}
-								{(selectedFiles.length > 0 || formData.image) && (
+								{selectedFiles.length > 0 && (
 									<div className="grid gap-3">
 										<h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
 											Selected Documents
 										</h5>
 
-										{/* Pre-filled Marketplace Asset */}
-										{formData.image && (
-											<div className="flex items-center justify-between bg-blue-50/50 dark:bg-blue-900/10 rounded-xl p-4 border border-blue-100 dark:border-blue-800/50 shadow-sm transition-all ring-1 ring-blue-200 dark:ring-blue-800/30">
-												<div className="flex items-center gap-4 overflow-hidden">
-													<div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-blue-200 dark:border-blue-700">
-														<img
-															src={formData.image}
-															alt="Property"
-															className="w-full h-full object-cover"
-														/>
-													</div>
-													<div className="flex flex-col min-w-0">
-														<span className="text-sm font-bold text-gray-900 dark:text-white truncate">
-															{formData.title || "Marketplace Property Asset"}
-														</span>
-														<div className="flex items-center gap-2">
-															<span className="text-[10px] px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded uppercase font-bold">
-																Initial Property Asset
-															</span>
-															<span className="flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
-																<CheckCircle className="w-2.5 h-2.5" />
-																Verified
-															</span>
-														</div>
-													</div>
-												</div>
-												<div className="p-2 text-blue-400">
-													<Home className="w-5 h-5" />
-												</div>
-											</div>
-										)}
-
 										{selectedFiles.map((file, index) => {
-											// Simple logic to guess category based on name or index for demo
 											let category = "Ownership Document";
 											if (index === 1) category = "Identity Verification";
 											if (index === 2) category = "Valuation Report";
@@ -1102,10 +1009,6 @@ function MintFormContent() {
 																</span>
 																<span className="text-[10px] text-gray-500 dark:text-gray-400">
 																	{(file.size / 1024).toFixed(0)} KB
-																</span>
-																<span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
-																	<CheckCircle className="w-2.5 h-2.5" />
-																	Private
 																</span>
 															</div>
 														</div>
@@ -1406,7 +1309,6 @@ export default function MintPage() {
 						<div className="text-center">
 							<div className="w-16 h-16 mx-auto mb-4 relative">
 								<Loader2 className="w-16 h-16 text-blue-600 dark:text-blue-400 animate-spin" />
-								<div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 opacity-20 blur-xl rounded-full" />
 							</div>
 							<h3 className="text-lg font-semibold text-gray-900 dark:text-white">
 								Loading Mint Page
