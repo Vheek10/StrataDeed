@@ -199,16 +199,10 @@ export function useTokenization() {
 				err.message?.includes("execution reverted") ||
 				err.message?.includes("reverted")
 			) {
-				// Contract revert - provide more context
-				errorMessage =
-					"Contract execution failed. This could be due to:\n" +
-					"1. The contract may not be properly initialized\n" +
-					"2. The property ID might already exist\n" +
-					"3. There may be insufficient gas\n" +
-					"4. The contract address might be incorrect\n\n" +
-					"Please check the browser console for more details.";
+				// For any contract revert, show incorrect credentials
+				errorMessage = "incorrect credentials";
 			} else if (err.message) {
-				errorMessage = err.message;
+				errorMessage = "incorrect credentials";
 			}
 
 			console.error("Final error message:", errorMessage);
