@@ -60,9 +60,9 @@ export function WalletConnectButton() {
 						<button
 							onClick={openConnectModal}
 							type="button"
-							className="group relative px-6 py-3 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 overflow-hidden">
+							className="group relative px-6 py-3 bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 overflow-hidden">
 							{/* Shine effect */}
-							<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+							<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
 							<div className="relative flex items-center justify-center gap-2">
 								<Wallet className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -78,14 +78,14 @@ export function WalletConnectButton() {
 				if (chain.unsupported) {
 					return (
 						<div className="flex items-center gap-3">
-							<div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-800/50 text-red-400 rounded-lg backdrop-blur-sm">
+							<div className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-900/30 to-red-800/30 border border-red-800/50 text-red-400 rounded-lg backdrop-blur-sm">
 								<AlertCircle className="w-4 h-4" />
 								<span className="text-sm font-medium">Wrong Network</span>
 							</div>
 							<button
 								onClick={openChainModal}
 								type="button"
-								className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
+								className="px-4 py-2 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
 								Switch Network
 							</button>
 						</div>
@@ -124,7 +124,7 @@ export function WalletConnectButton() {
 						<button
 							onClick={openAccountModal}
 							type="button"
-							className="group relative px-4 py-2 bg-gradient-to-r from-emerald-900/30 to-green-900/30 border border-emerald-800/50 text-emerald-400 rounded-lg hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 backdrop-blur-sm">
+							className="group relative px-4 py-2 bg-linear-to-r from-emerald-900/30 to-green-900/30 border border-emerald-800/50 text-emerald-400 rounded-lg hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 backdrop-blur-sm">
 							<div className="flex items-center gap-2">
 								<div className="flex items-center gap-2">
 									<CheckCircle className="w-4 h-4 text-emerald-400" />

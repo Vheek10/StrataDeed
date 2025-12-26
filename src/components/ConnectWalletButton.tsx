@@ -66,6 +66,8 @@ export default function ConnectWalletButton() {
 							"bg-white hover:bg-gray-50 active:scale-[0.98]",
 							"border-gray-200 hover:border-accent/30",
 							"shadow-sm hover:shadow-md",
+							// Responsive fixes for large screens
+							"min-w-[220px] xl:min-w-[320px] xl:justify-between xl:gap-6 xl:px-6 xl:py-3",
 						)}>
 						{/* Wallet icon */}
 						<div className="relative">
@@ -74,12 +76,14 @@ export default function ConnectWalletButton() {
 						</div>
 
 						{/* Address/ENS */}
-						<div className="flex flex-col items-start">
-							<span className="text-sm font-medium text-text">
+						<div className="flex flex-col items-start xl:flex-row xl:items-center xl:gap-3 xl:w-full xl:justify-between">
+							<span className="text-sm font-medium text-text xl:text-base xl:truncate">
 								{walletInfo?.ensName ||
 									formatAddress(walletInfo?.address || "")}
 							</span>
-							<span className="text-xs text-muted">{walletInfo?.balance}</span>
+							<span className="text-xs text-muted xl:text-sm xl:ml-2">
+								{walletInfo?.balance}
+							</span>
 						</div>
 
 						{/* Chevron */}
@@ -91,7 +95,7 @@ export default function ConnectWalletButton() {
 						/>
 
 						{/* Hover effect */}
-						<div className="absolute inset-0 rounded-lg bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+						<div className="absolute inset-0 rounded-lg bg-linear-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 					</button>
 
 					{/* Dropdown menu */}
@@ -100,7 +104,7 @@ export default function ConnectWalletButton() {
 							<div className="p-4">
 								{/* Wallet info section */}
 								<div className="flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg mb-3">
-									<div className="w-10 h-10 bg-gradient-to-br from-accent/20 to-accent/10 rounded-lg flex items-center justify-center">
+									<div className="w-10 h-10 bg-linear-to-br from-accent/20 to-accent/10 rounded-lg flex items-center justify-center">
 										<Wallet className="w-5 h-5 text-accent" />
 									</div>
 									<div className="flex-1 min-w-0">
@@ -153,7 +157,7 @@ export default function ConnectWalletButton() {
 					disabled={isConnecting}
 					className={cn(
 						"flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-all duration-300 group relative overflow-hidden",
-						"bg-gradient-to-r from-accent to-accent/90 hover:from-accent hover:to-accent",
+						"bg-linear-to-r from-accent to-accent/90 hover:from-accent hover:to-accent",
 						"border-accent/20",
 						"text-white font-medium text-sm",
 						"shadow-sm hover:shadow-lg hover:shadow-accent/20",
@@ -171,7 +175,7 @@ export default function ConnectWalletButton() {
 					<span>{isConnecting ? "Connecting..." : "Connect Wallet"}</span>
 
 					{/* Hover shine effect */}
-					<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+					<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
 					{/* Ripple effect */}
 					<div className="absolute inset-0 rounded-lg bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
