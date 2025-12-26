@@ -6,6 +6,11 @@
 export default function Head() {
 	return (
 		<>
+			<title>StrataDeed</title>
+			<meta
+				name="description"
+				content="Privacy-Preserving RealFi Platform on Mantle Network"
+			/>
 			<link
 				rel="icon"
 				href="/logo.png"
