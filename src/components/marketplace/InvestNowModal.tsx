@@ -375,7 +375,7 @@ export default function InvestNowModal({
 													</p>
 													<p className="text-xs text-blue-700/80 dark:text-blue-400/80 mt-1">
 														This is a demonstration. Connect your wallet and
-														switch to Mantle Sepolia for real transactions.
+														switch to Sui Testnet for real transactions.
 													</p>
 												</div>
 											</div>

@@ -28,7 +28,7 @@
 - [Marketplace Features](#marketplace-features)
 - [User Flows](#user-flows)
 - [Tech Stack Deep Dive](#tech-stack-deep-dive)
-- [Mantle Integration](#mantle-integration)
+- [Sui Integration](#sui-integration)
 - [Roadmap & Vision](#roadmap--vision)
 - [Hackathon Notes](#hackathon-notes)
 - [Contributing](#contributing)
@@ -208,7 +208,7 @@ MIT License.
 - [Marketplace Features](#marketplace-features)
 - [User Flows](#user-flows)
 - [Tech Stack Deep Dive](#tech-stack-deep-dive)
-- [Mantle Integration](#mantle-integration)
+- [Sui Integration](#sui-integration)
 - [Roadmap & Vision](#roadmap--vision)
 - [Hackathon Notes](#hackathon-notes)
 - [Contributing](#contributing)
@@ -337,15 +337,16 @@ PRIVATE_KEY=...
 
 - **Frontend**: Next.js 16 (App Router), React 19, Tailwind CSS 4
 - **Smart Contracts**: Solidity 0.8.20, Hardhat, Foundry
-- **Web3**: Wagmi v3, Viem, RainbowKit
-- **Network**: Mantle Sepolia Testnet
+- **Web3**: Sui.js SDK, Suiet Wallet Kit
+- **Network**: Sui Testnet
 
-## Mantle Integration
+## Sui Integration
 
-We utilize Mantle's unique features:
+We utilize Sui's unique features:
 
 - **Low Gas Fees**: Enabling micro-investments in real estate.
 - **Fast Finality**: Instant settlement for secondary market trades.
+- **Move Smart Contracts**: Type-safe and secure blockchain programming.
 
 ## Contributing
 

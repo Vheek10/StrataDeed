@@ -3,20 +3,26 @@
 "use client";
 
 import { useSuiWallet } from "@/providers/suiet-provider";
+import { DEFAULT_NETWORK } from "@/config/chains/mantle";
 
 /**
- * Sui-only placeholder for Mantle client hook. Returns minimal wallet/connect state.
+ * Hook to get Sui client and wallet state.
+ * Returns wallet connection info and network configuration.
  */
-export function useMantleClient() {
-	const { connected } = useSuiWallet();
+export function useSuiClient() {
+	const { connected, wallet, address } = useSuiWallet();
+	const isTestnet = DEFAULT_NETWORK === "testnet";
+	const isMainnet = DEFAULT_NETWORK === "mainnet";
 
 	return {
-		chainId: undefined,
-		publicClient: undefined,
-		walletClient: undefined,
 		isConnected: !!connected,
-		isMantleNetwork: false,
-		isMainnet: false,
-		isTestnet: false,
+		wallet,
+		address,
+		network: DEFAULT_NETWORK,
+		isTestnet,
+		isMainnet,
 	};
 }
+
+// Backwards compatibility export
+export const useMantleClient = useSuiClient;

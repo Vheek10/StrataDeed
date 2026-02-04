@@ -20,7 +20,7 @@ export default function DashboardHeader({
 						STRATADEED
 					</h1>
 					<span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider border border-emerald-200 dark:border-emerald-800">
-						Mantle L2
+						Sui Network
 					</span>
 				</div>
 				<p className="text-gray-600 dark:text-gray-400 text-sm">{subtitle}</p>
