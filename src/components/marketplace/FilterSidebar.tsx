@@ -53,16 +53,16 @@ export default function FilterSidebar({
 				{/* Mobile Filter Toggle */}
 				<button
 					onClick={() => setShowFilters(!showFilters)}
-					className="lg:hidden w-full flex items-center justify-between px-4 py-3.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:shadow-md transition-all duration-200 group min-h-[48px]">
+					className="lg:hidden w-full flex items-center justify-between px-4 py-3.5 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200 group min-h-[48px]">
 					<div className="flex items-center gap-3">
 						<div className="p-1.5 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg group-hover:scale-105 transition-transform">
 							<Filter className="w-4 h-4 text-white" />
 						</div>
 						<div className="text-left">
-							<span className="font-semibold text-gray-900 dark:text-white block">
+							<span className="font-semibold text-gray-900 block">
 								Filters & Options
 							</span>
-							<span className="text-xs text-gray-500 dark:text-gray-400">
+							<span className="text-xs text-gray-500">
 								{hasActiveFilters ? `${activeFilters.length} active` : "Customize view"}
 							</span>
 						</div>
@@ -80,12 +80,12 @@ export default function FilterSidebar({
 						showFilters ? "block animate-in slide-in-from-left-4" : "hidden lg:block"
 					} space-y-6`}>
 					{/* Results Summary */}
-					<div className="bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 dark:border-gray-700 shadow-sm">
+					<div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
 						<div className="text-center">
-							<div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+							<div className="text-3xl font-bold text-gray-900 mb-1">
 								{filteredProperties.length}
 							</div>
-							<div className="text-sm text-gray-600 dark:text-gray-400">
+							<div className="text-sm text-gray-600">
 								Assets Listed
 							</div>
 						</div>
@@ -93,14 +93,14 @@ export default function FilterSidebar({
 
 					{/* Clear Filters */}
 					{hasActiveFilters && (
-						<div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
+						<div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
 							<div className="flex items-center justify-between">
-								<div className="text-sm font-medium text-gray-900 dark:text-white">
+								<div className="text-sm font-medium text-gray-900">
 									{activeFilters.length} filter{activeFilters.length > 1 ? 's' : ''} active
 								</div>
 								<button
 									onClick={clearFilters}
-									className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-1">
+									className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
 									<X className="w-3 h-3" />
 									Clear all
 								</button>

@@ -28,17 +28,17 @@ export default function PropertyGrid({
 
 	if (filteredProperties.length === 0) {
 		return (
-			<div className="min-h-[500px] flex flex-col items-center justify-center bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
+			<div className="min-h-[500px] flex flex-col items-center justify-center bg-white rounded-2xl border border-gray-200 p-8">
 				<div className="relative mb-6">
-					<Search className="w-20 h-20 text-gray-300 dark:text-gray-600 mx-auto" />
+					<Search className="w-20 h-20 text-gray-300 mx-auto" />
 					<div className="absolute inset-0 flex items-center justify-center">
 						<Filter className="w-10 h-10 text-blue-500 animate-pulse" />
 					</div>
 				</div>
-				<h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+				<h3 className="text-2xl font-bold text-gray-900 mb-3">
 					No Properties Match Your Search
 				</h3>
-				<p className="text-gray-600 dark:text-gray-400 text-center max-w-md mb-8">
+				<p className="text-gray-600 text-center max-w-md mb-8">
 					We couldn't find any properties matching your current filters. Try
 					adjusting your criteria or clearing all filters.
 				</p>
@@ -61,17 +61,17 @@ export default function PropertyGrid({
 					{[1, 2, 3].map((i) => (
 						<div
 							key={i}
-							className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-pulse">
-							<div className="h-48 bg-gray-300 dark:bg-gray-700" />
+							className="bg-white rounded-2xl border border-gray-200 overflow-hidden animate-pulse">
+							<div className="h-48 bg-gray-300" />
 							<div className="p-5 space-y-4">
-								<div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4" />
-								<div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-full" />
-								<div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-2/3" />
+								<div className="h-4 bg-gray-300 rounded w-3/4" />
+								<div className="h-3 bg-gray-300 rounded w-full" />
+								<div className="h-3 bg-gray-300 rounded w-2/3" />
 								<div className="grid grid-cols-4 gap-3">
 									{[1, 2, 3, 4].map((j) => (
 										<div
 											key={j}
-											className="h-16 bg-gray-300 dark:bg-gray-700 rounded"
+											className="h-16 bg-gray-300 rounded"
 										/>
 									))}
 								</div>
@@ -88,7 +88,9 @@ export default function PropertyGrid({
 						<PropertyCard
 							key={property.id}
 							property={property}
-							imageUrl={property.image || demoImages[property.id % demoImages.length]}
+							imageUrl={
+								property.image || demoImages[property.id % demoImages.length]
+							}
 						/>
 					))}
 				</div>

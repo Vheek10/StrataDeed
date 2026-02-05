@@ -9,6 +9,7 @@ import {
 	Environment,
 	Float,
 	Html,
+	useTexture,
 } from "@react-three/drei";
 
 type Property3DViewerProps = {
@@ -16,28 +17,47 @@ type Property3DViewerProps = {
 	className?: string;
 };
 
-function FallbackTower() {
+function Property3DImage() {
+	// Load a cool image from the images folder
+	const texture = useTexture("/images/unsplash-9991f1c4c750.jpg");
+
 	return (
-		<Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.6}>
-			<group>
-				<mesh castShadow receiveShadow>
-					<boxGeometry args={[1.8, 3.6, 1.8]} />
-					<meshStandardMaterial
-						color="#1d4ed8"
-						metalness={0.5}
-						roughness={0.2}
-					/>
-				</mesh>
-				<mesh position={[0, -2.2, 0]} receiveShadow>
-					<boxGeometry args={[3.5, 0.3, 3.5]} />
-					<meshStandardMaterial color="#020617" roughness={1} />
-				</mesh>
-				<mesh position={[0, 2.1, 0]} castShadow>
-					<boxGeometry args={[0.8, 0.12, 0.8]} />
-					<meshStandardMaterial color="#38bdf8" emissive="#0ea5e9" emissiveIntensity={0.6} />
-				</mesh>
-			</group>
+		<Float
+			speed={0.8}
+			rotationIntensity={0.2}
+			floatIntensity={0.4}>
+			<mesh
+				position={[0, 0, 0]}
+				rotation={[0, 0, 0]}
+				castShadow
+				receiveShadow>
+				<boxGeometry args={[4.8, 3.6, 0.2]} />
+				<meshStandardMaterial
+					map={texture}
+					metalness={0.3}
+					roughness={0.4}
+				/>
+			</mesh>
 		</Float>
+	);
+}
+
+function BackgroundPlane() {
+	// load hero.avif from public folder
+	const texture = useTexture("/hero.avif");
+
+	return (
+		<mesh
+			position={[0, 0, -6]}
+			rotation={[0, 0, 0]}>
+			<planeGeometry args={[24, 14]} />
+			<meshBasicMaterial
+				map={texture}
+				toneMapped={false}
+				transparent
+				opacity={0.9}
+			/>
+		</mesh>
 	);
 }
 
@@ -46,10 +66,15 @@ export function Property3DViewer({ className }: Property3DViewerProps) {
 		<div className={className}>
 			<Canvas
 				shadows
-				camera={{ position: [4, 3, 6], fov: 45 }}
-			>
-				<color attach="background" args={["#f9fafb"]} />
-				<fog attach="fog" args={["#e5e7eb", 12, 28]} />
+				camera={{ position: [4, 3, 6], fov: 45 }}>
+				<color
+					attach="background"
+					args={["#f9fafb"]}
+				/>
+				<fog
+					attach="fog"
+					args={["#e5e7eb", 12, 28]}
+				/>
 
 				{/* Lights */}
 				<ambientLight intensity={0.3} />
@@ -75,10 +100,9 @@ export function Property3DViewer({ className }: Property3DViewerProps) {
 								Loading 3D scene…
 							</div>
 						</Html>
-					}
-				>
-					{/* TODO: Replace with real GLTF loader when your property models are ready */}
-					<FallbackTower />
+					}>
+					{/* Cool Real Estate Image rendered as 3D */}
+					<Property3DImage />
 					<Environment preset="city" />
 				</Suspense>
 
@@ -92,5 +116,3 @@ export function Property3DViewer({ className }: Property3DViewerProps) {
 		</div>
 	);
 }
-
-

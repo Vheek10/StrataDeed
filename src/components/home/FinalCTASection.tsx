@@ -39,8 +39,7 @@ export default function FinalCTASection() {
 				</div>
 
 				{/* Dark Overlay */}
-				<div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/80 to-cyan-900/80" />
-
+				<div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-blue-100/40 to-cyan-50/50" />
 				{/* Subtle Pattern Overlay */}
 				<div className="absolute inset-0 opacity-10">
 					<div

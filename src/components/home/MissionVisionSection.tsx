@@ -6,25 +6,23 @@ import Image from "next/image";
 
 export default function MissionVisionSection() {
 	return (
-		<section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+		<section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
 			<div className="max-w-7xl mx-auto">
 				{/* Header */}
 				<div className="text-center mb-12 lg:mb-16">
-					<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-6">
-						<Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-						<span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+					<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+						<Shield className="w-4 h-4 text-blue-600" />
+						<span className="text-sm font-medium text-blue-600">
 							OUR PURPOSE
 						</span>
 					</div>
 
-					<h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+					<h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
 						Building the Future of{" "}
-						<span className="text-blue-600 dark:text-blue-400">
-							Real Estate
-						</span>
+						<span className="text-blue-600">Real Estate</span>
 					</h2>
 
-					<p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
 						Transforming how the world owns, invests in, and manages property
 					</p>
 				</div>
@@ -117,12 +115,12 @@ export default function MissionVisionSection() {
 				</div>
 
 				{/* Values Section */}
-				<div className="mt-16 pt-12 border-t border-gray-200 dark:border-gray-800">
+				<div className="mt-16 pt-12 border-t border-gray-200">
 					<div className="text-center mb-12">
-						<h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+						<h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
 							Core Values
 						</h3>
-						<p className="text-gray-600 dark:text-gray-400">
+						<p className="text-gray-600">
 							The principles that guide everything we do
 						</p>
 					</div>
@@ -159,19 +157,15 @@ export default function MissionVisionSection() {
 							return (
 								<div
 									key={value.title}
-									className="text-center p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-300">
+									className="text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300">
 									<div
-										className={`inline-flex p-3 rounded-xl bg-${value.color}-100 dark:bg-${value.color}-900/30 mb-4`}>
-										<Icon
-											className={`w-6 h-6 text-${value.color}-600 dark:text-${value.color}-400`}
-										/>
+										className={`inline-flex p-3 rounded-xl bg-${value.color}-100 mb-4`}>
+										<Icon className={`w-6 h-6 text-${value.color}-600`} />
 									</div>
-									<h4 className="font-bold text-gray-900 dark:text-white mb-2">
+									<h4 className="font-bold text-gray-900 mb-2">
 										{value.title}
 									</h4>
-									<p className="text-sm text-gray-600 dark:text-gray-400">
-										{value.description}
-									</p>
+									<p className="text-sm text-gray-600">{value.description}</p>
 								</div>
 							);
 						})}

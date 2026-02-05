@@ -59,11 +59,11 @@ export const metrics: DashboardMetric[] = [
 		change: 8.4,
 		icon: DollarSign,
 		color: "emerald", // Sui Green
-		borderColor: "border-emerald-200 dark:border-emerald-800",
+		borderColor: "border-emerald-200",
 		gradientFrom:
-			"from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20",
-		gradientTo: "to-emerald-100 dark:to-emerald-800/20",
-		iconColor: "text-emerald-600 dark:text-emerald-400",
+			"from-emerald-50 to-emerald-100",
+		gradientTo: "to-emerald-100",
+		iconColor: "text-emerald-600",
 	},
 	{
 		id: "active-strategies",
@@ -73,11 +73,11 @@ export const metrics: DashboardMetric[] = [
 		change: 1, // +1 active strategy
 		icon: Layers,
 		color: "blue",
-		borderColor: "border-blue-200 dark:border-blue-800",
+		borderColor: "border-blue-200",
 		gradientFrom:
-			"from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20",
-		gradientTo: "to-blue-100 dark:to-blue-800/20",
-		iconColor: "text-blue-600 dark:text-blue-400",
+			"from-blue-50 to-blue-100",
+		gradientTo: "to-blue-100",
+		iconColor: "text-blue-600",
 	},
 	{
 		id: "avg-apy",
@@ -87,11 +87,11 @@ export const metrics: DashboardMetric[] = [
 		change: 2.1,
 		icon: TrendingUp,
 		color: "purple",
-		borderColor: "border-purple-200 dark:border-purple-800",
+		borderColor: "border-purple-200",
 		gradientFrom:
-			"from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20",
-		gradientTo: "to-purple-100 dark:to-purple-800/20",
-		iconColor: "text-purple-600 dark:text-purple-400",
+			"from-purple-50 to-purple-100",
+		gradientTo: "to-purple-100",
+		iconColor: "text-purple-600",
 	},
 	{
 		id: "gas-saved",
@@ -101,11 +101,11 @@ export const metrics: DashboardMetric[] = [
 		change: 0.5,
 		icon: Zap,
 		color: "amber",
-		borderColor: "border-amber-200 dark:border-amber-800",
+		borderColor: "border-amber-200",
 		gradientFrom:
-			"from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20",
-		gradientTo: "to-amber-100 dark:to-amber-800/20",
-		iconColor: "text-amber-600 dark:text-amber-400",
+			"from-amber-50 to-amber-100",
+		gradientTo: "to-amber-100",
+		iconColor: "text-amber-600",
 	},
 ];
 

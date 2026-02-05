@@ -4,33 +4,49 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-	ArrowRight01Icon as ArrowRight,
-	SparklesIcon as Sparkles,
-	Globe01Icon as Globe,
-	Shield01Icon as Shield,
-	Building01Icon as Building,
-	Lock01Icon as Lock,
-} from "hugeicons-react";
-import { Property3DViewer } from "@/components/Property3DViewer";
+	ArrowRight,
+	Sparkles,
+	Globe,
+	Shield,
+	Building,
+	Lock,
+} from "lucide-react";
 
 export default function HeroSection() {
 	return (
-		<section className="relative min-h-screen flex items-center overflow-hidden bg-gray-950">
-			{/* Fullscreen 3D background */}
-			<div className="absolute inset-0 pointer-events-none">
-				<div className="absolute inset-0 opacity-80">
-					<Property3DViewer className="w-full h-full" />
+		<section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-white">
+			{/* Fullscreen video background - Optimized for all screen sizes */}
+			<div className="absolute inset-0 pointer-events-none overflow-hidden w-full h-full">
+				{/* Video container with aspect ratio */}
+				<div className="absolute inset-0 w-full h-full bg-gradient-to-b from-platinum-100 to-white">
+					<video
+						autoPlay
+						muted
+						loop
+						playsInline
+						className="absolute inset-0 w-full h-full object-cover will-change-transform"
+						preload="auto"
+						poster="/hero.avif">
+						<source
+							src="/herovid.mp4"
+							type="video/mp4"
+						/>
+						Your browser does not support the video tag.
+					</video>
 				</div>
 
-				{/* Atmospheric overlays */}
-				<div className="absolute inset-0 bg-radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 55%)" />
-				<div className="absolute inset-0 bg-linear-to-br from-slate-950/85 via-slate-950/70 to-slate-950/40" />
-				<div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent" />
+				{/* Atmospheric overlays - Enhanced for better readability */}
+				<div className="absolute inset-0 bg-radial-gradient(circle at center, rgba(90,127,176,0.08), transparent 65%)" />
+				<div className="absolute inset-0 bg-linear-to-br from-white/8 via-white/3 to-transparent" />
+				<div className="absolute inset-0 bg-linear-to-t from-white/15 via-transparent to-transparent" />
+
+				{/* Vignette effect for better content readability */}
+				<div className="absolute inset-0 bg-radial-gradient(ellipse at center, transparent 0%, rgba(255,255,255,0.3) 100%)" />
 			</div>
 
 			{/* Subtle pattern overlay - very transparent */}
-			<div className="absolute inset-0 opacity-[0.015] z-1">
-				<div className="h-full w-full bg-[linear-gradient(45deg,transparent_48%,rgba(59,130,246,0.02)_48%,rgba(59,130,246,0.02)_52%,transparent_52%)] bg-[length:100px_100px]" />
+			<div className="absolute inset-0 opacity-[0.01] z-1 pointer-events-none">
+				<div className="h-full w-full bg-[linear-gradient(45deg,transparent_48%,rgba(90,127,176,0.015)_48%,rgba(90,127,176,0.015)_52%,transparent_52%)] bg-[length:100px_100px]" />
 			</div>
 
 			<div className="relative z-20 w-full">
@@ -38,26 +54,26 @@ export default function HeroSection() {
 					<div className="max-w-6xl mx-auto grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] gap-10 lg:gap-16 items-center">
 						<div className="text-center lg:text-left">
 							{/* Semi-transparent badge - Mobile responsive */}
-							<div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 lg:px-5 lg:py-2.5 bg-gray-800/40 backdrop-blur-md rounded-full mb-6 sm:mb-8 lg:mb-10 border border-gray-700/30">
-								<Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 animate-pulse" />
-								<span className="text-[10px] xs:text-xs sm:text-sm font-semibold text-gray-200 tracking-wide whitespace-nowrap">
+							<div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 lg:px-5 lg:py-2.5 bg-platinum-100/80 backdrop-blur-md rounded-full mb-6 sm:mb-8 lg:mb-10 border border-platinum-200/60">
+								<Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 animate-pulse" />
+								<span className="text-[10px] xs:text-xs sm:text-sm font-semibold text-gray-900 tracking-wide whitespace-nowrap">
 									INNOVATING REAL ESTATE
 								</span>
-								<Shield className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400" />
+								<Shield className="w-3 h-3 sm:w-4 sm:h-4 text-mist-600" />
 							</div>
 
 							{/* Main Heading with responsive text sizes */}
 							<div className="relative mb-6 sm:mb-8 lg:mb-10">
 								<div className="relative inline-block">
-									<h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4 sm:mb-6">
+									<h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-4 sm:mb-6">
 										<span className="block">Tokenizing Global</span>
-										<span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent mt-1 sm:mt-2">
+										<span className="block bg-gradient-to-r from-blue-600 via-slate-500 to-mist-600 bg-clip-text text-transparent mt-1 sm:mt-2">
 											Real Estate Assets
 										</span>
 									</h1>
 									{/* Subtle text shadow for better readability */}
 									<div className="absolute inset-0 -z-10 blur-sm opacity-30">
-										<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-[1.1] mb-4 sm:mb-6">
+										<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-700 leading-[1.1] mb-4 sm:mb-6">
 											<span className="block">Tokenizing Global</span>
 											<span className="block">Real Estate Assets</span>
 										</h1>
@@ -67,9 +83,9 @@ export default function HeroSection() {
 								{/* Subtitle with responsive text */}
 								<div className="mt-6 sm:mt-8 max-w-3xl mx-auto px-2">
 									<div className="relative">
-										<p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed relative z-10">
+										<p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed relative z-10">
 											Verified digital deeds. Borderless ownership.{" "}
-											<span className="font-semibold text-white">
+											<span className="font-semibold text-gray-900">
 												Unprecedented liquidity.
 											</span>
 										</p>
@@ -106,12 +122,12 @@ export default function HeroSection() {
 											key={index}
 											className="flex items-center gap-3 group w-full sm:w-auto justify-center sm:justify-start">
 											<div
-												className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-${item.color}-900/30 flex items-center justify-center border border-${item.color}-800/20 group-hover:border-${item.color}-700/40 transition-all duration-300 backdrop-blur-sm flex-shrink-0`}>
+												className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-${item.color}-100/60 flex items-center justify-center border border-${item.color}-200/40 group-hover:border-${item.color}-300 transition-all duration-300 backdrop-blur-sm flex-shrink-0`}>
 												<item.icon
-													className={`w-4 h-4 sm:w-5 sm:h-5 text-${item.color}-400 group-hover:scale-110 transition-transform`}
+													className={`w-4 h-4 sm:w-5 sm:h-5 text-${item.color}-600 group-hover:scale-110 transition-transform`}
 												/>
 											</div>
-											<span className="text-gray-200 text-sm sm:text-base font-medium group-hover:text-white transition-colors whitespace-nowrap">
+											<span className="text-gray-900 text-sm sm:text-base font-medium group-hover:text-blue-700 transition-colors whitespace-nowrap">
 												{item.label}
 											</span>
 										</div>
@@ -124,7 +140,7 @@ export default function HeroSection() {
 								{/* Primary Button */}
 								<Link
 									href="/dashboard"
-									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/40 w-full sm:w-auto text-center shadow-lg min-h-[48px]">
+									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-mist-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-blue-600/40 w-full sm:w-auto text-center shadow-lg min-h-[48px]">
 									{/* Shine effect */}
 									<div className="absolute inset-0 translate-x-[-100%] skew-x-[-45deg] group-hover:translate-x-[100%] group-hover:skew-x-[-45deg] transition-all duration-700 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
@@ -135,17 +151,14 @@ export default function HeroSection() {
 										</span>
 										<ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
 									</div>
-
-									{/* Border gradient */}
-									<div className="absolute inset-0 rounded-xl p-[1px] bg-gradient-to-r from-blue-500 to-cyan-400 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 								</Link>
 
 								{/* Secondary Button */}
 								<Link
 									href="/mint"
-									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-gray-800/40 backdrop-blur-sm border border-gray-700/30 text-gray-200 font-semibold rounded-xl overflow-hidden transition-all duration-500 hover:bg-gray-800/60 hover:border-gray-600/50 hover:text-white w-full sm:w-auto text-center shadow-md min-h-[48px]">
+									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-platinum-100/60 backdrop-blur-sm border border-platinum-300/50 text-gray-900 font-semibold rounded-xl overflow-hidden transition-all duration-500 hover:bg-platinum-100 hover:border-blue-400/40 hover:text-blue-700 w-full sm:w-auto text-center shadow-md min-h-[48px]">
 									{/* Background glow on hover */}
-									<div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-600/15 group-hover:to-cyan-600/15 transition-all duration-500" />
+									<div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-mist-500/0 group-hover:from-blue-600/10 group-hover:to-mist-600/10 transition-all duration-500" />
 
 									{/* Content */}
 									<div className="relative flex items-center justify-center gap-2">
@@ -156,7 +169,7 @@ export default function HeroSection() {
 									</div>
 
 									{/* Border animation */}
-									<div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-blue-500/40 transition-all duration-300" />
+									<div className="absolute inset-0 rounded-xl border border-transparent group-hover:border-blue-400/40 transition-all duration-300" />
 								</Link>
 							</div>
 

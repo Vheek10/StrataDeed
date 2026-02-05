@@ -14,7 +14,7 @@ import ScrollToTopButton from "@/components/ScrollToTopButton";
  */
 export default function Homepage() {
 	return (
-		<div className="min-h-screen bg-white dark:bg-gray-950">
+		<div className="min-h-screen bg-white">
 			{/* Main Hero Banner */}
 			<HeroSection />
 

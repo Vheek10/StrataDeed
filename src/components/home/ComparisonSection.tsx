@@ -46,10 +46,10 @@ export default function ComparisonSection() {
 		<section className="py-20 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-6xl mx-auto">
 				<div className="text-center mb-12">
-					<h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+					<h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
 						The Evolution of Real Estate
 					</h2>
-					<p className="text-lg text-gray-600 dark:text-gray-400">
+					<p className="text-lg text-gray-600">
 						From traditional to transformative
 					</p>
 				</div>
@@ -91,8 +91,8 @@ export default function ComparisonSection() {
 									<span
 										className={`font-semibold ${
 											isActive
-												? "text-blue-600 dark:text-blue-400"
-												: "text-gray-600 dark:text-gray-400"
+												? "text-blue-600"
+												: "text-gray-600"
 										}`}>
 										{item.title}
 									</span>
@@ -103,7 +103,7 @@ export default function ComparisonSection() {
 				</div>
 
 				{/* Active Comparison Display */}
-				<div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/10 dark:to-cyan-900/10 rounded-2xl p-8">
+				<div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8">
 					<div className="flex flex-col lg:flex-row items-center gap-8">
 						{/* Image */}
 						<div className="lg:w-1/3">
@@ -120,7 +120,7 @@ export default function ComparisonSection() {
 
 						{/* Content */}
 						<div className="lg:w-2/3">
-							<h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+							<h3 className="text-2xl font-bold text-gray-900 mb-6">
 								{comparisons[active].title} Approach
 							</h3>
 

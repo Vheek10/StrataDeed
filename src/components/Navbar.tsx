@@ -11,19 +11,19 @@ import { ConnectButton } from "@suiet/wallet-kit";
 import { useSuiWallet } from "@/providers/suiet-provider";
 // Icons (Hugeicons)
 import {
-	Menu01Icon as Menu,
-	XCloseIcon as X,
-	Home01Icon as Home,
-	InformationCircleIcon as Info,
-	Building01Icon as Building,
-	Briefcase01Icon as Briefcase,
-	User01Icon as User,
-	Logout01Icon as LogOut,
-	Settings01Icon as Settings,
-	VerifiedCheckIcon as CheckCircle,
-	ChevronDownIcon as ChevronDown,
-	AddCircleIcon as PlusCircle,
-} from "hugeicons-react";
+	Menu,
+	X,
+	Home,
+	Info,
+	Building,
+	Briefcase,
+	User,
+	LogOut,
+	Settings,
+	CheckCircle,
+	ChevronDown,
+	PlusCircle,
+} from "lucide-react";
 
 // Navigation configuration
 const navItems = [
@@ -138,10 +138,10 @@ export default function Navbar() {
 
 								{/* Text branding - improved typography - Hidden on small/medium screens */}
 								<div className="hidden lg:flex flex-col">
-									<span className="text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-white leading-tight tracking-tight">
+									<span className="text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-gray-900 leading-tight tracking-tight">
 										StrataDeed
 									</span>
-									<span className="text-[10px] lg:text-xs xl:text-xs 2xl:text-sm text-blue-300/90 font-medium uppercase tracking-[0.15em] leading-none mt-0.5">
+									<span className="text-[10px] lg:text-xs xl:text-xs 2xl:text-sm text-blue-600 font-medium uppercase tracking-[0.15em] leading-none mt-0.5">
 										Property Tokenization
 									</span>
 								</div>

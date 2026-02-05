@@ -112,7 +112,7 @@ export default function About() {
 	];
 
 	return (
-		<div className="min-h-screen bg-linear-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
+		<div className="min-h-screen bg-linear-to-b from-white to-gray-50">
 			{/* Hero Section */}
 			<section className="relative py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
 				{/* Background Image */}
@@ -225,8 +225,8 @@ export default function About() {
 							/>
 							<div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
 							<div className="absolute bottom-6 left-6 right-6">
-								<div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
-									<p className="text-sm font-medium text-gray-900 dark:text-white">
+								<div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+									<p className="text-sm font-medium text-gray-900">
 										Secure commercial property architecture
 									</p>
 								</div>
@@ -235,19 +235,19 @@ export default function About() {
 
 						{/* Content */}
 						<div>
-							<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full mb-6">
-								<Target className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-								<span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+							<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+								<Target className="w-4 h-4 text-blue-600" />
+								<span className="text-sm font-medium text-blue-600">
 									OUR MISSION
 								</span>
 							</div>
 
-							<h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+							<h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
 								Building the Future of Property Ownership
 							</h2>
 
 							<div className="space-y-4 mb-6">
-								<p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+								<p className="text-base sm:text-lg text-gray-600 leading-relaxed">
 									StrataDeed demonstrates how property deeds can be tokenized,
 									listed, and transacted using secure blockchain infrastructure.
 									Our platform bridges traditional real estate with digital
@@ -255,9 +255,9 @@ export default function About() {
 								</p>
 							</div>
 
-							<div className="flex items-center gap-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-4">
-								<CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-								<span className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">
+							<div className="flex items-center gap-3 bg-emerald-50 rounded-lg p-4">
+								<CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
+								<span className="font-medium text-gray-900 text-sm sm:text-base">
 									Live prototype | Active development | Real-world testing
 								</span>
 							</div>
@@ -269,19 +269,19 @@ export default function About() {
 						{features.map((feature, index) => {
 							const Icon = feature.icon;
 							const colorClasses = {
-								blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
+								blue: "bg-blue-100 text-blue-600",
 								emerald:
-									"bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400",
+									"bg-emerald-100 text-emerald-600",
 								amber:
-									"bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
+									"bg-amber-100 text-amber-600",
 								violet:
-									"bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400",
+									"bg-violet-100 text-violet-600",
 							};
 
 							return (
 								<div
 									key={feature.title}
-									className="group relative overflow-hidden rounded-xl lg:rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300 hover:scale-[1.02]">
+									className="group relative overflow-hidden rounded-xl lg:rounded-2xl border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:scale-[1.02]">
 									{/* Card Image */}
 									<div className="relative aspect-video overflow-hidden">
 										<Image
@@ -305,11 +305,11 @@ export default function About() {
 									</div>
 
 									{/* Card Content */}
-									<div className="p-4 sm:p-5 bg-white dark:bg-gray-800">
-										<h3 className="font-bold text-gray-900 dark:text-white mb-2 text-sm sm:text-base">
+									<div className="p-4 sm:p-5 bg-white">
+										<h3 className="font-bold text-gray-900 mb-2 text-sm sm:text-base">
 											{feature.title}
 										</h3>
-										<p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+										<p className="text-xs sm:text-sm text-gray-600">
 											{feature.description}
 										</p>
 									</div>
@@ -319,7 +319,7 @@ export default function About() {
 					</div>
 
 					{/* Vision Section */}
-					<div className="bg-linear-to-br from-gray-900 to-black dark:from-gray-800 dark:to-gray-900 rounded-xl lg:rounded-2xl p-6 lg:p-12 overflow-hidden">
+					<div className="bg-linear-to-br from-gray-900 to-black rounded-xl lg:rounded-2xl p-6 lg:p-12 overflow-hidden">
 						{/* Background Pattern */}
 						<div className="absolute inset-0 opacity-5">
 							<div
@@ -395,9 +395,9 @@ export default function About() {
 
 					{/* CTA Section */}
 					<div className="mt-12 lg:mt-20 text-center">
-						<div className="inline-flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg sm:rounded-2xl mb-6 sm:mb-8 max-w-2xl mx-auto">
-							<Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400 shrink-0" />
-							<p className="text-sm sm:text-base lg:text-lg font-semibold text-gray-900 dark:text-white">
+						<div className="inline-flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-linear-to-r from-blue-50 to-cyan-50 rounded-lg sm:rounded-2xl mb-6 sm:mb-8 max-w-2xl mx-auto">
+							<Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 shrink-0" />
+							<p className="text-sm sm:text-base lg:text-lg font-semibold text-gray-900">
 								Ready to experience the future of real estate?
 							</p>
 						</div>
@@ -411,7 +411,7 @@ export default function About() {
 							</Link>
 							<Link
 								href="/contact"
-								className="px-5 sm:px-8 py-2.5 sm:py-3 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 font-semibold rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm sm:text-base">
+								className="px-5 sm:px-8 py-2.5 sm:py-3 bg-white text-blue-600 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors text-sm sm:text-base">
 								Learn More
 							</Link>
 						</div>

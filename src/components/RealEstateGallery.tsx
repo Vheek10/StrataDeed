@@ -47,14 +47,14 @@ export default function RealEstateGallery() {
 	};
 
 	return (
-		<section className="py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+		<section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
 			<div className="max-w-7xl mx-auto">
 				{/* Header */}
 				<div className="text-center mb-12">
-					<h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+					<h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
 						Property Portfolio
 					</h1>
-					<p className="text-lg text-gray-600 dark:text-gray-400">
+					<p className="text-lg text-gray-600">
 						Explore our curated collection of premium real estate and blockchain
 						properties
 					</p>
@@ -62,44 +62,29 @@ export default function RealEstateGallery() {
 
 				{/* Quick Stats */}
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-					<div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl">
-						<div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+					<div className="bg-blue-50 p-4 rounded-xl">
+						<div className="text-2xl font-bold text-blue-600">
 							{REAL_ESTATE_IMAGES.length}
 						</div>
-						<div className="text-sm text-gray-600 dark:text-gray-400">
-							Total Images
-						</div>
+						<div className="text-sm text-gray-600">Total Images</div>
 					</div>
-					<div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-xl">
-						<div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+					<div className="bg-emerald-50 p-4 rounded-xl">
+						<div className="text-2xl font-bold text-emerald-600">
 							{categories.length - 1}
 						</div>
-						<div className="text-sm text-gray-600 dark:text-gray-400">
-							Categories
-						</div>
+						<div className="text-sm text-gray-600">Categories</div>
 					</div>
-					<div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-xl">
-						<div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-							{REAL_ESTATE_IMAGES.reduce(
-								(acc, img) => acc + img.tags.length,
-								0,
-							)}
+					<div className="bg-purple-50 p-4 rounded-xl">
+						<div className="text-2xl font-bold text-purple-600">
+							{REAL_ESTATE_IMAGES.reduce((acc, img) => acc + img.tags.length, 0)}
 						</div>
-						<div className="text-sm text-gray-600 dark:text-gray-400">Tags</div>
+						<div className="text-sm text-gray-600">Tags</div>
 					</div>
-					<div className="bg-cyan-50 dark:bg-cyan-900/20 p-4 rounded-xl">
-						<div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">
-							{
-								new Set(
-									REAL_ESTATE_IMAGES.map((img) => img.photographer).filter(
-										Boolean,
-									),
-								).size
-							}
+					<div className="bg-cyan-50 p-4 rounded-xl">
+						<div className="text-2xl font-bold text-cyan-600">
+							{new Set(REAL_ESTATE_IMAGES.map((img) => img.photographer).filter(Boolean)).size}
 						</div>
-						<div className="text-sm text-gray-600 dark:text-gray-400">
-							Photographers
-						</div>
+						<div className="text-sm text-gray-600">Photographers</div>
 					</div>
 				</div>
 
@@ -114,15 +99,9 @@ export default function RealEstateGallery() {
 									key={category.id}
 									onClick={() => handleCategorySelect(category.id as any)}
 									className={`px-4 py-2 rounded-full transition-all flex items-center gap-2 ${
-										isActive
-											? `bg-${category.color}-600 text-white`
-											: `bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700`
+										isActive ? `bg-${category.color}-600 text-white` : `bg-gray-100 text-gray-700 hover:bg-gray-200`
 									}`}>
-									<div
-										className={`w-2 h-2 rounded-full ${
-											isActive ? "bg-white" : `bg-${category.color}-500`
-										}`}
-									/>
+									<div className={`w-2 h-2 rounded-full ${isActive ? "bg-white" : `bg-${category.color}-500`}`} />
 									{category.label}
 								</button>
 							);
@@ -138,27 +117,19 @@ export default function RealEstateGallery() {
 								placeholder="Search properties by description, tags, or category..."
 								value={searchTerm}
 								onChange={(e) => setSearchTerm(e.target.value)}
-								className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+								className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 							/>
 						</div>
 
 						<div className="flex gap-2">
 							<button
 								onClick={() => setViewMode("grid")}
-								className={`p-3 rounded-xl ${
-									viewMode === "grid"
-										? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-										: "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400"
-								}`}>
+								className={`p-3 rounded-xl ${viewMode === "grid" ? "bg-blue-100 text-blue-600" : "bg-gray-100 text-gray-500"}`}>
 								<Grid className="w-5 h-5" />
 							</button>
 							<button
 								onClick={() => setViewMode("list")}
-								className={`p-3 rounded-xl ${
-									viewMode === "list"
-										? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-										: "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400"
-								}`}>
+								className={`p-3 rounded-xl ${viewMode === "list" ? "bg-blue-100 text-blue-600" : "bg-gray-100 text-gray-500"}`}>
 								<List className="w-5 h-5" />
 							</button>
 						</div>
@@ -168,22 +139,18 @@ export default function RealEstateGallery() {
 				{/* Gallery Content */}
 				{filteredImages.length === 0 ? (
 					<div className="text-center py-12">
-						<div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+						<div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
 							<Search className="w-8 h-8 text-gray-400" />
 						</div>
-						<h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-							No images found
-						</h3>
-						<p className="text-gray-600 dark:text-gray-400">
-							Try adjusting your search or category filters
-						</p>
+						<h3 className="text-xl font-semibold text-gray-900 mb-2">No images found</h3>
+						<p className="text-gray-600">Try adjusting your search or category filters</p>
 					</div>
 				) : viewMode === "grid" ? (
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 						{filteredImages.map((image) => (
 							<div
 								key={image.id}
-								className="group relative overflow-hidden rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 cursor-pointer"
+								className="group relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-200 hover:shadow-xl transition-all duration-300 cursor-pointer"
 								onClick={() => setSelectedImage(image.url)}>
 								<div className="aspect-[4/3] relative overflow-hidden">
 									<Image
@@ -199,32 +166,23 @@ export default function RealEstateGallery() {
 									<div className="absolute top-3 left-3">
 										<div className="px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full">
 											<span className="text-xs text-white font-medium">
-												{categories.find((c) => c.id === image.category)
-													?.label || image.category}
+												{categories.find((c) => c.id === image.category)?.label || image.category}
 											</span>
 										</div>
 									</div>
 								</div>
 
 								<div className="p-4">
-									<p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2 mb-3">
-										{image.alt}
-									</p>
+									<p className="text-sm text-gray-700 line-clamp-2 mb-3">{image.alt}</p>
 
 									<div className="flex flex-wrap gap-1 mb-4">
 										{image.tags.slice(0, 3).map((tag) => (
-											<span
-												key={tag}
-												className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg">
-												{tag}
-											</span>
+											<span key={tag} className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-lg">{tag}</span>
 										))}
 									</div>
 
 									{image.photographer && (
-										<div className="text-xs text-gray-500 dark:text-gray-400">
-											Photo by {image.photographer}
-										</div>
+										<div className="text-xs text-gray-500">Photo by {image.photographer}</div>
 									)}
 								</div>
 							</div>
@@ -235,7 +193,7 @@ export default function RealEstateGallery() {
 						{filteredImages.map((image) => (
 							<div
 								key={image.id}
-								className="group flex flex-col sm:flex-row gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 cursor-pointer"
+								className="group flex flex-col sm:flex-row gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer"
 								onClick={() => setSelectedImage(image.url)}>
 								<div className="sm:w-48 aspect-video relative rounded-lg overflow-hidden">
 									<Image
@@ -249,27 +207,17 @@ export default function RealEstateGallery() {
 
 								<div className="flex-1">
 									<div className="flex flex-wrap items-center gap-2 mb-2">
-										<span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs rounded-full">
-											{categories.find((c) => c.id === image.category)?.label}
-										</span>
+										<span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">{categories.find((c) => c.id === image.category)?.label}</span>
 										{image.tags.slice(0, 2).map((tag) => (
-											<span
-												key={tag}
-												className="text-xs text-gray-500 dark:text-gray-400">
-												#{tag}
-											</span>
+											<span key={tag} className="text-xs text-gray-500">#{tag}</span>
 										))}
 									</div>
 
-									<h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-										{image.alt}
-									</h3>
+									<h3 className="font-semibold text-gray-900 mb-2">{image.alt}</h3>
 
-										<div className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-											Photo by {image.photographer}
-										</div>
+									<div className="text-sm text-gray-600 mb-3">Photo by {image.photographer}</div>
 
-									<div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+									<div className="flex items-center gap-2 text-sm text-blue-600">
 										<span>View details</span>
 										<ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
 									</div>
@@ -280,9 +228,87 @@ export default function RealEstateGallery() {
 				)}
 
 				{/* Image Count */}
-				<div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+				<div className="mt-8 pt-6 border-t border-gray-200">
 					<div className="text-center">
-						<p className="text-gray-600 dark:text-gray-400">
+						<p className="text-gray-600">Showing {filteredImages.length} of {REAL_ESTATE_IMAGES.length} properties</p>
+					</div>
+				</div>
+
+				{/* Image Modal */}
+				{selectedImage && (
+					<div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4" onClick={() => setSelectedImage(null)}>
+						<button className="absolute top-6 right-6 text-white hover:text-gray-300 z-50" onClick={() => setSelectedImage(null)}>
+							<X className="w-8 h-8" />
+						</button>
+
+						<div className="relative w-full max-w-6xl h-[80vh]">
+							<Image src={selectedImage} alt="Full size preview" fill className="object-contain" sizes="100vw" priority />
+						</div>
+
+						<div className="absolute inset-0 -z-10" onClick={() => setSelectedImage(null)} />
+					</div>
+				)}
+			</div>
+		</section>
+	);
+}
+								</div>
+							</div>
+						))}
+					</div>
+				) : (
+					<div className="space-y-4">
+						{filteredImages.map((image) => (
+							<div
+								key={image.id}
+							className="group flex flex-col sm:flex-row gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer"
+								onClick={() => setSelectedImage(image.url)}>
+								<div className="sm:w-48 aspect-video relative rounded-lg overflow-hidden">
+									<Image
+										src={image.url}
+										alt={image.alt}
+										fill
+										className="object-cover group-hover:scale-105 transition-transform duration-500"
+										sizes="(max-width: 640px) 100vw, 192px"
+									/>
+								</div>
+
+								<div className="flex-1">
+									<div className="flex flex-wrap items-center gap-2 mb-2">
+									<span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+											{categories.find((c) => c.id === image.category)?.label}
+										</span>
+										{image.tags.slice(0, 2).map((tag) => (
+											<span
+												key={tag}
+											className="text-xs text-gray-500">
+												#{tag}
+											</span>
+										))}
+									</div>
+
+<h3 className="font-semibold text-gray-900 mb-2">
+										{image.alt}
+									</h3>
+
+										<div className="text-sm text-gray-600 mb-3">
+											Photo by {image.photographer}
+										</div>
+
+								<div className="flex items-center gap-2 text-sm text-blue-600">
+										<span>View details</span>
+										<ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				)}
+
+				{/* Image Count */}
+				<div className="mt-8 pt-6 border-t border-gray-200">
+					<div className="text-center">
+						<p className="text-gray-600">
 							Showing {filteredImages.length} of {REAL_ESTATE_IMAGES.length}{" "}
 							properties
 						</p>

@@ -71,7 +71,7 @@ export default function MarketplacePage() {
 
 	return (
 		<AuthGuard>
-			<div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+			<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 					{/* Header */}
 					<MarketplaceHeader
@@ -91,12 +91,12 @@ export default function MarketplacePage() {
 									placeholder="Search properties..."
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
-									className="w-full pl-10 pr-10 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+									className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
 								/>
 								{searchQuery && (
 									<button
 										onClick={() => setSearchQuery("")}
-										className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+										className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded">
 										<X className="w-4 h-4 text-gray-400" />
 									</button>
 								)}
