@@ -3,232 +3,228 @@
 
 import {
 	ArrowRight,
+	ArrowUpRight,
 	Shield,
 	CheckCircle,
 	Zap,
 	Globe,
 	Building2,
 	Check,
+	Target,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function FinalCTASection() {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const mouseX = useMotionValue(0);
+	const mouseY = useMotionValue(0);
+
+	const springX = useSpring(mouseX, { stiffness: 300, damping: 30 });
+	const springY = useSpring(mouseY, { stiffness: 300, damping: 30 });
+
+	const rotateX = useTransform(springY, [-0.5, 0.5], [5, -5]);
+	const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
+
+	const bgX = useTransform(springX, [-0.5, 0.5], ["-5%", "5%"]);
+	const bgY = useTransform(springY, [-0.5, 0.5], ["-5%", "5%"]);
+
+	const handleMouseMove = (e: React.MouseEvent) => {
+		if (!containerRef.current) return;
+		const rect = containerRef.current.getBoundingClientRect();
+		const x = (e.clientX - rect.left) / rect.width - 0.5;
+		const y = (e.clientY - rect.top) / rect.height - 0.5;
+		mouseX.set(x);
+		mouseY.set(y);
+	};
+
+	const handleMouseLeave = () => {
+		mouseX.set(0);
+		mouseY.set(0);
+	};
+
 	const benefits = [
-		{ icon: Shield, text: "Bank-grade security" },
-		{ icon: CheckCircle, text: "Verified ownership" },
-		{ icon: Zap, text: "Instant transactions" },
-		{ icon: Globe, text: "Global accessibility" },
+		{ icon: Shield, text: "Bank-grade security", color: "blue" },
+		{ icon: CheckCircle, text: "Verified ownership", color: "cyan" },
+		{ icon: Zap, text: "Instant transactions", color: "amber" },
+		{ icon: Globe, text: "Global accessibility", color: "blue" },
 	];
 
 	return (
-		<section className="relative py-20 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-			{/* Background Image with Overlay */}
-			<div className="absolute inset-0">
-				{/* Background Image */}
-				<div className="absolute inset-0">
-					<Image
-						src="/images/unsplash-c627a92ad1ab.jpg"
-						alt="Modern city skyline with skyscrapers"
-						fill
-						className="object-cover"
-						priority
-						sizes="100vw"
-					/>
-				</div>
+		<section 
+			ref={containerRef}
+			onMouseMove={handleMouseMove}
+			onMouseLeave={handleMouseLeave}
+			className="relative py-24 lg:py-40 px-6 lg:px-12 overflow-hidden bg-gray-50"
+		>
+			{/* Cinematic Background Layer */}
+			<motion.div 
+				style={{ x: bgX, y: bgY }}
+				className="absolute inset-0 z-0 pointer-events-none"
+			>
+				<Image
+					src="/images/unsplash-c627a92ad1ab.jpg"
+					alt="Cinematic Infrastructure"
+					fill
+					className="object-cover opacity-70 scale-110"
+					priority
+				/>
+				<div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-white/40 to-cyan-50/50" />
+				<div className="absolute inset-0 bg-blue-100/10 mix-blend-overlay" />
+			</motion.div>
 
-				{/* Dark Overlay */}
-				<div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-blue-100/40 to-cyan-50/50" />
-				{/* Subtle Pattern Overlay */}
-				<div className="absolute inset-0 opacity-10">
-					<div
-						className="absolute inset-0"
+			{/* Floating Ambient Nodes */}
+			<div className="absolute inset-0 pointer-events-none overflow-hidden h-full">
+				{[...Array(5)].map((_, i) => (
+					<motion.div
+						key={i}
+						animate={{
+							y: [0, -40, 0],
+							opacity: [0.05, 0.15, 0.05],
+							scale: [1, 1.2, 1],
+						}}
+						transition={{
+							duration: 10 + i * 2,
+							repeat: Infinity,
+							ease: "easeInOut",
+							delay: i * 1.5,
+						}}
+						className={cn(
+							"absolute rounded-full blur-3xl",
+							i % 2 === 0 ? "bg-blue-600/10" : "bg-cyan-600/10"
+						)}
 						style={{
-							backgroundImage: `linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)`,
-							backgroundSize: "40px 40px",
+							width: `${200 + i * 50}px`,
+							height: `${200 + i * 50}px`,
+							left: `${10 + i * 20}%`,
+							top: `${20 + i * 15}%`,
 						}}
 					/>
-				</div>
-
-				{/* Animated Light Effects */}
-				<div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse" />
-				<div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl animate-pulse delay-1000" />
-
-				{/* Building Silhouette Effect */}
-				<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent" />
+				))}
 			</div>
 
-			<div className="relative max-w-6xl mx-auto">
-				{/* Main Content */}
-				<div className="text-center mb-12">
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}>
-						<div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-8 border border-white/30">
-							<div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-							<span className="text-sm font-medium text-white">
-								FUTURE OF REAL ESTATE
-							</span>
-							<Building2 className="w-4 h-4 text-emerald-300" />
-						</div>
-					</motion.div>
+			{/* Grid Lines Pattern */}
+			<div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+				style={{ 
+					backgroundImage: `radial-gradient(circle at 1px 1px, #2563eb 1px, transparent 0)`,
+					backgroundSize: "40px 40px" 
+				}} 
+			/>
 
-					<motion.h2
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.1 }}
-						className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight drop-shadow-lg">
-						Modern{" "}
-						<span className="bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">
-							Property Infrastructure
-						</span>
-						<br />
-						Built on Blockchain
-					</motion.h2>
-
-					<motion.p
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.2 }}
-						className="text-xl lg:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed backdrop-blur-sm bg-white/5 px-6 py-4 rounded-2xl border border-white/10">
-						No hidden processes. No manual errors. No silent title issues. Just
-						secure, transparent, and accessible real estate ownership.
-					</motion.p>
-				</div>
-
-				{/* Benefits */}
+			<div className="max-w-7xl mx-auto relative z-10">
 				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.3 }}
-					className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-					{benefits.map((benefit, index) => {
-						const Icon = benefit.icon;
-						return (
-							<div
-								key={index}
-								className="group relative p-6 bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20">
-								<div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+					style={{ 
+						rotateX, 
+						rotateY, 
+						transformStyle: "preserve-3d" 
+					}}
+					className="relative"
+				>
+					{/* Badge */}
+					<div className="flex justify-center mb-12" style={{ transform: "translateZ(50px)" }}>
+						<motion.div
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							viewport={{ once: true }}
+							className="inline-flex items-center gap-3 px-6 py-2 bg-white/40 border border-gray-200 rounded-full backdrop-blur-2xl shadow-sm"
+						>
+							<div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse blur-[1px]" />
+							<span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em]">Future of Ownership</span>
+							<Shield className="w-3.5 h-3.5 text-blue-600/40" />
+						</motion.div>
+					</div>
 
-								<div className="relative z-10">
-									<div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-4 mx-auto border border-white/10">
-										<Icon className="w-7 h-7 text-white" />
-									</div>
-									<span className="text-base font-semibold text-white text-center block">
-										{benefit.text}
-									</span>
+					{/* Heading Group */}
+					<div className="text-center mb-20" style={{ transform: "translateZ(80px)" }}>
+						<motion.h2
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8 }}
+							className="text-5xl lg:text-7xl font-black text-gray-900 mb-10 leading-[1.05] tracking-tightest"
+						>
+							The Secure <span className="text-blue-600">Gateway</span> <br/>
+							to Institutional Assets.
+						</motion.h2>
+
+						<motion.p
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8, delay: 0.1 }}
+							className="text-sm lg:text-lg text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed"
+						>
+							No hidden processes. No manual errors. No silent title issues. Just
+							secure, transparent, and accessible real estate ownership for everyone.
+						</motion.p>
+					</div>
+
+					{/* Benefits Grid */}
+					<div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20 px-4" style={{ transform: "translateZ(40px)" }}>
+						{benefits.map((benefit, idx) => (
+							<motion.div
+								key={idx}
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								viewport={{ once: true }}
+								transition={{ delay: idx * 0.1 }}
+								whileHover={{ y: -10, transition: { duration: 0.3 } }}
+								className="group p-8 bg-white/60 border border-gray-100 rounded-[2.5rem] hover:bg-white hover:border-blue-100 backdrop-blur-3xl transition-all duration-500 text-center shadow-sm hover:shadow-xl hover:shadow-blue-900/5"
+							>
+								<div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] transition-all duration-500">
+									<benefit.icon className="w-6 h-6 text-blue-600" />
 								</div>
+								<h4 className="text-[9px] font-black text-gray-400 group-hover:text-gray-900 uppercase tracking-[0.3em] transition-colors">
+									{benefit.text}
+								</h4>
+							</motion.div>
+						))}
+					</div>
 
-								<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-							</div>
-						);
-					})}
-				</motion.div>
+					{/* CTA Buttons */}
+					<div className="flex flex-col sm:flex-row gap-6 justify-center mb-24" style={{ transform: "translateZ(100px)" }}>
+						<Link
+							href="/dashboard"
+							className="group relative px-14 py-6 bg-gray-900 text-white rounded-full font-black overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-[0_30px_60px_-10px_rgba(37,99,235,0.4)] text-center flex items-center justify-center gap-4"
+						>
+							<span className="text-[11px] uppercase tracking-[0.4em]">Initialize Access</span>
+							<ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+						</Link>
 
-				{/* CTA Buttons */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6, delay: 0.4 }}
-					className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-					<Link
-						href="/dashboard"
-						className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-cyan-500/30 hover:scale-105 transition-all duration-300 overflow-hidden">
-						<span className="relative z-10">Start Investing</span>
-						<ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-					</Link>
+						<Link
+							href="/mint"
+							className="group relative px-14 py-6 bg-white border border-gray-200 text-gray-900 rounded-full font-black backdrop-blur-2xl transition-all duration-500 hover:bg-gray-50 hover:border-blue-200 hover:scale-110 hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.05)] text-center flex items-center justify-center gap-4"
+						>
+							<span className="text-[11px] uppercase tracking-[0.4em]">Deploy Asset</span>
+							<ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+						</Link>
+					</div>
 
-					<Link
-						href="/marketplace"
-						className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white/10 hover:scale-105 transition-all duration-300 overflow-hidden">
-						<span>Browse Properties</span>
-						<div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-						<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-					</Link>
-				</motion.div>
-
-				{/* Trust Indicators */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.6, delay: 0.5 }}
-					className="text-center mb-8">
-					<div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 text-white/90 text-xs sm:text-sm bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/20 max-w-full">
-						<div className="flex items-center gap-2 sm:gap-3">
-							<div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center flex-shrink-0">
-								<Check className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
-							</div>
-							<span className="font-medium whitespace-nowrap">
-								No minimum investment
-							</span>
-						</div>
-						<div className="hidden sm:block w-px h-4 bg-white/30" />
-						<div className="flex items-center gap-2 sm:gap-3">
-							<div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center flex-shrink-0">
-								<Check className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
-							</div>
-							<span className="font-medium whitespace-nowrap">
-								24/7 global access
-							</span>
-						</div>
-						<div className="hidden sm:block w-px h-4 bg-white/30" />
-						<div className="flex items-center gap-2 sm:gap-3">
-							<div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center flex-shrink-0">
-								<Check className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-300" />
-							</div>
-							<span className="font-medium whitespace-nowrap">
-								Fully regulated platform
-							</span>
+					{/* Unified Stats Row */}
+					<div className="pt-20 border-t border-gray-200" style={{ transform: "translateZ(30px)" }}>
+						<div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+							{[
+								{ label: "Finality", value: "< 2.0s" },
+								{ label: "Accuracy", value: "100%" },
+								{ label: "Uptime", value: "24/7" },
+								{ label: "Assets", value: "Verified" },
+							].map((s, i) => (
+								<div key={i} className="text-center group">
+									<p className="text-[9px] font-black text-blue-500/60 uppercase tracking-[0.5em] mb-2">{s.label}</p>
+									<h4 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-widest group-hover:text-blue-600 transition-colors uppercase">{s.value}</h4>
+								</div>
+							))}
 						</div>
 					</div>
 				</motion.div>
-
-				{/* Stats Counter */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.6, delay: 0.6 }}
-					className="mt-12 pt-8 border-t border-white/20">
-					<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-						{[
-							{ value: "25K+", label: "Properties Tokenized", icon: Building2 },
-							{ value: "45+", label: "Countries Supported", icon: Globe },
-							{ value: "$2.5B+", label: "Transaction Volume", icon: Zap },
-							{ value: "99.9%", label: "Platform Uptime", icon: CheckCircle },
-						].map((stat, index) => {
-							const Icon = stat.icon;
-							return (
-								<div
-									key={index}
-									className="group text-center p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300">
-									<Icon className="w-8 h-8 text-cyan-300 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-									<div className="text-2xl lg:text-3xl font-bold text-white mb-1">
-										{stat.value}
-									</div>
-									<div className="text-sm text-blue-200 font-medium">
-										{stat.label}
-									</div>
-								</div>
-							);
-						})}
-					</div>
-				</motion.div>
-
-				{/* Bottom Note */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.6, delay: 0.7 }}
-					className="mt-8 text-center">
-					<p className="text-sm text-blue-200">
-						Join thousands of investors transforming their real estate
-						portfolios
-					</p>
-				</motion.div>
 			</div>
+
+			{/* Corner Accents */}
+			<div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-500/5 blur-[150px] pointer-events-none" />
+			<div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-cyan-500/5 blur-[150px] pointer-events-none" />
 		</section>
 	);
 }

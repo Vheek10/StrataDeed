@@ -107,13 +107,13 @@ export default function Navbar() {
 						<div className="flex lg:hidden items-center flex-shrink-0 z-10">
 							<button
 								onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-								className="p-1.5 sm:p-2 md:p-2.5 text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-md"
+								className="p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 rounded-xl hover:scale-110"
 								aria-label="Toggle menu"
 								aria-expanded={isMobileMenuOpen}>
 								{isMobileMenuOpen ? (
-									<X className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6" />
+									<X className="w-6 h-6" />
 								) : (
-									<Menu className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6" />
+									<Menu className="w-6 h-6" />
 								)}
 							</button>
 						</div>
@@ -206,9 +206,9 @@ export default function Navbar() {
 										<div className="relative">
 											<button
 												onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-												className="flex items-center gap-1.5 lg:gap-2 px-3 lg:px-4 xl:px-4 py-2 lg:py-2.5 xl:py-2.5 bg-gray-800 text-gray-200 hover:bg-gray-700 rounded-lg border border-gray-700 transition-colors shadow-md">
-												<User className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
-												<ChevronDown className="w-3 h-3" />
+												className="flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white hover:bg-blue-600 rounded-full transition-all duration-500 shadow-xl hover:scale-110 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]">
+												<User className="w-4 h-4" />
+												<ChevronDown className={cn("w-3 h-3 transition-transform duration-300", isUserMenuOpen && "rotate-180")} />
 											</button>
 
 											{/* Dropdown Menu */}

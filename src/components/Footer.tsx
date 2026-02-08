@@ -46,51 +46,39 @@ export default function Footer() {
 					</div>
 
 					{/* Links */}
-					<div className="flex flex-wrap justify-center gap-6 text-sm">
-						<Link
-							href="/about"
-							className="text-gray-500 hover:text-gray-900 transition-colors">
-							About
-						</Link>
-						<Link
-							href="/marketplace"
-							className="text-gray-500 hover:text-gray-900 transition-colors">
-							Marketplace
-						</Link>
-						<Link
-							href="/mint"
-							className="text-gray-500 hover:text-gray-900 transition-colors">
-							Mint
-						</Link>
-						<Link
-							href="/dashboard"
-							className="text-gray-500 hover:text-gray-900 transition-colors">
-							Dashboard
-						</Link>
-						<Link
-							href="/contact"
-							className="text-gray-500 hover:text-gray-900 transition-colors">
-							Contact
-						</Link>
+					<div className="flex flex-wrap justify-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+						{[
+							{ label: "About", href: "/about" },
+							{ label: "Marketplace", href: "/marketplace" },
+							{ label: "Mint", href: "/mint" },
+							{ label: "Dashboard", href: "/dashboard" },
+							{ label: "Contact", href: "/contact" },
+						].map((link) => (
+							<Link
+								key={link.label}
+								href={link.href}
+								className="hover:text-blue-600 hover:tracking-[0.3em] transition-all duration-300"
+							>
+								{link.label}
+							</Link>
+						))}
 					</div>
 
 					{/* Social */}
-					<div className="flex items-center gap-4">
-						<a
-							href="#"
-							className="text-gray-400 hover:text-white transition-colors">
-							<Twitter className="w-5 h-5" />
-						</a>
-						<a
-							href="#"
-							className="text-gray-400 hover:text-white transition-colors">
-							<Linkedin className="w-5 h-5" />
-						</a>
-						<a
-							href="#"
-							className="text-gray-400 hover:text-white transition-colors">
-							<Github className="w-5 h-5" />
-						</a>
+					<div className="flex items-center gap-6">
+						{[
+							{ icon: Twitter, href: "#" },
+							{ icon: Linkedin, href: "#" },
+							{ icon: Github, href: "#" },
+						].map((social, i) => (
+							<a
+								key={i}
+								href={social.href}
+								className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 hover:scale-110 hover:rotate-3 transition-all duration-500 shadow-sm hover:shadow-[0_15px_30px_-5px_rgba(37,99,235,0.3)]"
+							>
+								<social.icon className="w-5 h-5" />
+							</a>
+						))}
 					</div>
 				</div>
 

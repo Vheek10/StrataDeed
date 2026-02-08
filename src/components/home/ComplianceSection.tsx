@@ -5,493 +5,241 @@ import {
 	FileCheck,
 	Shield,
 	Globe,
-	CheckCircle,
 	Lock,
-	Users,
 	ArrowRight,
-	Zap,
-	Database,
-	Building,
+	ArrowUpRight,
+	Sparkles,
+	Target,
+	Scaling,
 } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-// Simplified real estate images
-const REAL_ESTATE_IMAGES = [
-	{
-		url: "/images/unsplash-ce09059eeffa.jpg",
-		alt: "Modern transparent building representing transparency",
-		category: "Transparency",
-	},
-	{
-		url: "/images/unsplash-cc1a3fa10c00.jpg",
-		alt: "Secure commercial building with clean architectural lines",
-		category: "Security",
-	},
-	{
-		url: "/images/unsplash-fcd25c85cd64.jpg",
-		alt: "Blockchain technology network connections",
-		category: "Technology",
-	},
-	{
-		url: "/images/unsplash-f200968a6e72.jpg",
-		alt: "Urban development with regulated construction",
-		category: "Regulation",
-	},
-];
+import Link from "next/link";
 
 const complianceFeatures = [
 	{
 		icon: FileCheck,
-		title: "Document Verification",
-		description: "Automated checks against global registries",
-		metric: "100% Verified",
+		title: "Protocol Verification",
+		subtitle: "Automated checks against global registries",
+		metric: "100% On-Chain",
 		color: "blue",
-		imageIndex: 0,
+		description: "Every asset undergoes a multi-layer verification process, cross-referencing digital deeds with sovereign property registries in real-time.",
+		image: "/images/unsplash-ce09059eeffa.jpg",
 	},
 	{
 		icon: Shield,
-		title: "Smart Contract Security",
-		description: "Escrow-protected multi-signature transactions",
-		metric: "Zero Disputes",
-		color: "emerald",
-		imageIndex: 1,
+		title: "Escrow Integrity",
+		subtitle: "Multi-signature autonomous security",
+		metric: "Institutional Grade",
+		color: "indigo",
+		description: "Capital is protected by decentralized escrow protocols, ensuring that transfer of value only occurs upon cryptographic confirmation of deed delivery.",
+		image: "/images/unsplash-cc1a3fa10c00.jpg",
 	},
 	{
 		icon: Lock,
-		title: "Zero-Knowledge Privacy",
-		description: "Prove compliance without revealing personal data",
-		metric: "Full Privacy",
-		color: "purple",
-		imageIndex: 2,
-	},
-	{
-		icon: Database,
-		title: "Blockchain Records",
-		description: "Permanent, tamper-proof transaction history",
-		metric: "24/7 Audit Trail",
-		color: "indigo",
-		imageIndex: 2,
-	},
-	{
-		icon: Globe,
-		title: "Global Compliance",
-		description: "Adherence to international regulations",
-		metric: "45+ Countries",
+		title: "ZKP Privacy",
+		subtitle: "Identity-masking regulatory rigor",
+		metric: "EAL6+ Security",
 		color: "cyan",
-		imageIndex: 3,
+		description: "Utilizing Zero-Knowledge Proofs to validate investor accreditation and KYC status without exposing sensitive personal data to the public ledger.",
+		image: "/images/unsplash-fcd25c85cd64.jpg",
 	},
 ];
 
+const metrics = [
+	{ label: "Verification Speed", value: "< 1.5s", icon: Target, color: "blue" },
+	{ label: "Compliance Coverage", value: "45+ Jurisdictions", icon: Globe, color: "indigo" },
+	{ label: "System Reliability", value: "99.99%", icon: Scaling, iconColor: "text-blue-600" },
+];
+
 export default function ComplianceSection() {
-	const [activeFeature, setActiveFeature] = useState(0);
-	const [progressAnimations, setProgressAnimations] = useState({
-		transactionSpeed: 0,
-		verificationRate: 0,
-		globalReach: 0,
-		securityUptime: 0,
-	});
-
-	// Touch/Swipe state
-	const [touchStart, setTouchStart] = useState<number | null>(null);
-	const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-	// Minimum swipe distance (in px)
-	const minSwipeDistance = 50;
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setProgressAnimations({
-				transactionSpeed: 95,
-				verificationRate: 100,
-				globalReach: 90,
-				securityUptime: 99.9,
-			});
-		}, 300);
-
-		return () => clearTimeout(timer);
-	}, []);
-
-	// Handle touch start
-	const onTouchStart = (e: React.TouchEvent) => {
-		setTouchEnd(null);
-		setTouchStart(e.targetTouches[0].clientX);
-	};
-
-	// Handle touch move
-	const onTouchMove = (e: React.TouchEvent) => {
-		setTouchEnd(e.targetTouches[0].clientX);
-	};
-
-	// Handle touch end
-	const onTouchEnd = () => {
-		if (!touchStart || !touchEnd) return;
-
-		const distance = touchStart - touchEnd;
-		const isLeftSwipe = distance > minSwipeDistance;
-		const isRightSwipe = distance < -minSwipeDistance;
-
-		if (isLeftSwipe && activeFeature < complianceFeatures.length - 1) {
-			setActiveFeature(activeFeature + 1);
-		}
-		if (isRightSwipe && activeFeature > 0) {
-			setActiveFeature(activeFeature - 1);
-		}
-	};
-
-	const currentImage =
-		REAL_ESTATE_IMAGES[complianceFeatures[activeFeature].imageIndex];
-
-	// Fixed color classes to avoid dynamic template strings
-	const getFeatureButtonClasses = (index: number) => {
-		const isActive = activeFeature === index;
-		const feature = complianceFeatures[index];
-
-		if (isActive) {
-			switch (feature.color) {
-				case "blue":
-					return "bg-blue-100 text-blue-700 border border-blue-200";
-				case "emerald":
-					return "bg-emerald-100 text-emerald-700 border border-emerald-200";
-				case "purple":
-					return "bg-purple-100 text-purple-700 border border-purple-200";
-				case "indigo":
-					return "bg-indigo-100 text-indigo-700 border border-indigo-200";
-				case "cyan":
-					return "bg-cyan-100 text-cyan-700 border border-cyan-200";
-				default:
-					return "bg-blue-100 text-blue-700 border border-blue-200";
-			}
-		}
-		return "bg-gray-50 text-gray-600 hover:bg-gray-100";
-	};
-
-	const getIconClasses = (index: number) => {
-		const isActive = activeFeature === index;
-		const feature = complianceFeatures[index];
-
-		if (isActive) {
-			switch (feature.color) {
-				case "blue":
-					return "text-blue-600";
-				case "emerald":
-					return "text-emerald-600";
-				case "purple":
-					return "text-purple-600";
-				case "indigo":
-					return "text-indigo-600";
-				case "cyan":
-					return "text-cyan-600";
-				default:
-					return "text-blue-600";
-			}
-		}
-		return "text-gray-500";
-	};
-
-	const getIconBgClasses = (index: number) => {
-		const isActive = activeFeature === index;
-		const feature = complianceFeatures[index];
-
-		if (isActive) {
-			switch (feature.color) {
-				case "blue":
-					return "bg-blue-500/10";
-				case "emerald":
-					return "bg-emerald-500/10";
-				case "purple":
-					return "bg-purple-500/10";
-				case "indigo":
-					return "bg-indigo-500/10";
-				case "cyan":
-					return "bg-cyan-500/10";
-				default:
-					return "bg-blue-500/10";
-			}
-		}
-		return "bg-gray-100";
-	};
-
-	const getMetricIconClasses = (color: string) => {
-		switch (color) {
-			case "blue":
-				return "text-blue-600";
-			case "emerald":
-				return "text-emerald-600";
-			case "cyan":
-				return "text-cyan-600";
-			case "violet":
-				return "text-violet-600";
-			default:
-				return "text-blue-600";
-		}
-	};
-
-	const getMetricBgClasses = (color: string) => {
-		switch (color) {
-			case "blue":
-				return "bg-blue-100";
-			case "emerald":
-				return "bg-emerald-100";
-			case "cyan":
-				return "bg-cyan-100";
-			case "violet":
-				return "bg-violet-100";
-			default:
-				return "bg-blue-100";
-		}
-	};
+	const [active, setActive] = useState(0);
 
 	return (
-		<section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-			<div className="max-w-7xl mx-auto">
-				{/* Header */}
-				<div className="text-center mb-10 lg:mb-16">
-					<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-4 sm:mb-6">
-						<Shield className="w-4 h-4 text-blue-600" />
-						<span className="text-sm font-medium text-blue-600">
-							COMPLIANCE BUILT-IN
-						</span>
+		<section className="relative py-20 lg:py-32 px-6 lg:px-12 bg-gray-50/50 overflow-hidden">
+			{/* Soft Ambient Effects */}
+			<div className="absolute inset-0 pointer-events-none">
+				<div className="absolute top-1/4 -left-[10%] w-[50%] h-[50%] bg-blue-600/[0.03] rounded-full blur-[150px]" />
+				<div className="absolute bottom-1/4 -right-[10%] w-[50%] h-[50%] bg-indigo-600/[0.03] rounded-full blur-[150px]" />
+			</div>
+
+			<div className="max-w-7xl mx-auto relative z-10">
+				{/* Top Label */}
+				<motion.div 
+					initial={{ opacity: 0, y: -10 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					className="flex justify-center mb-10"
+				>
+					<div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-blue-600/5 border border-blue-600/10 backdrop-blur-md">
+						<Shield className="w-3.5 h-3.5 text-blue-600" />
+						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-secondary">Regulatory Infrastructure</span>
 					</div>
+				</motion.div>
 
-					<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-						Engineered for <span className="text-blue-600">Compliance</span>
-					</h1>
-
-					<p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-						Built around global regulations from day one. Every transaction
-						meets the highest standards of security and compliance.
-					</p>
-				</div>
-
-				{/* Feature Navigation - Fixed for mobile */}
-				<div className="mb-8">
-					<div className="flex overflow-x-auto gap-2 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide">
-						{complianceFeatures.map((feature, index) => {
+				<div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-12 lg:gap-20 items-start">
+					{/* Left: Console-style Selection */}
+					<div className="space-y-4 lg:sticky lg:top-32 order-2 lg:order-1">
+						<div className="mb-8 hidden lg:block">
+							<h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-3">Select Protocol Layer</h3>
+							<div className="h-[1px] w-20 bg-blue-600/20" />
+						</div>
+						
+						{complianceFeatures.map((feature, idx) => {
+							const isActive = active === idx;
 							const Icon = feature.icon;
+
 							return (
-								<button
-									key={feature.title}
-									onClick={() => setActiveFeature(index)}
-									className={`flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-lg whitespace-nowrap transition-all min-w-fit snap-start ${getFeatureButtonClasses(index)}`}>
-									<div className={`p-2 rounded-lg ${getIconBgClasses(index)}`}>
-										<Icon className={`w-4 h-4 ${getIconClasses(index)}`} />
-									</div>
-									<div className="text-left">
-										<div className="font-medium text-sm">{feature.title}</div>
-										<div className="text-xs text-gray-500">
-											{feature.metric}
+								<motion.button
+									key={idx}
+									onClick={() => setActive(idx)}
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ delay: idx * 0.1 }}
+									className={`w-full group relative p-6 rounded-2xl border transition-all duration-700 text-left ${
+										isActive 
+											? "bg-white border-blue-100 shadow-xl shadow-blue-900/5" 
+											: "bg-white/40 border-gray-100 hover:border-blue-100 hover:bg-white hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-900/5"
+									}`}
+								>
+									<div className="flex items-center gap-5">
+										<div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-700 ${
+											isActive ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-gray-100 text-gray-400 group-hover:text-blue-600"
+										}`}>
+											<Icon className="w-5 h-5" />
+										</div>
+										<div>
+											<h3 className={`text-[11px] font-black uppercase tracking-widest mb-1 transition-colors ${
+												isActive ? "text-gray-900" : "text-gray-400"
+											}`}>
+												{feature.title}
+											</h3>
+											<p className={`text-[10px] font-medium tracking-tight transition-colors ${
+												isActive ? "text-gray-500" : "text-gray-400"
+											}`}>
+												Layer 0{idx + 1}
+											</p>
 										</div>
 									</div>
-								</button>
+
+									{isActive && (
+										<motion.div
+											layoutId="active-pill-compliance"
+											className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-full"
+										/>
+									)}
+								</motion.button>
 							);
 						})}
 					</div>
-				</div>
 
-				{/* Main Content */}
-				<div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-16">
-					{/* Image */}
-					<div
-						className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden touch-pan-y"
-						onTouchStart={onTouchStart}
-						onTouchMove={onTouchMove}
-						onTouchEnd={onTouchEnd}>
-						<Image
-							src={currentImage.url}
-							alt={currentImage.alt}
-							fill
-							className="object-cover transition-opacity duration-300"
-							sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
-							priority
-						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+					{/* Right: Immersive Unified Card */}
+					<div className="relative order-1 lg:order-2">
+						<AnimatePresence mode="wait">
+							<motion.div
+								key={active}
+								initial={{ opacity: 0, y: 30 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: -30 }}
+								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+								className="relative p-1 rounded-[3.5rem] overflow-hidden group/card"
+							>
+								<div className="relative bg-white border border-gray-100 shadow-2xl rounded-[2.9rem] overflow-hidden">
+									<div className="grid lg:grid-cols-[1.1fr_0.9fr] min-h-[550px]">
+										{/* Text Side - Now Inside the Card */}
+										<div className="p-8 lg:p-14 flex flex-col justify-center border-r border-gray-50">
+											<div className="mb-10">
+												<div className="flex items-center gap-3 mb-6">
+													<Sparkles className="w-3.5 h-3.5 text-blue-600" />
+													<span className="text-[9px] font-black text-blue-600 uppercase tracking-widest">Autonomous Compliance</span>
+												</div>
+												
+												<h2 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-tighter mb-6 leading-[1.1]">
+													digitalized <br/>
+													<span className="text-blue-600">Legal Rigor</span> <br/>
+													at scale.
+												</h2>
+												
+												<p className="text-sm lg:text-base text-gray-600 font-medium leading-relaxed opacity-80 max-w-sm mb-10">
+													{complianceFeatures[active].description}
+												</p>
 
-						{/* Image Badge */}
-						<div className="absolute top-4 left-4">
-							<div className="bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2">
-								<div className="text-sm text-white font-medium">
-									{currentImage.category}
+												<div className="grid grid-cols-2 gap-4">
+													{metrics.slice(0, 2).map((m, i) => (
+														<div key={i} className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
+															<div className="flex items-center gap-2 mb-2">
+																<m.icon className="w-3 h-3 text-blue-600" />
+																<span className="text-[9px] font-black text-gray-400 uppercase tracking-tighter">{m.label}</span>
+															</div>
+															<p className="text-sm font-black text-gray-900">{m.value}</p>
+														</div>
+													))}
+												</div>
+											</div>
+
+											{active === 2 && (
+												<Link 
+													href="/dashboard"
+													className="group inline-flex items-center gap-4 px-8 py-4 rounded-full bg-gray-900 shadow-2xl transition-all duration-500 hover:scale-[1.05] hover:bg-blue-600 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]"
+												>
+													<span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Review Framework</span>
+													<ArrowUpRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+												</Link>
+											)}
+										</div>
+
+										{/* Visual Side */}
+										<div className="relative min-h-[300px] lg:min-h-full overflow-hidden">
+											<Image
+												src={complianceFeatures[active].image}
+												alt={complianceFeatures[active].title}
+												fill
+												className="object-cover transition-transform duration-[10s] group-hover/card:scale-110"
+											/>
+											<div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:opacity-100 opacity-0" />
+											<div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent" />
+											
+											{/* Feature Identification */}
+											<div className="absolute bottom-8 right-8 text-right">
+												<p className="text-[9px] font-black text-white/60 uppercase tracking-[0.5em] mb-1">{complianceFeatures[active].subtitle}</p>
+												<h4 className="text-2xl font-black text-white tracking-widest uppercase">{complianceFeatures[active].metric}</h4>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-
-						{/* Metric Badge */}
-						<div className="absolute bottom-4 right-4">
-							<div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
-								<div className="text-base sm:text-lg font-bold text-gray-900">
-									{complianceFeatures[activeFeature].metric}
-								</div>
-							</div>
-						</div>
-					</div>
-
-					{/* Content */}
-					<div className="flex flex-col justify-center">
-						<div className="space-y-4 sm:space-y-6">
-							<div>
-								<h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
-									{complianceFeatures[activeFeature].title}
-								</h2>
-								<p className="text-base sm:text-lg text-gray-600">
-									{complianceFeatures[activeFeature].description}
-								</p>
-							</div>
-
-							{/* Feature Details */}
-							<div className="space-y-3 sm:space-y-4">
-								<div className="flex items-center gap-3 text-gray-700">
-									<div className="w-1.5 h-1.5 bg-blue-500 rounded-full flex-shrink-0"></div>
-									<span className="text-sm sm:text-base">
-										Automated validation processes
-									</span>
-								</div>
-								<div className="flex items-center gap-3 text-gray-700">
-									<div className="w-1.5 h-1.5 bg-emerald-500 rounded-full flex-shrink-0"></div>
-									<span className="text-sm sm:text-base">
-										Real-time monitoring and alerts
-									</span>
-								</div>
-								<div className="flex items-center gap-3 text-gray-700">
-									<div className="w-1.5 h-1.5 bg-cyan-500 rounded-full flex-shrink-0"></div>
-									<span className="text-sm sm:text-base">
-										Complete audit trail
-									</span>
-								</div>
-							</div>
-
-							{/* Progress Indicators */}
-							<div className="flex items-center gap-2 pt-2">
-								{complianceFeatures.map((_, index) => (
-									<button
-										key={index}
-										onClick={() => setActiveFeature(index)}
-										className={`w-2 h-2 rounded-full transition-all ${
-											index === activeFeature
-												? "bg-blue-500 scale-125"
-												: "bg-gray-300 hover:bg-gray-400"
-										}`}
-										aria-label={`View ${complianceFeatures[index].title}`}
-									/>
-								))}
-							</div>
-						</div>
+							</motion.div>
+						</AnimatePresence>
 					</div>
 				</div>
 
-				{/* Performance Metrics */}
-				<div className="mb-12 sm:mb-16">
-					<div className="text-center mb-8 sm:mb-12">
-						<h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-							Industry-Leading Performance
-						</h3>
-						<p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-							Setting new standards with measurable results across every metric
-						</p>
-					</div>
-
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-						{[
-							{
-								icon: Zap,
-								label: "Transaction Speed",
-								value: "< 2s",
-								description: "Average processing time",
-								color: "blue",
-								progress: progressAnimations.transactionSpeed,
-							},
-							{
-								icon: CheckCircle,
-								label: "Verification Rate",
-								value: "100%",
-								description: "Successful document verification",
-								color: "emerald",
-								progress: progressAnimations.verificationRate,
-							},
-							{
-								icon: Users,
-								label: "Global Reach",
-								value: "45+",
-								description: "Countries supported",
-								color: "cyan",
-								progress: progressAnimations.globalReach,
-							},
-							{
-								icon: Lock,
-								label: "Security Uptime",
-								value: "99.99%",
-								description: "System reliability",
-								color: "violet",
-								progress: progressAnimations.securityUptime,
-							},
-						].map((metric, index) => {
-							const Icon = metric.icon;
-							return (
-								<div
-									key={metric.label}
-									className="group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg">
-									{/* Icon */}
-									<div
-										className={`inline-flex p-2 sm:p-3 rounded-lg ${getMetricBgClasses(metric.color)} mb-3 sm:mb-4`}>
-										<Icon
-											className={`w-5 h-5 sm:w-6 sm:h-6 ${getMetricIconClasses(metric.color)}`}
-										/>
-									</div>
-
-									{/* Value */}
-									<div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-										{metric.value}
-									</div>
-
-									{/* Label */}
-									<div className="text-sm font-semibold text-gray-900 mb-1">
-										{metric.label}
-									</div>
-
-									{/* Description */}
-									<div className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
-										{metric.description}
-									</div>
-
-									{/* Progress Bar */}
-									<div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
-										<div
-											className={`h-full bg-gradient-to-r from-${metric.color}-500 to-${metric.color}-400 rounded-full transition-all duration-1000`}
-											style={{ width: `${metric.progress}%` }}
-										/>
-									</div>
-
-									{/* Hover Effect */}
-									<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl sm:rounded-2xl" />
-								</div>
-							);
-						})}
-					</div>
-				</div>
-
-				{/* CTA */}
-				<div className="text-center">
-					<div className="max-w-2xl mx-auto mb-6 sm:mb-8">
-						<div className="inline-flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 bg-blue-50 rounded-lg sm:rounded-xl mb-4 sm:mb-6">
-							<Building className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
-							<p className="text-sm sm:text-base lg:text-lg font-semibold text-gray-900">
-								This isn't a shortcut. It's an upgrade for the entire value
-								chain.
+				{/* Global CTA */}
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					className="mt-16 p-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-cyan-600/10 border border-gray-100 overflow-hidden"
+				>
+					<div className="bg-white rounded-[2.4rem] p-10 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left shadow-lg shadow-blue-900/5">
+						<div>
+							<h3 className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter mb-4">
+								Institutional-Grade <span className="text-blue-600">Security.</span>
+							</h3>
+							<p className="text-sm lg:text-base text-gray-600 font-medium opacity-70 max-w-xl">
+								Our framework is built to satisfy the world's most rigorous regulatory requirements, enabling institutional participation in the RealFi economy.
 							</p>
 						</div>
+						
+						<Link 
+							href="/dashboard"
+							className="group relative flex items-center justify-center gap-4 px-10 py-5 bg-gray-900 text-white rounded-full font-black transition-all duration-500 hover:scale-[1.05] hover:bg-blue-600 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] whitespace-nowrap"
+						>
+							<span className="text-[10px] uppercase tracking-[0.4em]">Institutional Access</span>
+							<ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+						</Link>
 					</div>
-
-					<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-						<button className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg group text-sm sm:text-base">
-							<span>Explore Compliance Framework</span>
-							<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-						</button>
-
-						<button className="px-6 sm:px-8 py-2.5 sm:py-3 bg-white text-blue-600 font-semibold rounded-lg border border-gray-300 hover:bg-gray-50 transition-all duration-300 hover:shadow-md text-sm sm:text-base">
-							Schedule Compliance Review
-						</button>
-					</div>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);

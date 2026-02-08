@@ -5,6 +5,15 @@
 
 @import "tailwindcss";
 
+@font-face {
+	font-family: 'Fraunces';
+	src: url('/fonts/Fraunces72pt-Regular.woff2') format('woff2'),
+		 url('/fonts/Fraunces72pt-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
 @theme {
 	/* Color System - Dark mode only */
 	--color-bg: #0a0f1c;
@@ -84,6 +93,7 @@
 
 	/* Typography */
 	--font-sans: "Montserrat", "Inter", system-ui, sans-serif;
+	--font-secondary: "Fraunces", serif;
 	--font-mono: "JetBrains Mono", "SF Mono", monospace;
 
 	/* Animation */
