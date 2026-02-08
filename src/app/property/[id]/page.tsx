@@ -38,7 +38,7 @@ export default async function PropertyPage({
 							${prop.price.toLocaleString()}
 						</div>
 					</div>
-					<button className="w-full px-4 py-3 rounded-xl bg-mantle-amber text-white font-semibold">
+					<button className="w-full px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
 						Buy Property
 					</button>
 				</aside>

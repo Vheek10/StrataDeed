@@ -60,7 +60,7 @@ export default function PropertyCard({
 	return (
 		<>
 			<div className="group h-full">
-				<div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+				<div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
 					<div className="relative h-48 sm:h-52 overflow-hidden">
 						<img
 							src={imageUrl}
@@ -106,44 +106,44 @@ export default function PropertyCard({
 
 					<div className="p-4 sm:p-5 flex-1 flex flex-col">
 						<div className="mb-4">
-							<h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg mb-1.5 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+							<h3 className="font-bold text-gray-900 text-base sm:text-lg mb-1.5 line-clamp-1 group-hover:text-blue-600 transition-colors">
 								{property.title}
 							</h3>
-							<p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm line-clamp-2 leading-relaxed">
+							<p className="text-gray-500 text-xs sm:text-sm line-clamp-2 leading-relaxed">
 								{property.description}
 							</p>
 						</div>
 
 						{/* Stats Grid */}
-						<div className="grid grid-cols-3 gap-2 mb-5 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-800">
+						<div className="grid grid-cols-3 gap-2 mb-5 p-3 bg-gray-50 rounded-xl border border-gray-100">
 							{property.type !== "Commercial" ? (
 								<>
-									<div className="text-center border-r border-gray-200 dark:border-gray-800">
+									<div className="text-center border-r border-gray-200">
 										<div className="flex items-center justify-center gap-1.5 text-[10px] sm:text-xs text-gray-500 uppercase font-medium mb-0.5">
 											<Bed className="w-3.5 h-3.5" />
 											<span>Beds</span>
 										</div>
-										<div className="font-bold text-gray-900 dark:text-white text-sm">
+										<div className="font-bold text-gray-900 text-sm">
 											{property.bedrooms}
 										</div>
 									</div>
-									<div className="text-center border-r border-gray-200 dark:border-gray-800">
+									<div className="text-center border-r border-gray-200">
 										<div className="flex items-center justify-center gap-1.5 text-[10px] sm:text-xs text-gray-500 uppercase font-medium mb-0.5">
 											<Bath className="w-3.5 h-3.5" />
 											<span>Baths</span>
 										</div>
-										<div className="font-bold text-gray-900 dark:text-white text-sm">
+										<div className="font-bold text-gray-900 text-sm">
 											{property.bathrooms}
 										</div>
 									</div>
 								</>
 							) : (
-								<div className="col-span-2 text-center border-r border-gray-200 dark:border-gray-800">
+								<div className="col-span-2 text-center border-r border-gray-200">
 									<div className="flex items-center justify-center gap-1.5 text-[10px] sm:text-xs text-gray-500 uppercase font-medium mb-0.5">
 										<Users className="w-3.5 h-3.5" />
 										<span>Capacity</span>
 									</div>
-									<div className="font-bold text-gray-900 dark:text-white text-sm">
+									<div className="font-bold text-gray-900 text-sm">
 										{property.capacity}
 									</div>
 								</div>
@@ -153,7 +153,7 @@ export default function PropertyCard({
 									<Square className="w-3.5 h-3.5" />
 									<span>Sqft</span>
 								</div>
-								<div className="font-bold text-gray-900 dark:text-white text-sm">
+								<div className="font-bold text-gray-900 text-sm">
 									{property.squareFeet.toLocaleString()}
 								</div>
 							</div>
@@ -162,14 +162,14 @@ export default function PropertyCard({
 						{/* Funding Progress Bar */}
 						<div className="mb-5">
 							<div className="flex justify-between items-center text-xs mb-1.5">
-								<span className="text-gray-600 dark:text-gray-400 font-medium">
+								<span className="text-gray-600 font-medium">
 									Tokenization Progress
 								</span>
-								<span className="text-blue-600 dark:text-blue-400 font-bold">
+								<span className="text-blue-600 font-bold">
 									{fundingProgress}% Funded
 								</span>
 							</div>
-							<div className="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+							<div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
 								<div
 									className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-1000 ease-out"
 									style={{ width: `${fundingProgress}%` }}
@@ -179,10 +179,10 @@ export default function PropertyCard({
 							<div className="mt-auto">
 								<div className="flex justify-between items-end mb-4">
 									<div>
-										<div className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-0.5 font-medium">
+										<div className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5 font-medium">
 											Asset Value
 										</div>
-										<div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+										<div className="text-lg sm:text-xl font-bold text-gray-900">
 											${property.price.toLocaleString()}
 										</div>
 									</div>
@@ -191,7 +191,7 @@ export default function PropertyCard({
 
 								<button
 									onClick={handleInvestClick}
-									className="w-full px-4 py-3 bg-white text-gray-900  font-bold rounded-xl hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm shadow-sm border border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400">
+									className="w-full px-4 py-3 bg-white text-gray-900  font-bold rounded-xl hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm shadow-sm border border-gray-300 hover:border-blue-500 hover:text-blue-600">
 									Invest Now
 									<ArrowRight className="w-4 h-4" />
 								</button>

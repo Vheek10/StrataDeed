@@ -1,194 +1,164 @@
 /** @format */
 "use client";
 
-import { useState } from "react";
-import {
-	Wallet,
-	ChevronDown,
-	Check,
-	ExternalLink,
-	Loader2,
-	LogOut,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-
-interface WalletInfo {
-	address: string;
-	ensName?: string;
-	balance?: string;
-	network?: string;
-}
+import { ConnectButton } from "@suiet/wallet-kit";
 
 export default function ConnectWalletButton() {
-	const [isConnecting, setIsConnecting] = useState(false);
-	const [isConnected, setIsConnected] = useState(false);
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const [walletInfo, setWalletInfo] = useState<WalletInfo | null>(null);
-
-	// Mock wallet data - replace with actual wallet connection logic
-	const mockWalletInfo: WalletInfo = {
-		address: "0x742d35Cc6634C0532925a3b8B9C4A1d3F2a1B6c5",
-		ensName: "user.eth",
-		balance: "2.5 ETH",
-		network: "Ethereum Mainnet",
-	};
-
-	const handleConnect = async () => {
-		setIsConnecting(true);
-
-		// Simulate wallet connection delay
-		await new Promise((resolve) => setTimeout(resolve, 800));
-
-		setIsConnected(true);
-		setWalletInfo(mockWalletInfo);
-		setIsConnecting(false);
-	};
-
-	const handleDisconnect = () => {
-		setIsConnected(false);
-		setWalletInfo(null);
-		setIsDropdownOpen(false);
-	};
-
-	const formatAddress = (address: string) => {
-		return `${address.slice(0, 6)}...${address.slice(-4)}`;
-	};
-
 	return (
-		<div className="relative">
-			{isConnected ? (
-				// Connected state
-				<div className="relative">
-					<button
-						onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-						className={cn(
-							"flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-all duration-300 group",
-							"bg-white hover:bg-gray-50 active:scale-[0.98]",
-							"border-gray-200 hover:border-accent/30",
-							"shadow-sm hover:shadow-md",
-							// Responsive fixes for large screens
-							"min-w-[220px] xl:min-w-[320px] xl:justify-between xl:gap-6 xl:px-6 xl:py-3",
-						)}>
-						{/* Wallet icon */}
-						<div className="relative">
-							<Wallet className="w-4 h-4 text-accent" />
-							<div className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full ring-2 ring-white" />
-						</div>
+		<div className="flex items-center justify-center">
+			<style>{`
+				/* Connect Wallet Button - Clean Solid Color */
+				.suiet-connect-button {
+					background: #3b82f6 !important;
+					border: 1.5px solid rgba(59, 130, 246, 0.4) !important;
+					color: #ffffff !important;
+					font-weight: 600 !important;
+					font-size: 0.875rem !important;
+					padding: 0.625rem 1.25rem !important;
+					border-radius: 0.5rem !important;
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+					box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2) !important;
+					cursor: pointer !important;
+					display: inline-flex !important;
+					align-items: center !important;
+					gap: 0.5rem !important;
+				}
 
-						{/* Address/ENS */}
-						<div className="flex flex-col items-start xl:flex-row xl:items-center xl:gap-3 xl:w-full xl:justify-between">
-							<span className="text-sm font-medium text-text xl:text-base xl:truncate">
-								{walletInfo?.ensName ||
-									formatAddress(walletInfo?.address || "")}
-							</span>
-							<span className="text-xs text-muted xl:text-sm xl:ml-2">
-								{walletInfo?.balance}
-							</span>
-						</div>
+				.suiet-connect-button:hover {
+					background: #2563eb !important;
+					border-color: rgba(59, 130, 246, 0.6) !important;
+					box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+					transform: translateY(-1px) !important;
+				}
 
-						{/* Chevron */}
-						<ChevronDown
-							className={cn(
-								"w-4 h-4 text-muted transition-transform duration-300",
-								isDropdownOpen && "rotate-180",
-							)}
-						/>
+				.suiet-connect-button:active {
+					transform: translateY(0) !important;
+					box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2) !important;
+				}
 
-						{/* Hover effect */}
-						<div className="absolute inset-0 rounded-lg bg-linear-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-					</button>
+				/* Connected state - Emerald Green */
+				.suiet-connect-button.connected {
+					background: #10b981 !important;
+					border-color: rgba(16, 185, 129, 0.4) !important;
+					box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2) !important;
+				}
 
-					{/* Dropdown menu */}
-					{isDropdownOpen && (
-						<div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl border border-gray-200 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-							<div className="p-4">
-								{/* Wallet info section */}
-								<div className="flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg mb-3">
-									<div className="w-10 h-10 bg-linear-to-br from-accent/20 to-accent/10 rounded-lg flex items-center justify-center">
-										<Wallet className="w-5 h-5 text-accent" />
-									</div>
-									<div className="flex-1 min-w-0">
-										<div className="flex items-center gap-2 mb-1">
-											<span className="text-sm font-medium text-text truncate">
-												{walletInfo?.ensName || "Connected Wallet"}
-											</span>
-											<Check className="w-3 h-3 text-green-500" />
-										</div>
-										<div className="text-xs text-muted truncate">
-											{walletInfo?.address}
-										</div>
-										<div className="flex items-center gap-2 mt-1">
-											<span className="text-xs font-medium text-accent bg-accent/10 px-2 py-0.5 rounded">
-												{walletInfo?.network}
-											</span>
-											<span className="text-xs font-medium text-text">
-												{walletInfo?.balance}
-											</span>
-										</div>
-									</div>
-								</div>
+				.suiet-connect-button.connected:hover {
+					background: #059669 !important;
+					border-color: rgba(16, 185, 129, 0.6) !important;
+					box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+				}
 
-								{/* Menu items */}
-								<div className="space-y-1">
-									<button className="flex items-center gap-3 w-full px-3 py-2.5 text-sm text-muted hover:text-text hover:bg-gray-50 rounded-lg transition-colors duration-200 group/item">
-										<ExternalLink className="w-4 h-4" />
-										<span>View on Explorer</span>
-									</button>
-									<button className="flex items-center gap-3 w-full px-3 py-2.5 text-sm text-muted hover:text-text hover:bg-gray-50 rounded-lg transition-colors duration-200 group/item">
-										<Wallet className="w-4 h-4" />
-										<span>Switch Wallet</span>
-									</button>
-									<div className="h-px bg-gray-100 my-1" />
-									<button
-										onClick={handleDisconnect}
-										className="flex items-center gap-3 w-full px-3 py-2.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors duration-200 group/item">
-										<LogOut className="w-4 h-4" />
-										<span>Disconnect</span>
-									</button>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
-			) : (
-				// Connect button
-				<button
-					onClick={handleConnect}
-					disabled={isConnecting}
-					className={cn(
-						"flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-all duration-300 group relative overflow-hidden",
-						"bg-linear-to-r from-accent to-accent/90 hover:from-accent hover:to-accent",
-						"border-accent/20",
-						"text-white font-medium text-sm",
-						"shadow-sm hover:shadow-lg hover:shadow-accent/20",
-						"active:scale-[0.98]",
-						"disabled:opacity-70 disabled:cursor-not-allowed",
-					)}>
-					{/* Loading spinner or wallet icon */}
-					{isConnecting ? (
-						<Loader2 className="w-4 h-4 animate-spin" />
-					) : (
-						<Wallet className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-					)}
+				/* Dropdown menu styling - Dark Theme */
+				.suiet-wallet-kit-dialog,
+				.suiet-wallet-kit-dropdown {
+					background: #1f2937 !important;
+					border: 1px solid #374151 !important;
+					border-radius: 0.75rem !important;
+					box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+				}
 
-					{/* Button text */}
-					<span>{isConnecting ? "Connecting..." : "Connect Wallet"}</span>
+				.suiet-wallet-kit-dialog-title,
+				.suiet-wallet-kit-dropdown > div {
+					color: #f9fafb !important;
+					font-weight: 600 !important;
+				}
 
-					{/* Hover shine effect */}
-					<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/20 to-transparent" />
+				/* Dialog/Modal background */
+				.suiet-wallet-kit-dialog-overlay {
+					background: rgba(0, 0, 0, 0.75) !important;
+					backdrop-filter: blur(4px) !important;
+				}
 
-					{/* Ripple effect */}
-					<div className="absolute inset-0 rounded-lg bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-				</button>
-			)}
+				/* Wallet option buttons */
+				.suiet-wallet-kit-option,
+				.suiet-wallet-option {
+					background: #374151 !important;
+					border: 1px solid #4b5563 !important;
+					color: #f9fafb !important;
+					transition: all 0.2s ease !important;
+					border-radius: 0.5rem !important;
+					padding: 0.75rem !important;
+				}
 
-			{/* Close dropdown when clicking outside */}
-			{isDropdownOpen && (
-				<div
-					className="fixed inset-0 z-40"
-					onClick={() => setIsDropdownOpen(false)}
-				/>
-			)}
+				.suiet-wallet-kit-option:hover,
+				.suiet-wallet-option:hover {
+					background: #4b5563 !important;
+					border-color: #60a5fa !important;
+					color: #ffffff !important;
+					box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+				}
+
+				/* Text styling */
+				.suiet-wallet-kit-option-name,
+				.suiet-wallet-option-name {
+					color: #f9fafb !important;
+					font-weight: 600 !important;
+				}
+
+				.suiet-wallet-kit-option-description,
+				.suiet-wallet-option-description {
+					color: #9ca3af !important;
+					font-size: 0.8rem !important;
+				}
+
+				/* Close button */
+				.suiet-wallet-kit-dialog-close,
+				.suiet-close-button {
+					color: #9ca3af !important;
+					background: transparent !important;
+					border: none !important;
+				}
+
+				.suiet-wallet-kit-dialog-close:hover,
+				.suiet-close-button:hover {
+					color: #f9fafb !important;
+					background: #374151 !important;
+					border-radius: 0.375rem !important;
+				}
+
+				/* Disconnect/logout button */
+				.suiet-wallet-kit-disconnect,
+				.suiet-disconnect-button {
+					background: #ef4444 !important;
+					color: #ffffff !important;
+					border: 1px solid rgba(239, 68, 68, 0.4) !important;
+					border-radius: 0.5rem !important;
+					padding: 0.625rem 1rem !important;
+					font-weight: 600 !important;
+					cursor: pointer !important;
+					transition: all 0.3s ease !important;
+				}
+
+				.suiet-wallet-kit-disconnect:hover,
+				.suiet-disconnect-button:hover {
+					background: #dc2626 !important;
+					border-color: rgba(239, 68, 68, 0.6) !important;
+					box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+				}
+
+				/* Account info section */
+				.suiet-wallet-kit-account {
+					background: #374151 !important;
+					border: 1px solid #4b5563 !important;
+					border-radius: 0.5rem !important;
+					padding: 0.75rem !important;
+					color: #f9fafb !important;
+				}
+
+				.suiet-wallet-kit-account-address {
+					color: #60a5fa !important;
+					font-weight: 600 !important;
+					font-family: monospace !important;
+				}
+
+				/* Loading state */
+				.suiet-wallet-kit-loading,
+				.suiet-loading {
+					color: #60a5fa !important;
+				}
+			`}</style>
+			<ConnectButton />
 		</div>
 	);
 }

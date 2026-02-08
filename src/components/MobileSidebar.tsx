@@ -22,7 +22,7 @@ import {
 	PlusCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAccount, useDisconnect } from "wagmi";
+import { useSuiWallet } from "@/providers/suiet-provider";
 
 // Updated icon mapping for navigation items with more varied icons
 const navIcons = {
@@ -59,7 +59,7 @@ export default function MobileSidebar({
 	isConnected,
 	address,
 }: MobileSidebarProps) {
-	const { disconnect } = useDisconnect();
+	const { disconnect } = useSuiWallet();
 
 	if (!isOpen) return null;
 
@@ -127,16 +127,16 @@ export default function MobileSidebar({
 										className={cn(
 											"flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 rounded-xl",
 											active
-												? "text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/20"
-												: "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800",
+												? "text-blue-700 bg-blue-50"
+												: "text-gray-700 hover:text-blue-600 hover:bg-gray-50",
 										)}
 										onClick={onClose}>
 										<Icon
 											className={cn(
 												"w-4 h-4",
 												active
-													? "text-blue-700 dark:text-blue-300"
-													: "text-gray-500 dark:text-gray-400",
+													? "text-blue-700"
+													: "text-gray-500",
 											)}
 										/>
 										<span>{item.label}</span>
@@ -146,19 +146,19 @@ export default function MobileSidebar({
 						</nav>
 
 						{/* Mobile Auth Section - Dynamic based on connection state */}
-						<div className="mt-auto pt-6 border-t border-gray-100 dark:border-gray-800">
+						<div className="mt-auto pt-6 border-t border-gray-100">
 							{isConnected && address ? (
 								// User is connected - Show wallet info and options
 								<div className="space-y-4">
 									{/* Wallet Info */}
-									<div className="px-4 py-3 bg-gradient-to-r from-emerald-900/10 to-green-900/10 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-800/30 dark:border-emerald-800/50 rounded-lg">
+									<div className="px-4 py-3 bg-gradient-to-r from-emerald-900/10 to-green-900/10 border border-emerald-800/30 rounded-lg">
 										<div className="flex items-center gap-2 mb-2">
 											<CheckCircle className="w-4 h-4 text-emerald-500" />
-											<span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+											<span className="text-sm font-medium text-emerald-600">
 												Wallet Connected
 											</span>
 										</div>
-										<div className="text-xs text-emerald-700 dark:text-emerald-300 font-mono bg-emerald-900/10 dark:bg-emerald-900/20 px-2 py-1 rounded">
+										<div className="text-xs text-emerald-700 font-mono bg-emerald-900/10 px-2 py-1 rounded">
 											{address.slice(0, 8)}...{address.slice(-6)}
 										</div>
 									</div>
@@ -167,7 +167,7 @@ export default function MobileSidebar({
 									<div className="space-y-2">
 										<Link
 											href="/vault"
-											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
 											onClick={onClose}>
 											<User className="w-4 h-4" />
 											Vault
@@ -175,7 +175,7 @@ export default function MobileSidebar({
 
 										<Link
 											href="/settings"
-											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+											className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
 											onClick={onClose}>
 											<Settings className="w-4 h-4" />
 											Settings
@@ -183,7 +183,7 @@ export default function MobileSidebar({
 
 										<button
 											onClick={handleDisconnect}
-											className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-left">
+											className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors text-left">
 											<LogOut className="w-4 h-4" />
 											Disconnect Wallet
 										</button>

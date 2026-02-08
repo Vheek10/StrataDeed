@@ -21,13 +21,7 @@ import {
 	Home,
 	Coins,
 } from "lucide-react";
-import {
-	useAccount,
-	useWriteContract,
-	useWaitForTransactionReceipt,
-	useReadContract,
-} from "wagmi";
-import { parseEther, formatEther } from "viem";
+import { useSuiWallet } from "@/providers/suiet-provider";
 import { motion, AnimatePresence } from "framer-motion";
 import MarketplacePage from "@/app/marketplace/page";
 import Dashboard from "@/app/dashboard/page";
@@ -114,7 +108,7 @@ export default function InvestNowModal({
 	property,
 	imageUrl,
 }: InvestNowModalProps) {
-	const { address, isConnected, chainId } = useAccount();
+	const { address, connected: isConnected } = useSuiWallet();
 	const [investmentAmount, setInvestmentAmount] = useState<string>("");
 	const [selectedTokens, setSelectedTokens] = useState<number>(0);
 	const [step, setStep] = useState<"select" | "confirm" | "success">("select");
@@ -130,16 +124,22 @@ export default function InvestNowModal({
 	const availableTokensNum = 750; // Mock available tokens (75%)
 
 	// Contract interaction for investing (mock for now)
+	// Contract interaction stubs for Sui-only mode (mocked)
 	const {
 		data: hash,
 		writeContract,
 		isPending,
 		error: contractError,
-	} = useWriteContract();
-	const { isLoading: isConfirming, isSuccess: isConfirmed } =
-		useWaitForTransactionReceipt({
-			hash,
-		});
+	} = {
+		data: undefined,
+		writeContract: async () => ({}),
+		isPending: false,
+		error: null,
+	} as const;
+	const { isLoading: isConfirming, isSuccess: isConfirmed } = {
+		isLoading: false,
+		isSuccess: false,
+	} as const;
 
 	// Calculate investment values
 	const calculateTokens = (amount: number) =>
@@ -312,8 +312,8 @@ export default function InvestNowModal({
 		}).format(amount);
 	};
 
-	// Network validation
-	const isCorrectNetwork = chainId === 5003; // Mantle Sepolia
+	// Network validation - for Sui mode assume OK when connected
+	const isCorrectNetwork = !!isConnected;
 
 	return (
 		<AnimatePresence>
@@ -334,27 +334,27 @@ export default function InvestNowModal({
 							initial={{ opacity: 0, scale: 0.95, y: 20 }}
 							animate={{ opacity: 1, scale: 1, y: 0 }}
 							exit={{ opacity: 0, scale: 0.95, y: 20 }}
-							className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 mx-2 sm:mx-0">
+							className="bg-white rounded-2xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 mx-2 sm:mx-0">
 							{/* Header */}
-							<div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100 dark:border-gray-800">
+							<div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100">
 								<div className="flex items-center gap-2 sm:gap-3">
 									<div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
 										<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
 									</div>
 									<div className="min-w-0">
-										<h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate">
+										<h2 className="text-lg sm:text-xl font-bold text-gray-900 truncate">
 											Invest in Property
 										</h2>
-										<p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
+										<p className="text-xs sm:text-sm text-gray-500 truncate">
 											{property.title} • {property.location.split(",")[0]}
 										</p>
 									</div>
 								</div>
 								<button
 									onClick={onClose}
-									className="p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0"
+									className="p-1 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
 									aria-label="Close modal">
-									<X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 dark:text-gray-400" />
+									<X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
 								</button>
 							</div>
 
@@ -366,16 +366,16 @@ export default function InvestNowModal({
 										<motion.div
 											initial={{ opacity: 0, y: -10 }}
 											animate={{ opacity: 1, y: 0 }}
-											className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+											className="bg-blue-50 border border-blue-200 rounded-xl p-4">
 											<div className="flex items-center gap-3">
-												<Info className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+												<Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
 												<div>
-													<p className="text-sm font-medium text-blue-800 dark:text-blue-300">
+													<p className="text-sm font-medium text-blue-800">
 														Demo Mode
 													</p>
-													<p className="text-xs text-blue-700/80 dark:text-blue-400/80 mt-1">
+													<p className="text-xs text-blue-700/80 mt-1">
 														This is a demonstration. Connect your wallet and
-														switch to Mantle Sepolia for real transactions.
+														switch to Sui Testnet for real transactions.
 													</p>
 												</div>
 											</div>
@@ -387,16 +387,15 @@ export default function InvestNowModal({
 										<motion.div
 											initial={{ opacity: 0, y: -10 }}
 											animate={{ opacity: 1, y: 0 }}
-											className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4">
+											className="bg-amber-50 border border-amber-200 rounded-xl p-4">
 											<div className="flex items-center gap-3">
-												<AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+												<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
 												<div>
-													<p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+													<p className="text-sm font-medium text-amber-800">
 														Wrong Network
 													</p>
-													<p className="text-xs text-amber-700/80 dark:text-amber-400/80 mt-1">
-														Please switch to Mantle Sepolia (Chain ID: 5003) to
-														invest.
+													<p className="text-xs text-amber-700/80 mt-1">
+														Please switch to Sui Testnet to invest.
 													</p>
 												</div>
 											</div>
@@ -404,7 +403,7 @@ export default function InvestNowModal({
 									)}
 
 									{/* Property Overview */}
-									<div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-4 sm:p-5 border border-blue-100 dark:border-blue-800/30">
+									<div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 sm:p-5 border border-blue-100">
 										<div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
 											<div className="w-full sm:w-20 h-48 sm:h-20 rounded-xl overflow-hidden flex-shrink-0">
 												<img
@@ -414,35 +413,35 @@ export default function InvestNowModal({
 												/>
 											</div>
 											<div className="flex-1 min-w-0">
-												<h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg mb-1 truncate">
+												<h3 className="font-bold text-gray-900 text-base sm:text-lg mb-1 truncate">
 													{property.title}
 												</h3>
-												<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2">
+												<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2">
 													<MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
 													<span className="truncate">{property.location}</span>
 												</div>
 												<div className="grid grid-cols-3 gap-2 sm:gap-3">
 													<div className="text-center">
-														<div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
+														<div className="text-lg sm:text-2xl font-bold text-gray-900">
 															{formatCurrency(property.price)}
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+														<div className="text-[10px] sm:text-xs text-gray-500">
 															Valuation
 														</div>
 													</div>
 													<div className="text-center">
-														<div className="text-lg sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+														<div className="text-lg sm:text-2xl font-bold text-emerald-600">
 															{property.investmentReturn || 8}%
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+														<div className="text-[10px] sm:text-xs text-gray-500">
 															Est. ROI
 														</div>
 													</div>
 													<div className="text-center">
-														<div className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
+														<div className="text-lg sm:text-2xl font-bold text-blue-600">
 															{availableTokensNum}/{totalTokensNum}
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+														<div className="text-[10px] sm:text-xs text-gray-500">
 															Tokens
 														</div>
 													</div>
@@ -455,7 +454,7 @@ export default function InvestNowModal({
 										<>
 											{/* Token Quick Select */}
 											<div className="space-y-2 sm:space-y-3">
-												<label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+												<label className="block text-sm font-medium text-gray-700">
 													Quick Select Tokens
 												</label>
 												<div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
@@ -465,16 +464,16 @@ export default function InvestNowModal({
 															onClick={() => handleTokenSelect(tokens)}
 															className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
 																selectedTokens === tokens
-																	? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-																	: "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700"
+																	? "border-blue-500 bg-blue-50"
+																	: "border-gray-200 hover:border-blue-300"
 															}`}>
-															<div className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+															<div className="text-base sm:text-lg font-bold text-gray-900">
 																{tokens}
 															</div>
-															<div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+															<div className="text-xs sm:text-sm text-gray-500">
 																Tokens
 															</div>
-															<div className="text-[10px] sm:text-xs text-blue-600 dark:text-blue-400 font-semibold mt-1">
+															<div className="text-[10px] sm:text-xs text-blue-600 font-semibold mt-1">
 																${(tokens * tokenPriceNum).toFixed(0)}
 															</div>
 														</button>
@@ -484,7 +483,7 @@ export default function InvestNowModal({
 
 											{/* Custom Investment */}
 											<div className="space-y-2 sm:space-y-3">
-												<label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+												<label className="block text-sm font-medium text-gray-700">
 													Custom Investment Amount
 												</label>
 												<div className="relative">
@@ -495,19 +494,19 @@ export default function InvestNowModal({
 														type="number"
 														value={investmentAmount}
 														onChange={(e) => handleAmountChange(e.target.value)}
-														className="w-full pl-10 pr-20 sm:pl-10 sm:pr-24 py-3 sm:py-4 text-base sm:text-lg border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+														className="w-full pl-10 pr-20 sm:pl-10 sm:pr-24 py-3 sm:py-4 text-base sm:text-lg border border-gray-300 rounded-xl bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 														placeholder="0.00"
 														min={minInvestmentNum}
 														max={maxInvestmentNum}
 														step="0.01"
 													/>
 													<div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-														<span className="text-sm text-gray-500 dark:text-gray-400">
+														<span className="text-sm text-gray-500">
 															USD
 														</span>
 													</div>
 												</div>
-												<div className="flex flex-col sm:flex-row justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400 gap-1">
+												<div className="flex flex-col sm:flex-row justify-between text-xs sm:text-sm text-gray-500 gap-1">
 													<span>Min: {formatUSD(minInvestmentNum)}</span>
 													<span>Max: {formatUSD(maxInvestmentNum)}</span>
 												</div>
@@ -518,41 +517,41 @@ export default function InvestNowModal({
 												<motion.div
 													initial={{ opacity: 0, height: 0 }}
 													animate={{ opacity: 1, height: "auto" }}
-													className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/10 dark:to-teal-900/10 rounded-xl p-4 sm:p-5 border border-emerald-100 dark:border-emerald-800/30">
-													<h4 className="font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center gap-2">
+													className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-5 border border-emerald-100">
+													<h4 className="font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
 														<PieChart className="w-3 h-3 sm:w-4 sm:h-4" />
 														Investment Summary
 													</h4>
 													<div className="grid grid-cols-2 gap-3 sm:gap-4">
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+															<div className="text-xs sm:text-sm text-gray-500">
 																Tokens
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+															<div className="text-lg sm:text-xl font-bold text-gray-900">
 																{selectedTokens}
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+															<div className="text-xs sm:text-sm text-gray-500">
 																Equity Stake
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400">
+															<div className="text-lg sm:text-xl font-bold text-emerald-600">
 																{calculateEquity(selectedTokens)}%
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+															<div className="text-xs sm:text-sm text-gray-500">
 																Token Price
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+															<div className="text-lg sm:text-xl font-bold text-gray-900">
 																{formatUSD(tokenPriceNum)}
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+															<div className="text-xs sm:text-sm text-gray-500">
 																Est. Annual Return
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">
+															<div className="text-lg sm:text-xl font-bold text-blue-600">
 																${calculateEstReturn(selectedTokens)}
 															</div>
 														</div>
@@ -565,9 +564,9 @@ export default function InvestNowModal({
 												<motion.div
 													initial={{ opacity: 0, y: -10 }}
 													animate={{ opacity: 1, y: 0 }}
-													className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
-													<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-													<p className="text-xs sm:text-sm text-red-700 dark:text-red-300">
+													className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-xl">
+													<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 flex-shrink-0" />
+													<p className="text-xs sm:text-sm text-red-700">
 														{error}
 													</p>
 												</motion.div>
@@ -575,26 +574,26 @@ export default function InvestNowModal({
 
 											{/* Security Features */}
 											<div className="space-y-2 sm:space-y-3">
-												<h4 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2 text-sm sm:text-base">
+												<h4 className="font-semibold text-gray-900 flex items-center gap-2 text-sm sm:text-base">
 													<Shield className="w-3 h-3 sm:w-4 sm:h-4" />
 													Secure Investment
 												</h4>
 												<div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<Lock className="w-3 h-3 text-blue-500" />
-														<span className="text-xs text-gray-600 dark:text-gray-400">
+														<span className="text-xs text-gray-600">
 															Escrow Protected
 														</span>
 													</div>
-													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<CheckCircle className="w-3 h-3 text-emerald-500" />
-														<span className="text-xs text-gray-600 dark:text-gray-400">
+														<span className="text-xs text-gray-600">
 															Verified Property
 														</span>
 													</div>
-													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<Coins className="w-3 h-3 text-purple-500" />
-														<span className="text-xs text-gray-600 dark:text-gray-400">
+														<span className="text-xs text-gray-600">
 															RWA Tokens
 														</span>
 													</div>
@@ -608,58 +607,58 @@ export default function InvestNowModal({
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											className="text-center space-y-4 sm:space-y-6">
-											<div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-												<CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 dark:text-blue-400" />
+											<div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-blue-100 flex items-center justify-center">
+												<CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600" />
 											</div>
 											<div>
-												<h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2">
+												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
 													Confirm Your Investment
 												</h3>
-												<p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+												<p className="text-sm sm:text-base text-gray-600">
 													{isMockMode
 														? "This is a demo. In production, you would confirm the transaction in your wallet."
 														: "Please confirm the transaction in your wallet"}
 												</p>
 											</div>
-											<div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+											<div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Property
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white truncate ml-2">
+													<span className="font-semibold text-sm sm:text-base text-gray-900 truncate ml-2">
 														{property.title}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Investment Amount
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
+													<span className="font-semibold text-sm sm:text-base text-gray-900">
 														{formatUSD(parseFloat(investmentAmount))}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Tokens to Receive
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
+													<span className="font-semibold text-sm sm:text-base text-gray-900">
 														{selectedTokens}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Equity Stake
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-emerald-600 dark:text-emerald-400">
+													<span className="font-semibold text-sm sm:text-base text-emerald-600">
 														{calculateEquity(selectedTokens)}%
 													</span>
 												</div>
-												<div className="pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700">
+												<div className="pt-3 sm:pt-4 border-t border-gray-200">
 													<div className="flex justify-between items-center">
-														<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+														<span className="text-xs sm:text-sm text-gray-600">
 															Network Fee
 														</span>
-														<span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
+														<span className="font-semibold text-sm sm:text-base text-gray-900">
 															~$2.50
 														</span>
 													</div>
@@ -668,7 +667,7 @@ export default function InvestNowModal({
 											{(isProcessing || isPending) && (
 												<div className="flex items-center justify-center gap-2 sm:gap-3">
 													<div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														{isPending
 															? "Waiting for wallet confirmation..."
 															: "Processing transaction..."}
@@ -683,68 +682,68 @@ export default function InvestNowModal({
 											initial={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											className="text-center space-y-4 sm:space-y-6">
-											<div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-												<CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600 dark:text-emerald-400" />
+											<div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-emerald-100 flex items-center justify-center">
+												<CheckCircle className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600" />
 											</div>
 											<div>
-												<h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2">
+												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
 													{isMockMode
 														? "Demo Successful! "
 														: "Investment Successful! "}
 												</h3>
-												<p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+												<p className="text-sm sm:text-base text-gray-600">
 													You now own {selectedTokens} tokens in{" "}
 													<span className="font-semibold">
 														{property.title}
 													</span>
 												</p>
 											</div>
-											<div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/10 dark:to-teal-900/10 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+											<div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
 												{hash && !isMockMode ? (
 													<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
-														<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+														<span className="text-xs sm:text-sm text-gray-600">
 															Transaction Hash
 														</span>
 														<a
-															href={`https://explorer.sepolia.mantle.xyz/tx/${hash}`}
+															href={`https://testnet.suiscan.xyz/tx/${hash}`}
 															target="_blank"
 															rel="noopener noreferrer"
-															className="font-mono text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline truncate">
+															className="font-mono text-xs sm:text-sm text-blue-600 hover:underline truncate">
 															{hash.slice(0, 10)}...{hash.slice(-8)}
 														</a>
 													</div>
 												) : (
 													<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
-														<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+														<span className="text-xs sm:text-sm text-gray-600">
 															Demo Transaction
 														</span>
-														<span className="font-mono text-xs sm:text-sm text-blue-600 dark:text-blue-400 truncate">
+														<span className="font-mono text-xs sm:text-sm text-blue-600 truncate">
 															0xDEMO...TRANSACTION
 														</span>
 													</div>
 												)}
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Tokens Issued
 													</span>
-													<span className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+													<span className="font-bold text-sm sm:text-base text-gray-900">
 														{selectedTokens}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+													<span className="text-xs sm:text-sm text-gray-600">
 														Total Investment
 													</span>
-													<span className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+													<span className="font-bold text-sm sm:text-base text-gray-900">
 														{formatUSD(parseFloat(investmentAmount))}
 													</span>
 												</div>
 											</div>
-											<div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 sm:p-4">
+											<div className="bg-blue-50 rounded-xl p-3 sm:p-4">
 												<div className="flex items-start gap-2 sm:gap-3">
-													<Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+													<Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
 													<div className="text-left">
-														<p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+														<p className="text-xs sm:text-sm text-gray-700">
 															{isMockMode
 																? "This was a demo transaction. In production, your RWA tokens would appear in your portfolio."
 																: "Your RWA tokens will appear in your portfolio within a few minutes. You can view and manage your investment from the dashboard."}
@@ -758,12 +757,12 @@ export default function InvestNowModal({
 							</div>
 
 							{/* Footer */}
-							<div className="border-t border-gray-100 dark:border-gray-800 p-4 sm:p-6">
+							<div className="border-t border-gray-100 p-4 sm:p-6">
 								{step === "select" && (
 									<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 										<button
 											onClick={onClose}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base">
+											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm sm:text-base">
 											Cancel
 										</button>
 										<button
@@ -789,15 +788,15 @@ export default function InvestNowModal({
 									<div className="text-center space-y-3 sm:space-y-4">
 										<button
 											onClick={() => setStep("select")}
-											className="text-blue-600 dark:text-blue-400 font-medium hover:underline text-sm sm:text-base">
+											className="text-blue-600 font-medium hover:underline text-sm sm:text-base">
 											← Back to Edit
 										</button>
-										<p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+										<p className="text-xs sm:text-sm text-gray-500">
 											{isMockMode
 												? "Demo mode - No real transaction will occur"
 												: isPending
-												? "Waiting for wallet confirmation..."
-												: "Confirm the transaction in your wallet"}
+													? "Waiting for wallet confirmation..."
+													: "Confirm the transaction in your wallet"}
 										</p>
 									</div>
 								)}
@@ -806,7 +805,7 @@ export default function InvestNowModal({
 									<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
 										<button
 											onClick={onClose}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base">
+											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm sm:text-base">
 											Close
 										</button>
 										<button
