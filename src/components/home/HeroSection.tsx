@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
 	ArrowRight,
+	ArrowUpRight,
 	Sparkles,
 	Globe,
 	Shield,
@@ -62,40 +63,36 @@ export default function HeroSection() {
 				<div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
 					<div className="max-w-7xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 xl:gap-24 items-center">
 						<div className="text-center lg:text-left flex flex-col items-center lg:items-start">
-							{/* Semi-transparent badge - Mobile responsive */}
-							<div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 lg:px-5 lg:py-2.5 bg-platinum-100/80 backdrop-blur-md rounded-full mb-6 sm:mb-8 lg:mb-10 border border-platinum-200/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-								<Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 animate-pulse" />
-								<span className="text-[10px] xs:text-xs sm:text-sm font-semibold text-gray-900 tracking-wide whitespace-nowrap">
-									INNOVATING REAL ESTATE
+							{/* Semi-transparent badge - Institutional Standard */}
+							<div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/40 backdrop-blur-xl rounded-full mb-10 border border-gray-200/50 shadow-sm">
+								<Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
+								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.4em] whitespace-nowrap font-secondary">
+									Innovating Real Estate
 								</span>
-								<Shield className="w-3 h-3 sm:w-4 sm:h-4 text-mist-600" />
+								<Shield className="w-3.5 h-3.5 text-blue-600/60" />
 							</div>
 
-							{/* Main Heading with responsive text sizes */}
-							<div className="relative mb-6 sm:mb-8 lg:mb-10 w-full">
-								<div className="relative inline-block">
-									<h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-[1.05] mb-4 sm:mb-6">
-										<span className="block">Tokenizing Global</span>
-										<span className="block bg-gradient-to-r from-blue-600 via-slate-600 to-mist-600 bg-clip-text text-transparent mt-1 sm:mt-2">
-											Real Estate Assets
-										</span>
-									</h1>
-								</div>
+							{/* Main Heading - Compliance Scaled */}
+							<div className="relative mb-8 w-full">
+								<h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.85] mb-8">
+									<span className="block">Tokenizing Global</span>
+									<span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent font-secondary">
+										Real Estate Assets
+									</span>
+								</h1>
 
-								{/* Subtitle with responsive text */}
-								<div className="mt-4 sm:mt-6 lg:mt-8 max-w-2xl px-2 lg:px-0">
-									<p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-gray-800 leading-relaxed font-medium">
-										Verified digital deeds. Borderless ownership.{" "}
-										<span className="font-bold text-blue-700">
-											Unprecedented liquidity.
-										</span>
-									</p>
-								</div>
+								{/* Subtitle - Compliance Refined */}
+								<p className="text-sm lg:text-base text-gray-500 leading-relaxed font-medium max-w-2xl px-2 lg:px-0">
+									Verified digital deeds. Borderless ownership.{" "}
+									<span className="text-blue-600 font-black">
+										Unprecedented liquidity.
+									</span>
+								</p>
 							</div>
 
-							{/* Value Proposition - Left-aligned on desktop */}
-							<div className="w-full mb-8 sm:mb-10 lg:mb-12 px-2 lg:px-0">
-								<div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center lg:items-center gap-4 sm:gap-6 lg:gap-8">
+							{/* Value Proposition - Compliance Styled */}
+							<div className="w-full mb-12 px-2 lg:px-0">
+								<div className="flex flex-wrap justify-center lg:justify-start items-center gap-6 sm:gap-10">
 									{[
 										{
 											icon: Shield,
@@ -105,24 +102,21 @@ export default function HeroSection() {
 										{
 											icon: Globe,
 											label: "Global Market Access",
-											color: "cyan",
+											color: "blue",
 										},
 										{
 											icon: Building,
 											label: "Verified Properties",
-											color: "emerald",
+											color: "blue",
 										},
 									].map((item, index) => (
 										<div
 											key={index}
-											className="flex items-center gap-3 group transition-all duration-300">
-											<div
-												className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-${item.color}-100/70 flex items-center justify-center border border-${item.color}-200/50 group-hover:border-${item.color}-300 transition-all duration-300 backdrop-blur-sm shadow-sm`}>
-												<item.icon
-													className={`w-4 h-4 sm:w-5 sm:h-5 text-${item.color}-700 group-hover:scale-110 transition-transform`}
-												/>
+											className="flex items-center gap-4 group transition-all duration-300">
+											<div className="w-10 h-10 rounded-xl bg-white/50 flex items-center justify-center border border-gray-100 group-hover:border-blue-200 transition-all duration-300 backdrop-blur-sm shadow-sm group-hover:shadow-blue-900/5">
+												<item.icon className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
 											</div>
-											<span className="text-gray-900 text-sm sm:text-base font-semibold group-hover:text-blue-700 transition-colors whitespace-nowrap">
+											<span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] group-hover:text-gray-900 transition-colors">
 												{item.label}
 											</span>
 										</div>
@@ -130,53 +124,45 @@ export default function HeroSection() {
 								</div>
 							</div>
 
-							{/* CTA Buttons - Stack on mobile */}
-							<div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mb-12 sm:mb-14 lg:mb-16 px-4 lg:px-0 w-full max-w-md sm:max-w-none">
-								{/* Primary Button */}
+							{/* CTA Buttons - Capsule Institutional Standard */}
+							<div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center mb-16 px-4 lg:px-0 w-full max-w-md sm:max-w-none">
 								<Link
 									href="/dashboard"
-									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-bold rounded-xl overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-blue-600/40 w-full sm:w-auto text-center shadow-lg min-h-[52px] flex items-center justify-center">
-									<div className="absolute inset-0 translate-x-[-100%] skew-x-[-45deg] group-hover:translate-x-[100%] group-hover:skew-x-[-45deg] transition-all duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-									<span className="relative flex items-center gap-2 text-sm sm:text-base">
+									className="group relative px-10 py-5 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-500 hover:bg-blue-600 hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full sm:w-auto text-center flex items-center justify-center">
+									<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em]">
 										Start Investing
-										<ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+										<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
 									</span>
 								</Link>
 
-								{/* Secondary Button */}
 								<Link
 									href="/mint"
-									className="group relative px-6 sm:px-8 py-3.5 sm:py-4 bg-white/40 backdrop-blur-md border border-gray-300/50 text-gray-900 font-bold rounded-xl transition-all duration-500 hover:bg-white hover:border-blue-500/50 hover:text-blue-700 w-full sm:w-auto text-center shadow-sm min-h-[52px] flex items-center justify-center">
-									<span className="relative flex items-center gap-2 text-sm sm:text-base">
-										<Building className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+									className="group relative px-10 py-5 bg-white border border-gray-200 text-gray-900 rounded-full transition-all duration-500 hover:bg-gray-50 hover:border-blue-200 hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] w-full sm:w-auto text-center flex items-center justify-center">
+									<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em]">
 										List Property
+										<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
 									</span>
 								</Link>
 							</div>
 
-							{/* Trust indicators - Left-aligned on desktop */}
+							{/* Trust Indicators - Standardized Grid */}
 							<div className="w-full lg:max-w-xl px-4 lg:px-0">
-								<div className="grid grid-cols-3 gap-8 lg:gap-12">
+								<div className="grid grid-cols-3 gap-8 lg:gap-16">
 									{[
 										{ value: "100%", label: "Compliance" },
-										{ value: "24/7", label: "Trading" },
-										{ value: "YES", label: "Verified" },
+										{ value: "24/7", label: "Settlement" },
+										{ value: "YES", label: "Finality" },
 									].map((item, index) => (
 										<div
 											key={index}
 											className="text-center lg:text-left group">
-											<div className="relative inline-block lg:block">
-												<div className="text-2xl sm:text-3xl xl:text-4xl font-black text-black mb-1 sm:mb-2 group-hover:scale-110 lg:group-hover:scale-105 transition-transform duration-300 relative z-10">
-													{item.value}
-												</div>
-												<div className="absolute inset-0 text-2xl sm:text-3xl xl:text-4xl font-black text-black/5 mb-1 sm:mb-2 group-hover:scale-110 lg:group-hover:scale-105 transition-transform duration-300 -z-10 blur-[3px]">
-													{item.value}
-												</div>
+											<div className="text-2xl sm:text-3xl xl:text-3xl font-black text-gray-900 tracking-tightest mb-3 group-hover:text-blue-600 transition-colors">
+												{item.value}
 											</div>
-											<div className="text-[10px] sm:text-xs xl:text-sm text-gray-800 font-bold uppercase tracking-widest">
+											<div className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">
 												{item.label}
 											</div>
-											<div className="h-1.5 w-8 mt-2 lg:mt-3 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full group-hover:w-12 transition-all duration-300" />
+											<div className="h-[2px] w-8 mt-4 bg-gray-100 group-hover:bg-blue-600 group-hover:w-12 transition-all duration-500" />
 										</div>
 									))}
 								</div>

@@ -7,37 +7,37 @@ export default function ConnectWalletButton() {
 	return (
 		<div className="flex items-center justify-center">
 			<style>{`
-				/* Connect Wallet Button - Premium Gradient */
+				/* Connect Wallet Button - Institutional Capsule */
 				.suiet-connect-button {
-					background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-					border: 1px solid rgba(147, 197, 253, 0.2) !important;
+					background: #111827 !important; /* gray-900 */
+					border: 1px solid rgba(255, 255, 255, 0.1) !important;
 					color: #ffffff !important;
-					font-family: var(--font-sans) !important;
-					font-weight: 600 !important;
-					font-size: 0.875rem !important;
-					padding: 0.625rem 1.5rem !important;
-					border-radius: 0.75rem !important;
-					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-					box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2), 0 2px 4px -1px rgba(37, 99, 235, 0.1) !important;
+					font-family: inherit !important;
+					font-weight: 900 !important;
+					font-size: 10px !important;
+					padding: 0.8rem 2rem !important;
+					border-radius: 9999px !important;
+					transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+					box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1) !important;
 					cursor: pointer !important;
 					display: inline-flex !important;
 					align-items: center !important;
 					justify-content: center !important;
-					gap: 0.5rem !important;
-					text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-					min-height: 44px !important;
+					gap: 0.75rem !important;
+					text-transform: uppercase !important;
+					letter-spacing: 0.4em !important;
+					min-height: 52px !important;
 				}
 
 				.suiet-connect-button:hover {
-					background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-					box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3), 0 4px 6px -2px rgba(37, 99, 235, 0.2) !important;
-					transform: translateY(-1px) !important;
-					border-color: rgba(147, 197, 253, 0.4) !important;
+					background: #2563eb !important; /* blue-600 */
+					box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.3) !important;
+					transform: scale(1.05) !important;
+					border-color: rgba(255, 255, 255, 0.2) !important;
 				}
 
 				.suiet-connect-button:active {
-					transform: translateY(0) !important;
-					box-shadow: 0 2px 4px -1px rgba(37, 99, 235, 0.2) !important;
+					transform: scale(0.98) !important;
 				}
 
 				/* Connected state - Emerald Green */

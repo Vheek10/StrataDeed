@@ -1,194 +1,237 @@
 /** @format */
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+import { Shield, Zap, Globe, ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Layers, ShieldCheck, Zap } from "lucide-react";
+import Image from "next/image";
 
 const comparisons = [
 	{
-		title: "Traditional",
-		subtitle: "Vested Friction",
-		header: "Legacy Infrastructure",
-		description: "The legacy method: human-reliant, fragmented, and geographically constrained equity.",
-		features: [
-			{ text: "Manual processing (2-6 months)", good: false },
-			{ text: "Physical deed dependencies", good: false },
-			{ text: "High intermediary overhead", good: false },
+		id: "traditional",
+		title: "Traditional Real Estate",
+		subtitle: "The Legacy Fragmented Model",
+		description: "Bureaucratic, slow, and restricted. High entry barriers and geographic silos define the status quo.",
+		metrics: [
+			{ label: "Settlement Time", value: "30-90 Days" },
+			{ label: "Minimum Entry", value: "$50,000+" },
+			{ label: "Liquidity", value: "Near Zero" }
 		],
-		image: "/images/unsplash-f200968a6e72.jpg",
-		color: "#ef4444",
+		features: ["Physical Deeds", "Manual Escrow", "High Fees"],
+		color: "gray",
+		icon: Globe,
+		image: "/images/unsplash-cc1a3fa10c00.jpg"
 	},
 	{
-		title: "Speculative",
-		subtitle: "Digital Chaos",
-		header: "Intermediate Gap",
-		description: "The intermediate gap: unverified digital shadows and high-volatility friction.",
-		features: [
-			{ text: "Extreme capital volatility", good: false },
-			{ text: "Opaque legal execution", good: false },
-			{ text: "Zero regulatory recourse", good: false },
+		id: "speculative",
+		title: "Web3 Speculation",
+		subtitle: "The Unregulated Digital Wild West",
+		description: "High velocity but high risk. Volatile assets often detached from physical legal title and real-world utility.",
+		metrics: [
+			{ label: "Settlement Time", value: "Instant" },
+			{ label: "Minimum Entry", value: "$10" },
+			{ label: "Liquidity", value: "High (Volatile)" }
 		],
-		image: "/images/unsplash-e363dbe005cb.jpg",
-		color: "#f97316",
+		features: ["No Legal Link", "Smart Contract Only", "Unregulated"],
+		color: "red",
+		icon: Zap,
+		image: "/images/unsplash-fcd25c85cd64.jpg"
 	},
 	{
-		title: "StrataDeed",
-		subtitle: "The Final State",
-		header: "Digital Liquidity",
-		description: "True RealFi: institutional-grade verification meets hyper-liquid global liquidity.",
-		features: [
-			{ text: "Instant T+0 settlement", good: true },
-			{ text: "Autonomous legal rigor", good: true },
-			{ text: "Universal market parity", good: true },
+		id: "stratadeed",
+		title: "StrataDeed Protocol",
+		subtitle: "The RealFi Institutional Standard",
+		description: "The efficiency of digital settlement meets the rigor of sovereign property law. Fractional ownership with legal finality.",
+		metrics: [
+			{ label: "Settlement Time", value: "< 1.5s" },
+			{ label: "Minimum Entry", value: "$100" },
+			{ label: "Liquidity", value: "Instant Exit" }
 		],
-		image: "/images/unsplash-ce09059eeffa.jpg",
-		color: "#3b82f6",
-	},
+		features: ["On-Chain Deeds", "Legal Finality", "Yield-Bearing"],
+		color: "blue",
+		icon: Shield,
+		image: "/images/unsplash-ce09059eeffa.jpg"
+	}
 ];
 
 export default function ComparisonSection() {
-	const [active, setActive] = useState(2);
+	const [active, setActive] = useState(0);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setActive((prev) => (prev + 1) % comparisons.length);
-		}, 20000);
+		}, 10000);
 		return () => clearInterval(interval);
 	}, []);
 
 	return (
-		<section className="relative py-32 px-6 lg:px-12 bg-[#020617] overflow-hidden">
-			{/* Cinematic Background Artifacts */}
-			<div className="absolute inset-0 pointer-events-none overflow-hidden">
-				<div className="absolute -top-1/4 -right-1/4 w-3/4 h-3/4 bg-blue-600/5 rounded-full blur-[200px]" />
-				<div className="absolute -bottom-1/4 -left-1/4 w-3/4 h-3/4 bg-indigo-600/5 rounded-full blur-[200px]" />
+		<section className="relative py-20 lg:py-32 px-6 lg:px-12 bg-gray-50 overflow-hidden" style={{ perspective: "2000px" }}>
+			{/* Background Effects */}
+			<div className="absolute inset-0 pointer-events-none">
+				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-600/[0.03] rounded-full blur-[180px]" />
 			</div>
 
-			<div className="max-w-[1200px] mx-auto relative z-10">
-				{/* Top Global Label */}
-				<motion.div 
-					initial={{ opacity: 0, y: -10 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					className="flex justify-center mb-12"
-				>
-					<div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-						<Layers className="w-3 h-3 text-blue-400" />
-						<span className="text-[9px] font-black text-white/60 uppercase tracking-[0.3em]">Institutional Evolution</span>
-					</div>
-				</motion.div>
+			<div className="max-w-7xl mx-auto relative z-10">
+				{/* Section Header */}
+				<div className="text-center mb-16">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true }}
+					>
+						<h2 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-tighter mb-6 lowercase leading-[1.1] font-secondary">
+							Beyond <span className="text-blue-600">Tradition.</span>
+						</h2>
+						<p className="text-gray-400 text-[10px] lg:text-xs font-black uppercase tracking-[0.5em] opacity-60 font-secondary">The Evolution of Asset Settlement</p>
+					</motion.div>
+				</div>
 
-				<div className="relative">
+				{/* Navigation Pips */}
+				<div className="flex justify-center gap-6 mb-16">
+					{comparisons.map((_, idx) => (
+						<button
+							key={idx}
+							onClick={() => setActive(idx)}
+							className="group relative px-2 py-4"
+						>
+							<div className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ${active === idx ? "text-blue-600 scale-110" : "text-gray-400 hover:text-gray-600"}`}>
+								{comparisons[idx].id}
+							</div>
+							{active === idx && (
+								<motion.div
+									layoutId="nav-line-comparison"
+									className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+								/>
+							)}
+						</button>
+					))}
+				</div>
+
+				{/* Card Display */}
+				<div className="relative max-w-5xl mx-auto">
 					<AnimatePresence mode="wait">
 						<motion.div
 							key={active}
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 1.2, ease: "easeInOut" }}
-							className="relative rounded-[3.5rem] bg-[#0b1120]/60 border border-white/5 shadow-2xl overflow-hidden backdrop-blur-3xl"
+							initial={{ opacity: 0, y: 40, scale: 0.98 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							exit={{ opacity: 0, y: -40, scale: 1.02 }}
+							transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+							whileHover={{
+								scale: 1.01,
+								rotateY: 1,
+								rotateX: -0.5,
+								transition: { duration: 0.8, ease: "easeOut" }
+							}}
+							className="relative rounded-[4rem] border border-gray-100 shadow-2xl overflow-hidden cursor-default group/card min-h-[550px] bg-white"
 						>
-							<div className="absolute inset-0 opacity-10 blur-[100px] pointer-events-none" style={{ backgroundColor: comparisons[active].color }} />
-							
-							<div className="relative grid lg:grid-cols-[1.1fr_1fr] min-h-[500px]">
-								{/* Text Side - Now Inside the Card */}
-								<div className="p-8 lg:p-14 flex flex-col justify-center border-r border-white/5">
-									<motion.div
-										initial={{ opacity: 0, x: -20 }}
-										animate={{ opacity: 1, x: 0 }}
-										transition={{ delay: 0.2 }}
-									>
-										<div className="flex items-center gap-2 mb-6">
-											<Sparkles className="w-3.5 h-3.5 text-blue-400" />
-											<span className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Stage 0{active + 1}</span>
-										</div>
-										
-										<h2 className="text-3xl lg:text-4xl font-black text-white tracking-tighter mb-4 leading-none lowercase">
-											the evolution of <br/>
-											<span className="text-blue-500">{comparisons[active].header}</span>
-										</h2>
-										
-										<p className="text-sm text-gray-400 font-medium mb-10 leading-relaxed opacity-80 max-w-sm">
-											{comparisons[active].description}
-										</p>
-
-										<div className="space-y-4 mb-12">
-											{comparisons[active].features.map((feature, i) => (
-												<div key={i} className="flex flex-col gap-1.5 group/feat">
-													<div className="flex items-center gap-3">
-														<div className={`w-1 h-1 rounded-full ${feature.good ? 'bg-blue-500' : 'bg-red-500/50'}`} />
-														<span className="text-[10px] font-black text-white/70 uppercase tracking-widest">{feature.text}</span>
-													</div>
-													<div className="h-[1px] w-full bg-white/5 overflow-hidden">
-														<motion.div 
-															initial={{ width: "0%" }}
-															animate={{ width: "100%" }}
-															transition={{ delay: 0.5 + (i * 0.1), duration: 1 }}
-															className={`h-full ${feature.good ? 'bg-blue-500/20' : 'bg-red-500/10'}`} 
-														/>
-													</div>
-												</div>
-											))}
-										</div>
-
-										{active === 2 && (
-											<Link 
-												href="/dashboard" 
-												className="group inline-flex items-center gap-6 text-[10px] font-black text-white uppercase tracking-[0.3em] border-b border-white/20 pb-2 hover:border-blue-500 transition-colors"
-											>
-												Initialize the Future
-												<ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-											</Link>
-										)}
-									</motion.div>
-								</div>
-
-								{/* Visual Side */}
-								<div className="relative min-h-[400px] lg:min-h-full overflow-hidden">
+							{/* Cinematic Background Image Layer */}
+							<div className="absolute inset-0 z-0">
+								<motion.div
+									initial={{ scale: 1.15, filter: "blur(4px) grayscale(30%)" }}
+									animate={{ scale: 1, filter: "blur(0px) grayscale(0%)" }}
+									transition={{ duration: 15, ease: "linear" }}
+									className="relative w-full h-full"
+								>
 									<Image
 										src={comparisons[active].image}
 										alt={comparisons[active].title}
 										fill
-										className="object-cover opacity-80 transition-transform duration-[10s] hover:scale-110"
+										className="object-cover transition-transform duration-[20s] group-hover/card:scale-110"
 									/>
-									<div className="absolute inset-0 bg-gradient-to-r from-[#0b1120] via-transparent to-transparent lg:opacity-100 opacity-60" />
-									
-									{/* Floating Labels */}
-									<div className="absolute bottom-8 right-8 text-right">
-										<p className="text-[9px] font-black text-white/40 uppercase tracking-[0.5em] mb-1">{comparisons[active].subtitle}</p>
-										<p className="text-xl font-black text-white tracking-widest uppercase">{comparisons[active].title}</p>
-									</div>
+									{/* Gradients Layer */}
+									<div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+									<div className={`absolute inset-0 opacity-10 mix-blend-color ${
+										active === 2 ? "bg-blue-600" : active === 1 ? "bg-red-600" : "bg-gray-600"
+									}`} />
+								</motion.div>
+							</div>
 
-									{/* Badge */}
-									<div className="absolute top-8 right-8">
-										<div className="w-10 h-10 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center">
-											{active === 2 ? <ShieldCheck className="w-5 h-5 text-blue-400" /> : <Zap className="w-5 h-5 text-red-400/50" />}
+							<div className="relative z-10 p-12 lg:p-24 grid lg:grid-cols-[1.1fr_0.9fr] gap-20 items-center">
+								{/* Content Side */}
+								<div>
+									<div className="flex items-center gap-6 mb-10">
+										<div className={`p-5 rounded-[1.5rem] bg-gray-50 border border-gray-100 backdrop-blur-2xl shadow-sm ${
+											active === 2 ? "text-blue-600" : 
+											active === 1 ? "text-red-600" : 
+											"text-gray-600"
+										}`}>
+											{(() => {
+												const Icon = comparisons[active].icon;
+												return <Icon className="w-8 h-8" />;
+											})()}
+										</div>
+										<div>
+											<h3 className="text-3xl lg:text-5xl font-black text-gray-900 tracking-tightest mb-2 leading-none">
+												{comparisons[active].title}
+											</h3>
+											<p className="text-[11px] font-black uppercase tracking-[0.4em] text-blue-600/90">
+												{comparisons[active].subtitle}
+											</p>
 										</div>
 									</div>
+
+									<p className="text-sm lg:text-base text-gray-600 font-medium leading-relaxed mb-16 max-w-lg">
+										{comparisons[active].description}
+									</p>
+
+									<div className="grid grid-cols-3 gap-10">
+										{comparisons[active].metrics.map((m, i) => (
+											<div key={i} className="group/metric">
+												<p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-3 group-hover/metric:text-gray-900 transition-colors">{m.label}</p>
+												<p className="text-xl lg:text-3xl font-black text-gray-900 tracking-tighter">{m.value}</p>
+											</div>
+										))}
+									</div>
+								</div>
+
+								{/* Features Side */}
+								<div className="relative">
+									<div className="space-y-6 p-10 rounded-[3rem] bg-white/60 border border-gray-100 backdrop-blur-3xl shadow-xl shadow-blue-900/5">
+										<div className="mb-6">
+											<p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.5em]">Protocol Features</p>
+											<div className="h-[1px] w-12 bg-gray-200 mt-2" />
+										</div>
+										{comparisons[active].features.map((f, i) => (
+											<div key={i} className="flex items-center gap-5 group/item">
+												<div className={`w-2 h-2 rounded-full shadow-[0_0_10px_currentColor] ${
+													active === 2 ? "bg-blue-500 text-blue-500" : 
+													active === 1 ? "bg-red-500 text-red-500" : 
+													"bg-gray-300 text-gray-300"
+												}`} />
+												<span className="text-xs lg:text-sm font-black uppercase tracking-[0.2em] text-gray-600 group-hover/item:text-gray-900 transition-colors">{f}</span>
+											</div>
+										))}
+									</div>
+
+									{active === 2 && (
+										<Link 
+											href="/dashboard"
+											className="mt-10 flex items-center justify-between gap-6 px-10 py-5 rounded-full bg-blue-600 hover:bg-blue-500 transition-all duration-500 group/btn shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:scale-[1.1] hover:shadow-[0_30px_60px_-15px_rgba(37,99,235,0.6)]"
+										>
+											<span className="text-[10px] font-black uppercase tracking-[0.4em] text-white whitespace-nowrap">Institutional Access</span>
+											<ArrowUpRight className="w-4 h-4 text-white transition-transform duration-500 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+										</Link>
+									)}
 								</div>
 							</div>
 
-							{/* Active Timeline Dots */}
-							<div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3">
-								{comparisons.map((_, i) => (
-									<button key={i} onClick={() => setActive(i)} className="p-2 group">
-										<div className={`h-1 rounded-full transition-all duration-500 ${active === i ? 'w-8 bg-blue-500' : 'w-2 bg-white/20 group-hover:bg-white/40'}`} />
-									</button>
-								))}
-							</div>
-
-							{/* Progress Bar */}
-							<div className="absolute bottom-0 left-0 h-[2px] w-full bg-white/5">
-								<motion.div 
+							{/* Progress Bar (Synchronized with 10s interval) */}
+							<div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gray-100 backdrop-blur-md">
+								<motion.div
 									key={active}
 									initial={{ width: "0%" }}
 									animate={{ width: "100%" }}
-									transition={{ duration: 20, ease: "linear" }}
-									className="h-full bg-blue-500/40"
-								/>
+									transition={{ duration: 10, ease: "linear" }}
+									className={`h-full relative ${
+										active === 2 ? "bg-blue-600 shadow-[0_0_30px_rgba(37,99,235,0.5)]" : 
+										active === 1 ? "bg-red-600 shadow-[0_0_30px_rgba(220,38,38,0.5)]" : 
+										"bg-gray-400 shadow-[0_0_30px_rgba(156,163,175,0.5)]"
+									}`}
+								>
+									{/* Glow tip */}
+									<div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-full bg-white blur-sm opacity-50" />
+								</motion.div>
 							</div>
 						</motion.div>
 					</AnimatePresence>

@@ -172,7 +172,7 @@ export default function HowItWorksSection() {
 	}
 
 	return (
-		<section className="py-20 sm:py-32 bg-gray-50 overflow-hidden relative">
+		<section className="py-12 sm:py-20 bg-gray-50 overflow-hidden relative">
 			{/* Decorative Background Elements */}
 			<div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
 				<div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-100/30 rounded-full blur-3xl opacity-60" />
@@ -193,28 +193,43 @@ export default function HowItWorksSection() {
 							transition: { staggerChildren: 0.15, duration: 0.6 },
 						},
 					}}
-					className="text-center mb-16 sm:mb-20">
+					className="text-center mb-16 lg:mb-24">
+					<motion.div 
+						variants={{
+							hidden: { opacity: 0, y: 10 },
+							visible: { opacity: 1, y: 0 },
+						}}
+						className="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 rounded-full mb-10 border border-blue-600/10"
+					>
+						<Zap className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-secondary">
+							The StrataDeed Protocol
+						</span>
+					</motion.div>
+
 					<motion.h2
 						variants={{
 							hidden: { opacity: 0, y: 30 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-						How It <span className="text-blue-600">Works</span>
+						className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tighter leading-[1.1]">
+						How we digitize <br/>
+						<span className="text-blue-600">Global Assets.</span>
 					</motion.h2>
+
 					<motion.p
 						variants={{
 							hidden: { opacity: 0, y: 20 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-						Transform real estate into accessible digital assets in three simple
-						steps with cutting-edge blockchain technology.
+						className="text-sm lg:text-base text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed">
+						We've collapsed months of legal friction into seconds of cryptographic finality. 
+						Own the world in three institutional-grade layers.
 					</motion.p>
 				</motion.div>
 
 				{/* Accordion Cards */}
-				<div className="flex flex-col lg:flex-row gap-6 h-[800px] lg:h-[600px] mb-24 perspective-1000">
+				<div className="flex flex-col lg:flex-row gap-6 h-[800px] lg:h-[600px] mb-12 perspective-1000">
 					{steps.map((step, index) => {
 						const isActive = activeStep === index;
 						const colors = getColor(step.color);
@@ -323,7 +338,7 @@ export default function HowItWorksSection() {
 											<motion.h3
 												layout="position"
 												className={cn(
-													"text-2xl sm:text-3xl font-bold text-white leading-tight transition-all duration-300 drop-shadow-lg",
+													"text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter",
 													!isActive &&
 														"lg:rotate-[-90deg] lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:whitespace-nowrap",
 												)}>
@@ -338,21 +353,21 @@ export default function HowItWorksSection() {
 														exit={{ opacity: 0, y: 10, height: 0 }}
 														transition={{ duration: 0.3, ease: "easeOut" }}
 														className="space-y-6 overflow-hidden">
-														<p className="text-gray-100 text-sm sm:text-base leading-relaxed max-w-lg font-medium drop-shadow-md">
+														<p className="text-white/80 text-base leading-relaxed max-w-lg font-medium drop-shadow-md">
 															{step.description}
 														</p>
 
-														<div className="flex flex-wrap gap-3">
+														<div className="flex flex-wrap gap-4">
 															{step.stats.map((stat, i) => (
 																<motion.div
 																	key={i}
 																	initial={{ opacity: 0, x: -10 }}
 																	animate={{ opacity: 1, x: 0 }}
 																	transition={{ delay: 0.1 + i * 0.1 }}
-																	className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-1.5 text-xs sm:text-sm text-white font-semibold flex items-center gap-2 shadow-sm hover:bg-white/20 transition-colors">
+																	className="bg-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl px-5 py-2 text-[10px] sm:text-xs text-white font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl">
 																	<div
 																		className={cn(
-																			"w-1.5 h-1.5 rounded-full shadow-[0_0_8px_currentColor]",
+																			"w-1.5 h-1.5 rounded-full shadow-[0_0_10px_currentColor]",
 																			colors.bg,
 																		)}
 																	/>
@@ -371,7 +386,7 @@ export default function HowItWorksSection() {
 										<motion.div
 											layoutId="activeBorder"
 											className={cn(
-												"absolute inset-0 border-[3px] rounded-3xl pointer-events-none z-20",
+												"absolute inset-0 border-[3px] rounded-[2.2rem] pointer-events-none z-20",
 												colors.border,
 											)}
 											initial={{ opacity: 0 }}
@@ -386,7 +401,7 @@ export default function HowItWorksSection() {
 				</div>
 
 				{/* Steps Navigation (Mobile/Tablet) */}
-				<div className="flex justify-center gap-3 lg:hidden mb-16">
+				<div className="flex justify-center gap-3 lg:hidden mb-12">
 					{steps.map((_, index) => (
 						<button
 							key={index}
@@ -407,44 +422,44 @@ export default function HowItWorksSection() {
 
 				{/* Bottom Stats Grid - Floating Hover Effect */}
 				{/* Minimalist Stats Bar - Classy & Simple */}
-				<div className="relative max-w-5xl mx-auto mt-16 px-4">
+				<div className="relative max-w-5xl mx-auto mt-10 px-4">
 					<motion.div 
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
-						className="bg-white rounded-2xl shadow-sm border border-gray-100/50"
+						className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 border border-gray-100"
 					>
-						<div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-gray-100">
+						<div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-gray-50">
 							{[
 								{
 									value: "25K+",
 									label: "Properties",
-									color: "text-blue-600",
+									color: "text-gray-900",
 								},
 								{
 									value: "45+",
 									label: "Countries",
-									color: "text-emerald-600",
+									color: "text-gray-900",
 								},
 								{
 									value: "<2s",
 									label: "Transactions",
-									color: "text-amber-500",
+									color: "text-gray-900",
 								},
 								{
 									value: "100%",
 									label: "Security",
-									color: "text-purple-600",
+									color: "text-blue-600",
 								},
 							].map((stat, index) => (
 								<div 
 									key={index}
-									className="flex-1 flex flex-col items-center justify-center py-4 px-2 w-full hover:bg-gray-50/50 transition-colors duration-300 first:rounded-t-2xl sm:first:rounded-l-2xl sm:first:rounded-tr-none last:rounded-b-2xl sm:last:rounded-r-2xl sm:last:rounded-bl-none"
+									className="flex-1 flex flex-col items-center justify-center py-10 px-6 w-full hover:bg-blue-50/30 transition-all duration-500 first:rounded-t-[2.5rem] sm:first:rounded-l-[2.5rem] sm:first:rounded-tr-none last:rounded-b-[2.5rem] sm:last:rounded-r-[2.5rem] sm:last:rounded-bl-none group"
 								>
-									<h3 className={cn("text-2xl sm:text-3xl font-bold mb-0.5 tracking-tight", stat.color)}>
+									<h3 className={cn("text-3xl lg:text-4xl font-black mb-3 tracking-tightest group-hover:scale-110 transition-transform duration-500", stat.color)}>
 										{stat.value}
 									</h3>
-									<p className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+									<p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em]">
 										{stat.label}
 									</p>
 								</div>
