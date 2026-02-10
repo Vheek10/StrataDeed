@@ -12,6 +12,7 @@ import {
 	Building,
 	Lock,
 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
 	return (
@@ -66,7 +67,7 @@ export default function HeroSection() {
 							{/* Semi-transparent badge - Institutional Standard */}
 							<div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/40 backdrop-blur-xl rounded-full mb-10 border border-gray-200/50 shadow-sm">
 								<Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
-								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.4em] whitespace-nowrap font-secondary">
+								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.4em] whitespace-nowrap font-montserrat">
 									Innovating Real Estate
 								</span>
 								<Shield className="w-3.5 h-3.5 text-blue-600/60" />
@@ -74,15 +75,15 @@ export default function HeroSection() {
 
 							{/* Main Heading - Compliance Scaled */}
 							<div className="relative mb-8 w-full">
-								<h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.85] mb-8">
+								<h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.85] mb-8 font-mclaren">
 									<span className="block">Tokenizing Global</span>
-									<span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent font-secondary">
+									<span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
 										Real Estate Assets
 									</span>
 								</h1>
 
 								{/* Subtitle - Compliance Refined */}
-								<p className="text-sm lg:text-base text-gray-500 leading-relaxed font-medium max-w-2xl px-2 lg:px-0">
+								<p className="text-sm lg:text-base text-gray-500 leading-relaxed font-medium max-w-2xl px-2 lg:px-0 font-montserrat">
 									Verified digital deeds. Borderless ownership.{" "}
 									<span className="text-blue-600 font-black">
 										Unprecedented liquidity.
@@ -116,7 +117,7 @@ export default function HeroSection() {
 											<div className="w-10 h-10 rounded-xl bg-white/50 flex items-center justify-center border border-gray-100 group-hover:border-blue-200 transition-all duration-300 backdrop-blur-sm shadow-sm group-hover:shadow-blue-900/5">
 												<item.icon className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
 											</div>
-											<span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] group-hover:text-gray-900 transition-colors">
+											<span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] group-hover:text-gray-900 transition-colors font-montserrat">
 												{item.label}
 											</span>
 										</div>
@@ -126,23 +127,44 @@ export default function HeroSection() {
 
 							{/* CTA Buttons - Capsule Institutional Standard */}
 							<div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center mb-16 px-4 lg:px-0 w-full max-w-md sm:max-w-none">
-								<Link
-									href="/dashboard"
-									className="group relative px-10 py-5 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-500 hover:bg-blue-600 hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full sm:w-auto text-center flex items-center justify-center">
-									<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em]">
-										Start Investing
-										<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-									</span>
-								</Link>
+								<motion.div
+									whileHover={{
+										scale: 1.05,
+										y: -5,
+										backgroundColor: "#2563eb", // blue-600
+										transition: { duration: 0.4 },
+									}}
+									whileTap={{ scale: 0.98 }}
+									className="w-full sm:w-auto bg-gray-900 rounded-full">
+									<Link
+										href="/dashboard"
+										className="group relative px-10 py-5 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full block text-center flex items-center justify-center">
+										<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+											Start Investing
+											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+										</span>
+									</Link>
+								</motion.div>
 
-								<Link
-									href="/mint"
-									className="group relative px-10 py-5 bg-white border border-gray-200 text-gray-900 rounded-full transition-all duration-500 hover:bg-gray-50 hover:border-blue-200 hover:scale-[1.05] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] w-full sm:w-auto text-center flex items-center justify-center">
-									<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em]">
-										List Property
-										<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-									</span>
-								</Link>
+								<motion.div
+									whileHover={{
+										scale: 1.05,
+										y: -5,
+										backgroundColor: "#f8fafc", // gray-50
+										borderColor: "#bfdbfe", // blue-200
+										transition: { duration: 0.4 },
+									}}
+									whileTap={{ scale: 0.98 }}
+									className="w-full sm:w-auto bg-white border border-gray-200 rounded-full">
+									<Link
+										href="/mint"
+										className="group relative px-10 py-5 text-gray-900 rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] w-full block text-center flex items-center justify-center">
+										<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+											List Property
+											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+										</span>
+									</Link>
+								</motion.div>
 							</div>
 
 							{/* Trust Indicators - Standardized Grid */}
@@ -156,10 +178,10 @@ export default function HeroSection() {
 										<div
 											key={index}
 											className="text-center lg:text-left group">
-											<div className="text-2xl sm:text-3xl xl:text-3xl font-black text-gray-900 tracking-tightest mb-3 group-hover:text-blue-600 transition-colors">
+											<div className="text-2xl sm:text-3xl xl:text-3xl font-black text-gray-900 tracking-tightest mb-3 group-hover:text-blue-600 transition-colors font-mclaren">
 												{item.value}
 											</div>
-											<div className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">
+											<div className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em] font-montserrat">
 												{item.label}
 											</div>
 											<div className="h-[2px] w-8 mt-4 bg-gray-100 group-hover:bg-blue-600 group-hover:w-12 transition-all duration-500" />
@@ -173,76 +195,78 @@ export default function HeroSection() {
 						<div className="hidden lg:block relative group/card">
 							<div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/10 via-mist-400/10 to-emerald-400/10 blur-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700" />
 							<div className="relative rounded-[2rem] border border-platinum-300/50 bg-white/70 backdrop-blur-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] p-8 space-y-6 transform transition-all duration-700 hover:-translate-y-2 hover:rotate-1">
-									<div className="flex items-center justify-between gap-3">
-										<div>
-											<p className="text-xs font-semibold text-blue-700 uppercase tracking-[0.2em]">
-												LIVE ON SUI
-											</p>
-											<p className="mt-1 text-sm text-gray-700">
-												ZK-powered property tokenization with real-time
-												settlement.
-											</p>
-										</div>
-										<div className="flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 border border-emerald-300">
-											<div className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-											<span className="text-xs font-medium text-emerald-900">
-												<Lock className="inline-block w-3 h-3 mr-1 align-[-2px]" />
-												ZK Privacy
-											</span>
-										</div>
+								<div className="flex items-center justify-between gap-3">
+									<div>
+										<p className="text-xs font-semibold text-blue-700 uppercase tracking-[0.2em] font-montserrat">
+											LIVE ON SUI
+										</p>
+										<p className="mt-1 text-sm text-gray-700 font-montserrat">
+											ZK-powered property tokenization with real-time
+											settlement.
+										</p>
 									</div>
-
-									<div className="grid grid-cols-3 gap-4 text-center text-xs">
-										<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
-											<p className="text-[11px] text-gray-700 mb-1">
-												Avg. Finality
-											</p>
-											<p className="text-lg font-semibold text-gray-900">
-												&lt;2s
-											</p>
-										</div>
-										<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
-											<p className="text-[11px] text-gray-700 mb-1">
-												Properties Modeled
-											</p>
-											<p className="text-lg font-semibold text-gray-900">
-												25K+
-											</p>
-										</div>
-										<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
-											<p className="text-[11px] text-gray-700 mb-1">
-												Global Investors
-											</p>
-											<p className="text-lg font-semibold text-gray-900">
-												120+
-											</p>
-										</div>
-									</div>
-
-									<div className="flex items-center justify-between text-[11px] text-gray-700 border-t border-platinum-200 pt-3">
-										<div className="flex items-center gap-2">
-											<div className="flex -space-x-2">
-												{[1, 2, 3].map((i) => (
-													<div
-														key={i}
-														className="w-6 h-6 rounded-full border border-white bg-platinum-300">
-														<Image
-															src="/logo.png"
-															alt=""
-															width={24}
-															height={24}
-															className="w-full h-full object-contain"
-														/>
-													</div>
-												))}
-											</div>
-											<span>Trusted by leading RealFi teams</span>
-										</div>
-										<span className="text-gray-600">
-											Backed by on-chain compliance rails
+									<div className="flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 border border-emerald-300">
+										<div className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+										<span className="text-xs font-medium text-emerald-900 font-montserrat">
+											<Lock className="inline-block w-3 h-3 mr-1 align-[-2px]" />
+											ZK Privacy
 										</span>
 									</div>
 								</div>
+
+								<div className="grid grid-cols-3 gap-4 text-center text-xs">
+									<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
+										<p className="text-[11px] text-gray-700 mb-1 font-montserrat">
+											Avg. Finality
+										</p>
+										<p className="text-lg font-semibold text-gray-900 font-mclaren">
+											&lt;2s
+										</p>
+									</div>
+									<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
+										<p className="text-[11px] text-gray-700 mb-1 font-montserrat">
+											Properties Modeled
+										</p>
+										<p className="text-lg font-semibold text-gray-900 font-mclaren">
+											25K+
+										</p>
+									</div>
+									<div className="rounded-2xl bg-platinum-100/60 border border-platinum-300/40 px-3 py-3">
+										<p className="text-[11px] text-gray-700 mb-1 font-montserrat">
+											Global Investors
+										</p>
+										<p className="text-lg font-semibold text-gray-900 font-mclaren">
+											120+
+										</p>
+									</div>
+								</div>
+
+								<div className="flex items-center justify-between text-[11px] text-gray-700 border-t border-platinum-200 pt-3">
+									<div className="flex items-center gap-2">
+										<div className="flex -space-x-2">
+											{[1, 2, 3].map((i) => (
+												<div
+													key={i}
+													className="w-6 h-6 rounded-full border border-white bg-platinum-300">
+													<Image
+														src="/logo.png"
+														alt=""
+														width={24}
+														height={24}
+														className="w-full h-full object-contain"
+													/>
+												</div>
+											))}
+										</div>
+										<span className="font-montserrat">
+											Trusted by leading RealFi teams
+										</span>
+									</div>
+									<span className="text-gray-600 font-montserrat">
+										Backed by on-chain compliance rails
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -256,7 +280,7 @@ export default function HeroSection() {
 							<div className="w-1.5 h-3 sm:h-4 bg-gradient-to-b from-blue-600 to-mist-600 rounded-full mt-3 sm:mt-4 animate-pulse" />
 						</div>
 					</div>
-					<span className="text-xs text-gray-700 mt-2 sm:mt-3 tracking-wider font-medium">
+					<span className="text-xs text-gray-700 mt-2 sm:mt-3 tracking-wider font-medium font-montserrat">
 						EXPLORE
 					</span>
 				</div>

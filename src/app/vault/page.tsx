@@ -17,7 +17,6 @@ import {
 	Info,
 	Sparkles,
 } from "lucide-react";
-import AuthGuard from "@/components/AuthGuard";
 import { useSuiWallet } from "@/providers/suiet-provider";
 
 export default function VaultPage() {
@@ -52,189 +51,187 @@ export default function VaultPage() {
 	];
 
 	return (
-		<AuthGuard>
-			<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-				<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-					{/* Header */}
-					<header className="space-y-4">
-						<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/5 px-4 py-2">
-							<Shield className="w-5 h-5 text-purple-500" />
-							<span className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-500">
-								Identity Hub
-							</span>
-						</div>
-						<div>
-							<h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-								Your Private Vault
-							</h1>
-							<p className="text-base text-gray-600">
-								Secure key management and zero-knowledge credential storage.
-								Your identity, your control.
-							</p>
-						</div>
+		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+			<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+				{/* Header */}
+				<header className="space-y-4">
+					<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/5 px-4 py-2">
+						<Shield className="w-5 h-5 text-purple-500" />
+						<span className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-500">
+							Identity Hub
+						</span>
+					</div>
+					<div>
+						<h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+							Your Private Vault
+						</h1>
+						<p className="text-base text-gray-600">
+							Secure key management and zero-knowledge credential storage.
+							Your identity, your control.
+						</p>
+					</div>
 
-						{/* ZK Privacy Badge */}
-						<div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-200">
-							<Sparkles className="w-4 h-4 text-purple-600" />
-							<span className="text-sm font-medium text-purple-900">
-								Protected by Zero-Knowledge Proofs
-							</span>
-						</div>
-					</header>
+					{/* ZK Privacy Badge */}
+					<div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-200">
+						<Sparkles className="w-4 h-4 text-purple-600" />
+						<span className="text-sm font-medium text-purple-900">
+							Protected by Zero-Knowledge Proofs
+						</span>
+					</div>
+				</header>
 
-					{/* Wallet Connection Status */}
-					<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-						<div className="flex items-center gap-3">
-							<Key className="w-5 h-5 text-blue-500" />
-							<h2 className="text-xl font-semibold text-gray-900">
-								Connected Wallet
-							</h2>
-						</div>
+				{/* Wallet Connection Status */}
+				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+					<div className="flex items-center gap-3">
+						<Key className="w-5 h-5 text-blue-500" />
+						<h2 className="text-xl font-semibold text-gray-900">
+							Connected Wallet
+						</h2>
+					</div>
 
-						{isConnected && address ? (
-							<div className="space-y-3">
-								<div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-									<div className="flex items-center gap-3 flex-1 min-w-0">
-										<div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
-											<Fingerprint className="w-5 h-5 text-white" />
+					{isConnected && address ? (
+						<div className="space-y-3">
+							<div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+								<div className="flex items-center gap-3 flex-1 min-w-0">
+									<div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
+										<Fingerprint className="w-5 h-5 text-white" />
+									</div>
+									<div className="min-w-0">
+										<div className="text-sm font-medium text-gray-900">
+											Primary Wallet
 										</div>
-										<div className="min-w-0">
-											<div className="text-sm font-medium text-gray-900">
-												Primary Wallet
-											</div>
-											<div className="text-xs text-gray-500 font-mono truncate">
-												{address}
-											</div>
+										<div className="text-xs text-gray-500 font-mono truncate">
+											{address}
 										</div>
 									</div>
-									<button
-										onClick={() => handleCopy(address)}
-										className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
-										aria-label="Copy address">
-										{copied ? (
-											<Check className="w-4 h-4 text-green-500" />
-										) : (
-											<Copy className="w-4 h-4 text-gray-500" />
-										)}
-									</button>
 								</div>
-
-								<div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-									<Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-									<p className="text-xs text-blue-700">
-										Your wallet is your identity. StrataDeed never stores your
-										private keys.
-									</p>
-								</div>
+								<button
+									onClick={() => handleCopy(address)}
+									className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
+									aria-label="Copy address">
+									{copied ? (
+										<Check className="w-4 h-4 text-green-500" />
+									) : (
+										<Copy className="w-4 h-4 text-gray-500" />
+									)}
+								</button>
 							</div>
-						) : (
-							<div className="p-6 text-center bg-gray-50 rounded-xl">
-								<Lock className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-								<p className="text-sm text-gray-600">
-									Connect your wallet to access your vault
+
+							<div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
+								<Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+								<p className="text-xs text-blue-700">
+									Your wallet is your identity. StrataDeed never stores your
+									private keys.
 								</p>
 							</div>
-						)}
-					</section>
-
-					{/* ZK Credentials */}
-					<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-						<div className="flex items-center gap-3">
-							<FileKey className="w-5 h-5 text-purple-500" />
-							<h2 className="text-xl font-semibold text-gray-900">
-								Zero-Knowledge Credentials
-							</h2>
 						</div>
-
-						<p className="text-sm text-gray-600">
-							Your compliance credentials are stored as cryptographic
-							commitments. Prove eligibility without revealing personal data.
-						</p>
-
-						<div className="space-y-3">
-							{mockCredentials.map((credential) => (
-								<div
-									key={credential.id}
-									className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
-									<div className="flex items-start justify-between mb-2">
-										<div className="flex-1">
-											<div className="font-semibold text-gray-900 mb-1">
-												{credential.type}
-											</div>
-											<div className="text-xs text-gray-500">
-												Issued by {credential.issuer}
-											</div>
-										</div>
-										<span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-											{credential.status}
-										</span>
-									</div>
-
-									<div className="flex items-center justify-between text-xs">
-										<span className="text-gray-500">
-											Issued: {credential.issuedDate}
-										</span>
-										<span className="font-mono text-gray-600">
-											{credential.hash}
-										</span>
-									</div>
-								</div>
-							))}
-						</div>
-
-						<div className="flex items-start gap-2 p-3 bg-purple-50 rounded-lg">
-							<Shield className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
-							<p className="text-xs text-purple-700">
-								<strong>Privacy First:</strong> Only cryptographic hashes are
-								stored on-chain. Your actual identity data never leaves your
-								device.
-							</p>
-						</div>
-					</section>
-
-					{/* Private Data Storage */}
-					<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-						<div className="flex items-center gap-3">
-							<Database className="w-5 h-5 text-cyan-500" />
-							<h2 className="text-xl font-semibold text-gray-900">
-								Encrypted Document Vault
-							</h2>
-						</div>
-
-						<p className="text-sm text-gray-600">
-							Store sensitive property documents with client-side encryption.
-							Only you can decrypt and access your files.
-						</p>
-
-						<div className="p-8 text-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
+					) : (
+						<div className="p-6 text-center bg-gray-50 rounded-xl">
 							<Lock className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-							<p className="text-sm font-medium text-gray-900 mb-1">
-								Document Vault Coming Soon
-							</p>
-							<p className="text-xs text-gray-500">
-								End-to-end encrypted storage for property deeds and compliance
-								documents
+							<p className="text-sm text-gray-600">
+								Connect your wallet to access your vault
 							</p>
 						</div>
-					</section>
+					)}
+				</section>
 
-					{/* Security Notice */}
-					<div className="flex items-start gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200">
-						<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-						<div className="flex-1">
-							<p className="text-sm font-medium text-amber-900 mb-1">
-								Security Best Practices
-							</p>
-							<ul className="text-xs text-amber-700 space-y-1">
-								<li>• Never share your private keys or seed phrase</li>
-								<li>• Use a hardware wallet for maximum security</li>
-								<li>• Verify all transaction details before signing</li>
-								<li>• Keep your credentials backed up in a secure location</li>
-							</ul>
-						</div>
+				{/* ZK Credentials */}
+				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+					<div className="flex items-center gap-3">
+						<FileKey className="w-5 h-5 text-purple-500" />
+						<h2 className="text-xl font-semibold text-gray-900">
+							Zero-Knowledge Credentials
+						</h2>
+					</div>
+
+					<p className="text-sm text-gray-600">
+						Your compliance credentials are stored as cryptographic
+						commitments. Prove eligibility without revealing personal data.
+					</p>
+
+					<div className="space-y-3">
+						{mockCredentials.map((credential) => (
+							<div
+								key={credential.id}
+								className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
+								<div className="flex items-start justify-between mb-2">
+									<div className="flex-1">
+										<div className="font-semibold text-gray-900 mb-1">
+											{credential.type}
+										</div>
+										<div className="text-xs text-gray-500">
+											Issued by {credential.issuer}
+										</div>
+									</div>
+									<span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+										{credential.status}
+									</span>
+								</div>
+
+								<div className="flex items-center justify-between text-xs">
+									<span className="text-gray-500">
+										Issued: {credential.issuedDate}
+									</span>
+									<span className="font-mono text-gray-600">
+										{credential.hash}
+									</span>
+								</div>
+							</div>
+						))}
+					</div>
+
+					<div className="flex items-start gap-2 p-3 bg-purple-50 rounded-lg">
+						<Shield className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+						<p className="text-xs text-purple-700">
+							<strong>Privacy First:</strong> Only cryptographic hashes are
+							stored on-chain. Your actual identity data never leaves your
+							device.
+						</p>
+					</div>
+				</section>
+
+				{/* Private Data Storage */}
+				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+					<div className="flex items-center gap-3">
+						<Database className="w-5 h-5 text-cyan-500" />
+						<h2 className="text-xl font-semibold text-gray-900">
+							Encrypted Document Vault
+						</h2>
+					</div>
+
+					<p className="text-sm text-gray-600">
+						Store sensitive property documents with client-side encryption.
+						Only you can decrypt and access your files.
+					</p>
+
+					<div className="p-8 text-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
+						<Lock className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+						<p className="text-sm font-medium text-gray-900 mb-1">
+							Document Vault Coming Soon
+						</p>
+						<p className="text-xs text-gray-500">
+							End-to-end encrypted storage for property deeds and compliance
+							documents
+						</p>
+					</div>
+				</section>
+
+				{/* Security Notice */}
+				<div className="flex items-start gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200">
+					<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+					<div className="flex-1">
+						<p className="text-sm font-medium text-amber-900 mb-1">
+							Security Best Practices
+						</p>
+						<ul className="text-xs text-amber-700 space-y-1">
+							<li>• Never share your private keys or seed phrase</li>
+							<li>• Use a hardware wallet for maximum security</li>
+							<li>• Verify all transaction details before signing</li>
+							<li>• Keep your credentials backed up in a secure location</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-		</AuthGuard>
+		</div>
 	);
 }
