@@ -4,41 +4,33 @@
  */
 
 @import "tailwindcss";
-
-@font-face {
-	font-family: 'Fraunces';
-	src: url('/fonts/Fraunces72pt-Regular.woff2') format('woff2'),
-		 url('/fonts/Fraunces72pt-Regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css2?family=McLaren&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 @theme {
-	/* Color System - Dark mode only */
-	--color-bg: #0a0f1c;
-	--color-text: #f1f5f9;
-	--color-muted: #94a3b8;
-	--color-card: #1a2036;
-	--color-border: #2d3748;
+	/* Color System - Light mode */
+	--color-bg: #ffffff;
+	--color-text: #0f172a;
+	--color-muted: #64748b;
+	--color-card: #f8fafc;
+	--color-border: #e2e8f0;
 
-	/* Primary accent - Golden Amber (Professional, premium feel) */
-	--color-accent: #fbbf24;
-	--color-accent-light: #fde68a;
-	--color-accent-dark: #d97706;
+	/* Primary accent - Deep Blue (Professional, trust) */
+	--color-accent: #2563eb;
+	--color-accent-light: #60a5fa;
+	--color-accent-dark: #1e40af;
 
-	/* Secondary accent - Deep Sapphire (Trust, stability) */
-	--color-accent-2: #60a5fa;
-	--color-accent-2-light: #93c5fd;
-	--color-accent-2-dark: #1e40af;
+	/* Secondary accent - Emerald (Growth, success) */
+	--color-accent-2: #10b981;
+	--color-accent-2-light: #34d399;
+	--color-accent-2-dark: #059669;
 
-	/* Tertiary accent - Emerald (Growth, success) */
-	--color-accent-3: #34d399;
-	--color-accent-3-light: #6ee7b7;
-	--color-accent-3-dark: #059669;
+	/* Tertiary accent - Amber (Energy, premium) */
+	--color-accent-3: #f59e0b;
+	--color-accent-3-light: #fbbf24;
+	--color-accent-3-dark: #d97706;
 
-	/* Neutral accents - PROPERLY ORDERED for dark mode (lightest to darkest) */
-	--color-gray-50: #f9fafb; /* Lightest - for text on dark backgrounds */
+	/* Neutral shades for light theme */
+	--color-gray-50: #f9fafb;
 	--color-gray-100: #f3f4f6;
 	--color-gray-200: #e5e7eb;
 	--color-gray-300: #d1d5db;
@@ -47,9 +39,9 @@
 	--color-gray-600: #4b5563;
 	--color-gray-700: #374151;
 	--color-gray-800: #1f2937;
-	--color-gray-900: #111827; /* Darkest - for backgrounds */
+	--color-gray-900: #111827;
 
-	/* Blue shades for dark theme */
+	/* Blue shades for light theme */
 	--color-blue-50: #eff6ff;
 	--color-blue-100: #dbeafe;
 	--color-blue-200: #bfdbfe;
@@ -68,36 +60,46 @@
 	--color-info: #3b82f6;
 
 	/* Gradients */
-	--gradient-gold: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-	--gradient-sapphire: linear-gradient(135deg, #60a5fa 0%, #1e40af 100%);
-	--gradient-emerald: linear-gradient(135deg, #34d399 0%, #059669 100%);
-	--gradient-charcoal: linear-gradient(135deg, #475569 0%, #1e293b 100%);
-	--gradient-midnight: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-	--gradient-sunset: linear-gradient(
+	--gradient-blue: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+	--gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	--gradient-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+	--gradient-light: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+	--gradient-sunrise: linear-gradient(
 		135deg,
-		#fbbf24 0%,
-		#ef4444 50%,
-		#3b82f6 100%
+		#3b82f6 0%,
+		#10b981 50%,
+		#f59e0b 100%
 	);
 
-	/* Shadows - Enhanced for dark mode */
-	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5),
-		0 2px 4px -1px rgba(0, 0, 0, 0.3);
-	--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6),
-		0 4px 6px -2px rgba(0, 0, 0, 0.4);
-	--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7),
-		0 10px 10px -5px rgba(0, 0, 0, 0.5);
-	--shadow-gold: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
-	--shadow-sapphire: 0 10px 15px -3px rgba(96, 165, 250, 0.3);
+	/* Shadows - Light mode optimized */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md:
+		0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--shadow-lg:
+		0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	--shadow-xl:
+		0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+	--shadow-blue: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+	--shadow-emerald: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
 
-	/* Typography */
-	--font-sans: "Montserrat", "Inter", system-ui, sans-serif;
-	--font-secondary: "Fraunces", serif;
-	--font-mono: "JetBrains Mono", "SF Mono", monospace;
+	/* Typography - Only McLaren and Montserrat */
+	--font-sans: "Montserrat", sans-serif;
+	--font-mclaren: "McLaren", cursive, sans-serif;
+	--font-mono: monospace;
 
 	/* Animation */
 	--animate-shimmer: shimmer 2s infinite linear;
+	--animate-scan: scan 4s linear infinite;
+	--animate-spin-slow: spin 8s linear infinite;
+
+	@keyframes scan {
+		from {
+			transform: translateY(-100%);
+		}
+		to {
+			transform: translateY(1000%);
+		}
+	}
 }
 
 /* Base styles */
@@ -110,12 +112,10 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
-	color-scheme: dark;
 }
 
-/* Add this to force dark theme on all elements */
+/* Hide scrollbar for all browsers */
 * {
-	color-scheme: dark;
 	-ms-overflow-style: none; /* IE and Edge */
 	scrollbar-width: none; /* Firefox */
 }
@@ -210,6 +210,7 @@ body {
 	}
 }
 
+/* Animation keyframes */
 @keyframes shimmer {
 	0% {
 		transform: translateX(-100%);
@@ -217,4 +218,26 @@ body {
 	100% {
 		transform: translateX(100%);
 	}
+}
+
+/* Font utility classes */
+.font-mclaren {
+	font-family: var(--font-mclaren);
+}
+
+.font-montserrat {
+	font-family: var(--font-sans);
+}
+
+/* Additional light mode utilities */
+.bg-light {
+	background-color: var(--color-bg);
+}
+
+.text-light {
+	color: var(--color-text);
+}
+
+.border-light {
+	border-color: var(--color-border);
 }

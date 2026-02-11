@@ -138,10 +138,10 @@ export default function Navbar() {
 
 								{/* Text branding - improved typography - Hidden on small/medium screens */}
 								<div className="hidden lg:flex flex-col">
-									<span className="text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-gray-900 leading-tight tracking-tight">
+									<span className="text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-black text-gray-900 leading-tight tracking-tight font-mclaren">
 										StrataDeed
 									</span>
-									<span className="text-[10px] lg:text-xs xl:text-xs 2xl:text-sm text-blue-600 font-medium uppercase tracking-[0.15em] leading-none mt-0.5">
+									<span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.4em] leading-none mt-0.5 font-montserrat">
 										Property Tokenization
 									</span>
 								</div>
@@ -208,7 +208,12 @@ export default function Navbar() {
 												onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
 												className="flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white hover:bg-blue-600 rounded-full transition-all duration-500 shadow-xl hover:scale-110 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]">
 												<User className="w-4 h-4" />
-												<ChevronDown className={cn("w-3 h-3 transition-transform duration-300", isUserMenuOpen && "rotate-180")} />
+												<ChevronDown
+													className={cn(
+														"w-3 h-3 transition-transform duration-300",
+														isUserMenuOpen && "rotate-180",
+													)}
+												/>
 											</button>
 
 											{/* Dropdown Menu */}

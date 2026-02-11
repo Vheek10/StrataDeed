@@ -7,8 +7,6 @@ import { getAllProperties } from "../../lib/propertyStorage";
 import type { Property } from "../../lib/dummy-data";
 import { Search, X } from "lucide-react";
 
-import AuthGuard from "@/components/AuthGuard";
-
 // Components
 import MarketplaceHeader from "../../components/marketplace/MarketplaceHeader";
 import PropertyGrid from "../../components/marketplace/PropertyGrid";
@@ -31,7 +29,9 @@ export default function MarketplacePage() {
 		const loadProperties = () => {
 			const properties = getAllProperties(sampleProperties);
 			setAllProperties(properties);
-			console.log(`Loaded ${properties.length} properties (${properties.filter(p => p.isMinted).length} minted)`);
+			console.log(
+				`Loaded ${properties.length} properties (${properties.filter((p) => p.isMinted).length} minted)`,
+			);
 		};
 
 		loadProperties();
@@ -70,51 +70,49 @@ export default function MarketplacePage() {
 	};
 
 	return (
-		<AuthGuard>
-			<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-					{/* Header */}
-					<MarketplaceHeader
-						searchQuery={searchQuery}
-						setSearchQuery={setSearchQuery}
-						showSearch={showSearch}
-						setShowSearch={setShowSearch}
-					/>
+		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-montserrat">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+				{/* Header */}
+				<MarketplaceHeader
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					showSearch={showSearch}
+					setShowSearch={setShowSearch}
+				/>
 
-					{/* Mobile Search */}
-					{showSearch && (
-						<div className="md:hidden mb-6">
-							<div className="relative">
-								<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-								<input
-									type="text"
-									placeholder="Search properties..."
-									value={searchQuery}
-									onChange={(e) => setSearchQuery(e.target.value)}
-									className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-								/>
-								{searchQuery && (
-									<button
-										onClick={() => setSearchQuery("")}
-										className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded">
-										<X className="w-4 h-4 text-gray-400" />
-									</button>
-								)}
-							</div>
+				{/* Mobile Search */}
+				{showSearch && (
+					<div className="md:hidden mb-6">
+						<div className="relative">
+							<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+							<input
+								type="text"
+								placeholder="Search properties..."
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
+								className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 font-montserrat"
+							/>
+							{searchQuery && (
+								<button
+									onClick={() => setSearchQuery("")}
+									className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded">
+									<X className="w-4 h-4 text-gray-400" />
+								</button>
+							)}
 						</div>
-					)}
-
-					{/* Main Content */}
-					<div className="flex flex-col gap-8">
-						{/* Property Grid */}
-						<PropertyGrid
-							filteredProperties={filteredProperties}
-							demoImages={demoImages}
-							clearFilters={clearFilters}
-						/>
 					</div>
+				)}
+
+				{/* Main Content */}
+				<div className="flex flex-col gap-8">
+					{/* Property Grid */}
+					<PropertyGrid
+						filteredProperties={filteredProperties}
+						demoImages={demoImages}
+						clearFilters={clearFilters}
+					/>
 				</div>
 			</div>
-		</AuthGuard>
+		</div>
 	);
 }

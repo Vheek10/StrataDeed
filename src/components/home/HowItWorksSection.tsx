@@ -194,15 +194,14 @@ export default function HowItWorksSection() {
 						},
 					}}
 					className="text-center mb-16 lg:mb-24">
-					<motion.div 
+					<motion.div
 						variants={{
 							hidden: { opacity: 0, y: 10 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 rounded-full mb-10 border border-blue-600/10"
-					>
+						className="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 rounded-full mb-10 border border-blue-600/10">
 						<Zap className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
-						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-secondary">
+						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
 							The StrataDeed Protocol
 						</span>
 					</motion.div>
@@ -212,8 +211,8 @@ export default function HowItWorksSection() {
 							hidden: { opacity: 0, y: 30 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tighter leading-[1.1]">
-						How we digitize <br/>
+						className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tighter leading-[1.1] font-mclaren">
+						How we digitize <br />
 						<span className="text-blue-600">Global Assets.</span>
 					</motion.h2>
 
@@ -222,9 +221,10 @@ export default function HowItWorksSection() {
 							hidden: { opacity: 0, y: 20 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="text-sm lg:text-base text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed">
-						We've collapsed months of legal friction into seconds of cryptographic finality. 
-						Own the world in three institutional-grade layers.
+						className="text-sm lg:text-base text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed font-montserrat">
+						We've collapsed months of legal friction into seconds of
+						cryptographic finality. Own the world in three institutional-grade
+						layers.
 					</motion.p>
 				</motion.div>
 
@@ -259,7 +259,9 @@ export default function HowItWorksSection() {
 									stiffness: 280,
 									damping: 24,
 								}}>
-								<TiltCard isActive={isActive} className="w-full h-full">
+								<TiltCard
+									isActive={isActive}
+									className="w-full h-full">
 									{/* Background Image */}
 									<Image
 										src={images[index]}
@@ -317,7 +319,7 @@ export default function HowItWorksSection() {
 																	repeat: Infinity,
 																	ease: "easeInOut",
 																},
-														  }
+															}
 														: {}
 												}
 												className={cn(
@@ -328,7 +330,7 @@ export default function HowItWorksSection() {
 												)}>
 												<step.icon className="w-6 h-6 sm:w-7 sm:h-7" />
 											</motion.div>
-											<span className="text-4xl sm:text-5xl font-bold text-white/10 select-none">
+											<span className="text-4xl sm:text-5xl font-bold text-white/10 select-none font-mclaren">
 												{step.number}
 											</span>
 										</div>
@@ -338,7 +340,7 @@ export default function HowItWorksSection() {
 											<motion.h3
 												layout="position"
 												className={cn(
-													"text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter",
+													"text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter font-mclaren",
 													!isActive &&
 														"lg:rotate-[-90deg] lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:whitespace-nowrap",
 												)}>
@@ -353,7 +355,7 @@ export default function HowItWorksSection() {
 														exit={{ opacity: 0, y: 10, height: 0 }}
 														transition={{ duration: 0.3, ease: "easeOut" }}
 														className="space-y-6 overflow-hidden">
-														<p className="text-white/80 text-base leading-relaxed max-w-lg font-medium drop-shadow-md">
+														<p className="text-white/80 text-base leading-relaxed max-w-lg font-medium drop-shadow-md font-montserrat">
 															{step.description}
 														</p>
 
@@ -371,7 +373,9 @@ export default function HowItWorksSection() {
 																			colors.bg,
 																		)}
 																	/>
-																	{stat}
+																	<span className="font-montserrat">
+																		{stat}
+																	</span>
 																</motion.div>
 															))}
 														</div>
@@ -423,13 +427,13 @@ export default function HowItWorksSection() {
 				{/* Bottom Stats Grid - Floating Hover Effect */}
 				{/* Minimalist Stats Bar - Classy & Simple */}
 				<div className="relative max-w-5xl mx-auto mt-10 px-4">
-					<motion.div 
+					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
-						className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 border border-gray-100"
-					>
+						className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 border border-gray-100">
 						<div className="flex flex-col sm:flex-row items-center justify-between divide-y sm:divide-y-0 sm:divide-x divide-gray-50">
+							{/* Stats Bar Items */}
 							{[
 								{
 									value: "25K+",
@@ -452,17 +456,23 @@ export default function HowItWorksSection() {
 									color: "text-blue-600",
 								},
 							].map((stat, index) => (
-								<div 
+								<motion.div
 									key={index}
-									className="flex-1 flex flex-col items-center justify-center py-10 px-6 w-full hover:bg-blue-50/30 transition-all duration-500 first:rounded-t-[2.5rem] sm:first:rounded-l-[2.5rem] sm:first:rounded-tr-none last:rounded-b-[2.5rem] sm:last:rounded-r-[2.5rem] sm:last:rounded-bl-none group"
-								>
-									<h3 className={cn("text-3xl lg:text-4xl font-black mb-3 tracking-tightest group-hover:scale-110 transition-transform duration-500", stat.color)}>
+									whileHover={{ backgroundColor: "rgba(239, 246, 255, 0.5)" }}
+									className="flex-1 flex flex-col items-center justify-center py-10 px-6 w-full transition-all duration-500 first:rounded-t-[2.5rem] sm:first:rounded-l-[2.5rem] sm:first:rounded-tr-none last:rounded-b-[2.5rem] sm:last:rounded-r-[2.5rem] sm:last:rounded-bl-none group cursor-default">
+									<motion.h3
+										whileHover={{ scale: 1.1 }}
+										className={cn(
+											"text-3xl lg:text-4xl font-black mb-3 tracking-tightest transition-colors duration-500",
+											stat.color,
+											"font-mclaren",
+										)}>
 										{stat.value}
-									</h3>
-									<p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em]">
+									</motion.h3>
+									<p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] font-montserrat">
 										{stat.label}
 									</p>
-								</div>
+								</motion.div>
 							))}
 						</div>
 					</motion.div>

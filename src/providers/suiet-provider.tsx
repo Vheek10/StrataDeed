@@ -6,11 +6,7 @@ import * as React from "react";
 import { WalletProvider, useWallet } from "@suiet/wallet-kit";
 
 export function SuietProvider({ children }: { children: React.ReactNode }) {
-	return (
-		<WalletProvider>
-			{children}
-		</WalletProvider>
-	);
+	return <WalletProvider>{children}</WalletProvider>;
 }
 
 export function useSuiWallet() {
@@ -20,8 +16,8 @@ export function useSuiWallet() {
 		...wallet,
 		address: wallet.account?.address,
 		connected: wallet.connected,
+		connecting: wallet.connecting,
 		disconnect: wallet.disconnect,
+		select: wallet.select,
 	};
 }
-
-
