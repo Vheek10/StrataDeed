@@ -357,16 +357,19 @@ function MintFormContent() {
 				.substr(2, 9)}`;
 
 			// Create ZK Commitment
+			const fileHashes = await Promise.all(
+				selectedFiles.map((f) => keccak256(f.name + f.size + f.lastModified))
+			);
 			const privateDataString = JSON.stringify({
 				valuation: formData.valuation,
-				files: selectedFiles.map((f) => ({
+				files: selectedFiles.map((f, i) => ({
 					name: f.name,
-					hash: keccak256(f.name + f.size + f.lastModified),
+					hash: fileHashes[i],
 				})),
 				salt: propertyId,
 				timestamp: Date.now(),
 			});
-			const privateCommitment = keccak256(privateDataString);
+			const privateCommitment = await keccak256(privateDataString);
 
 			console.log("Calling tokenizeProperty hook...");
 
