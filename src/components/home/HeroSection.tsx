@@ -66,7 +66,6 @@ export default function HeroSection() {
 						<div className="text-center lg:text-left flex flex-col items-center lg:items-start">
 							{/* Semi-transparent badge - Institutional Standard */}
 							<div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/40 backdrop-blur-xl rounded-full mb-10 border border-gray-200/50 shadow-sm">
-								<Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
 								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.4em] whitespace-nowrap font-montserrat">
 									Innovating Real Estate
 								</span>

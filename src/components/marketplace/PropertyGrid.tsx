@@ -43,12 +43,14 @@ export default function PropertyGrid({
 					adjusting your criteria or clearing all filters.
 				</p>
 
-				<button
-					onClick={clearFilters}
-					className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2">
-					<RefreshCw className="w-4 h-4" />
+			<button
+				onClick={clearFilters}
+				className="px-8 py-4 bg-gray-900 text-white font-black rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-3">
+				<span className="text-[10px] uppercase tracking-[0.4em] font-montserrat">
 					Clear All Filters
-				</button>
+				</span>
+				<RefreshCw className="w-4 h-4" />
+			</button>
 			</div>
 		);
 	}

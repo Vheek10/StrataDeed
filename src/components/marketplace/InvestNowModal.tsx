@@ -760,27 +760,33 @@ export default function InvestNowModal({
 							<div className="border-t border-gray-100 p-4 sm:p-6">
 								{step === "select" && (
 									<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-										<button
-											onClick={onClose}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm sm:text-base">
+									<button
+										onClick={onClose}
+										className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 font-black rounded-full hover:bg-gray-50 transition-colors">
+										<span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-montserrat">
 											Cancel
-										</button>
-										<button
-											onClick={handleInvest}
-											disabled={!selectedTokens || !!error || isProcessing}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
-											{isProcessing ? (
-												<>
-													<div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+										</span>
+									</button>
+									<button
+										onClick={handleInvest}
+										disabled={!selectedTokens || !!error || isProcessing}
+										className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-black rounded-full hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3">
+										{isProcessing ? (
+											<>
+												<div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+												<span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-montserrat">
 													Processing...
-												</>
-											) : (
-												<>
-													<DollarSign className="w-3 h-3 sm:w-4 sm:h-4" />
+												</span>
+											</>
+										) : (
+											<>
+												<span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-montserrat">
 													{isMockMode ? "Try Demo Investment" : "Invest Now"}
-												</>
-											)}
-										</button>
+												</span>
+												<DollarSign className="w-3 h-3 sm:w-4 sm:h-4" />
+											</>
+										)}
+									</button>
 									</div>
 								)}
 
@@ -803,21 +809,25 @@ export default function InvestNowModal({
 
 								{step === "success" && (
 									<div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-										<button
-											onClick={onClose}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-sm sm:text-base">
+									<button
+										onClick={onClose}
+										className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-300 text-gray-700 font-black rounded-full hover:bg-gray-50 transition-colors">
+										<span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-montserrat">
 											Close
-										</button>
-										<button
-											onClick={() => {
-												onClose();
-												// Navigate to portfolio page
-												window.location.href = "/dashboard";
-											}}
-											className="px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-semibold rounded-xl hover:from-emerald-700 hover:to-teal-600 transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
-											<TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+										</span>
+									</button>
+									<button
+										onClick={() => {
+											onClose();
+											// Navigate to portfolio page
+											window.location.href = "/dashboard";
+										}}
+										className="px-6 sm:px-8 py-3 sm:py-4 bg-emerald-600 text-white font-black rounded-full hover:bg-emerald-700 transition-all flex items-center justify-center gap-3">
+										<span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] font-montserrat">
 											View Portfolio
-										</button>
+										</span>
+										<TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+									</button>
 									</div>
 								)}
 							</div>

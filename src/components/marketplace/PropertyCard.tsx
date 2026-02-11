@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import InvestNowModal from "./InvestNowModal";
 import {
 	MapPin,
@@ -10,7 +11,7 @@ import {
 	Bath,
 	Square,
 	Users,
-	ArrowRight,
+	ArrowUpRight,
 	TrendingUp,
 	Star,
 } from "lucide-react";
@@ -105,14 +106,14 @@ export default function PropertyCard({
 					</div>
 
 					<div className="p-4 sm:p-5 flex-1 flex flex-col">
-						<div className="mb-4">
-							<h3 className="font-bold text-gray-900 text-base sm:text-lg mb-1.5 line-clamp-1 group-hover:text-blue-600 transition-colors">
-								{property.title}
-							</h3>
-							<p className="text-gray-500 text-xs sm:text-sm line-clamp-2 leading-relaxed">
-								{property.description}
-							</p>
-						</div>
+					<div className="mb-4">
+						<h3 className="font-black text-gray-900 text-base sm:text-lg mb-1.5 line-clamp-1 group-hover:text-blue-600 transition-colors tracking-tight font-mclaren">
+							{property.title}
+						</h3>
+						<p className="text-gray-500 text-xs sm:text-sm line-clamp-2 leading-relaxed font-montserrat">
+							{property.description}
+						</p>
+					</div>
 
 						{/* Stats Grid */}
 						<div className="grid grid-cols-3 gap-2 mb-5 p-3 bg-gray-50 rounded-xl border border-gray-100">
@@ -179,22 +180,32 @@ export default function PropertyCard({
 							<div className="mt-auto">
 								<div className="flex justify-between items-end mb-4">
 									<div>
-										<div className="text-[10px] uppercase tracking-wider text-gray-500 mb-0.5 font-medium">
-											Asset Value
-										</div>
-										<div className="text-lg sm:text-xl font-bold text-gray-900">
-											${property.price.toLocaleString()}
-										</div>
+									<div className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-0.5 font-black font-montserrat">
+										Asset Value
+									</div>
+									<div className="text-lg sm:text-xl font-black text-gray-900 font-mclaren">
+										${property.price.toLocaleString()}
+									</div>
 									</div>
 									
 								</div>
 
-								<button
-									onClick={handleInvestClick}
-									className="w-full px-4 py-3 bg-white text-gray-900  font-bold rounded-xl hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-sm shadow-sm border border-gray-300 hover:border-blue-500 hover:text-blue-600">
+							<motion.button
+								onClick={handleInvestClick}
+								whileHover={{
+									scale: 1.05,
+									y: -5,
+									backgroundColor: "#2563eb",
+									color: "#ffffff",
+									transition: { duration: 0.4 },
+								}}
+								whileTap={{ scale: 0.98 }}
+								className="w-full px-6 py-4 bg-gray-900 text-white rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] flex items-center justify-center gap-3">
+								<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
 									Invest Now
-									<ArrowRight className="w-4 h-4" />
-								</button>
+								</span>
+								<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+							</motion.button>
 							</div>
 						</div>
 					</div>

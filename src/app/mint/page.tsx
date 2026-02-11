@@ -22,7 +22,20 @@ import {
 	Globe,
 	Shield,
 } from "lucide-react";
-import { keccak256 } from "@mysten/sui/utils";
+// Simple hash function for file commitments (using Web Crypto API for SHA-256)
+async function hashString(str: string): Promise<string> {
+	const encoder = new TextEncoder();
+	const data = encoder.encode(str);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+	return "0x" + hashHex.slice(0, 64);
+}
+
+// Simple async wrapper for hash calls
+const keccak256 = async (str: string): Promise<string> => {
+	return hashString(str);
+};
 import { useTokenization } from "@/hooks/useTokenization";
 import { useStrataDeed } from "@/hooks/useStrataDeed";
 import { useRouter } from "next/navigation";
@@ -483,12 +496,12 @@ function MintFormContent() {
 						<CheckCircle className="w-10 h-10 text-emerald-600" />
 					</div>
 
-					<h2 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">
+					<h2 className="text-3xl font-black text-gray-900 mb-2 tracking-tight font-mclaren">
 						{formData.tokenizationEnabled
 							? "Property Tokenized Successfully!"
 							: "Deed Minted Successfully!"}
 					</h2>
-					<p className="text-gray-600 mb-8">
+					<p className="text-gray-600 mb-8 font-montserrat">
 						Your property deed for{" "}
 						<span className="font-bold text-gray-900">"{formData.title}"</span>{" "}
 						has been securely{" "}
@@ -535,13 +548,13 @@ function MintFormContent() {
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-4">
-						<button
-							onClick={() => router.push("/dashboard")}
-							className="flex-1 px-6 py-4 bg-gray-900 text-white font-bold rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 group"
-							aria-label="Go to dashboard">
-							Go to Dashboard
-							<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-						</button>
+							<button
+								onClick={() => router.push("/dashboard")}
+								className="flex-1 px-8 py-5 bg-gray-900 text-white rounded-full hover:bg-blue-600 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 group"
+								aria-label="Go to dashboard">
+								<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">Go to Dashboard</span>
+								<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+							</button>
 						<button
 							onClick={() => {
 								setTxHash(undefined);
@@ -559,10 +572,10 @@ function MintFormContent() {
 									tokenSupply: "1000",
 								});
 							}}
-							className="flex-1 px-6 py-4 bg-white text-gray-900 font-bold rounded-xl border border-gray-200 hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
-							aria-label="Mint another property deed">
-							<Plus className="w-4 h-4" />
-							Mint Another
+								className="flex-1 px-8 py-5 bg-white text-gray-900 rounded-full border border-gray-200 hover:border-blue-300 transition-all duration-500 hover:shadow-[0_10px_20px_-5px_rgba(0,0,0,0.05)] hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3"
+								aria-label="Mint another property deed">
+								<Plus className="w-4 h-4" />
+								<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">Mint Another</span>
 						</button>
 					</div>
 				</motion.div>
@@ -640,16 +653,16 @@ function MintFormContent() {
 				<div className="text-center mb-10">
 					<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-4 ring-1 ring-blue-100">
 						<Building2 className="w-4 h-4 text-blue-600" />
-						<span className="text-sm font-medium text-blue-600">
+						<span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 font-montserrat">
 							PROPERTY REGISTRATION
 						</span>
 					</div>
 
-					<h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+					<h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3 tracking-tight font-mclaren">
 						Mint Property Deed
 					</h1>
 
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto">
+					<p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium font-montserrat">
 						Create a unique, on-chain digital deed representing your real estate
 						asset.
 					</p>
@@ -1258,7 +1271,7 @@ function MintFormContent() {
 								<button
 									type="submit"
 									disabled={isProcessing || !connected}
-									className={`w-full px-6 py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center ${
+									className={`w-full px-6 py-5 rounded-full shadow-lg transition-all duration-500 flex items-center justify-center ${
 										isProcessing || !connected
 											? "bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-80"
 											: "bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:via-blue-600 hover:to-cyan-600 hover:shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:shadow-lg"

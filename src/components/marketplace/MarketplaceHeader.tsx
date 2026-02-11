@@ -21,10 +21,15 @@ export default function MarketplaceHeader({
 			{/* Header */}
 			<div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
 				<div>
-					<h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+					<div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-600/5 rounded-full mb-4 border border-blue-600/10">
+						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
+							Asset Marketplace
+						</span>
+					</div>
+					<h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 tracking-tighter leading-[1.1] font-mclaren">
 						Asset Marketplace
 					</h1>
-					<p className="text-gray-600">
+					<p className="text-sm text-gray-500 font-medium leading-relaxed font-montserrat">
 						Discover high-yield tokenized real estate opportunities worldwide
 					</p>
 				</div>
@@ -38,7 +43,7 @@ export default function MarketplaceHeader({
 							placeholder="Search properties..."
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+							className="w-full pl-10 pr-10 py-3 bg-white/60 backdrop-blur-xl border border-gray-200 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 font-montserrat text-sm"
 						/>
 						{searchQuery && (
 							<button
@@ -53,7 +58,7 @@ export default function MarketplaceHeader({
 				{/* Mobile Search Toggle */}
 				<button
 					onClick={() => setShowSearch(!showSearch)}
-					className="md:hidden p-3 bg-white border border-gray-200 rounded-xl hover:shadow-md transition-all">
+					className="md:hidden p-3 bg-white/60 backdrop-blur-xl border border-gray-200 rounded-full hover:shadow-md transition-all">
 					<Search className="w-5 h-5 text-gray-700" />
 				</button>
 			</div>

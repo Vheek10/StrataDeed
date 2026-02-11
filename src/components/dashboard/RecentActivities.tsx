@@ -138,8 +138,10 @@ export default function RecentActivities({
 				})}
 			</div>
 
-			<button className="w-full mt-6 py-2.5 text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
-				View on SuiScan
+			<button className="w-full mt-6 py-3 text-blue-600 font-black hover:bg-blue-50 rounded-full transition-colors flex items-center justify-center gap-3">
+				<span className="text-[10px] uppercase tracking-[0.4em] font-montserrat">
+					View on SuiScan
+				</span>
 				<ExternalLink className="w-3.5 h-3.5" />
 			</button>
 		</div>

@@ -1,7 +1,8 @@
 /** @format */
 "use client";
 
-import { Mail, Phone, MapPin, ArrowRight, Building2, Twitter, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, ArrowUpRight, Building2, Twitter, Linkedin, Github } from "lucide-react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function ContactPage() {
@@ -20,19 +21,19 @@ export default function ContactPage() {
 						<div>
 							<div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-5 border border-blue-100">
 								<Building2 className="w-4 h-4 text-blue-600" />
-								<span className="text-xs sm:text-sm font-semibold tracking-[0.18em] text-blue-700">
+								<span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.4em] text-blue-700 font-montserrat">
 									CONTACT STRATADEED
 								</span>
 							</div>
 
-							<h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
+							<h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight font-mclaren">
 								Let&apos;s talk about{" "}
 								<span className="bg-linear-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
 									tokenized real estate
 								</span>
 							</h1>
 
-							<p className="text-base sm:text-lg text-gray-600 max-w-xl mb-8">
+							<p className="text-base sm:text-lg text-gray-600 max-w-xl mb-8 font-medium font-montserrat">
 								Whether you&apos;re a property owner, investor, or partner, we&apos;d love to hear from
 								you. Share a few details and our team will get back to you.
 							</p>
@@ -40,7 +41,7 @@ export default function ContactPage() {
 							<form className="space-y-5 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl p-5 sm:p-6 lg:p-7 shadow-sm">
 								<div className="grid sm:grid-cols-2 gap-4">
 									<div>
-										<label className="block text-sm font-medium text-gray-700 mb-1.5">
+										<label className="block text-sm font-medium text-gray-700 mb-1.5 font-montserrat">
 											Full name
 										</label>
 										<input
@@ -50,7 +51,7 @@ export default function ContactPage() {
 										/>
 									</div>
 									<div>
-										<label className="block text-sm font-medium text-gray-700 mb-1.5">
+										<label className="block text-sm font-medium text-gray-700 mb-1.5 font-montserrat">
 											Work email
 										</label>
 										<input
@@ -63,7 +64,7 @@ export default function ContactPage() {
 
 								<div className="grid sm:grid-cols-2 gap-4">
 									<div>
-										<label className="block text-sm font-medium text-gray-700 mb-1.5">
+										<label className="block text-sm font-medium text-gray-700 mb-1.5 font-montserrat">
 											Company (optional)
 										</label>
 										<input
@@ -73,7 +74,7 @@ export default function ContactPage() {
 										/>
 									</div>
 									<div>
-										<label className="block text-sm font-medium text-gray-700 mb-1.5">
+										<label className="block text-sm font-medium text-gray-700 mb-1.5 font-montserrat">
 											Topic
 										</label>
 										<select className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500/70">
@@ -86,7 +87,7 @@ export default function ContactPage() {
 								</div>
 
 								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-1.5">
+									<label className="block text-sm font-medium text-gray-700 mb-1.5 font-montserrat">
 										Message
 									</label>
 									<textarea
@@ -97,14 +98,21 @@ export default function ContactPage() {
 								</div>
 
 								<div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-									<button
+									<motion.button
 										type="submit"
-										className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold rounded-lg bg-linear-to-r from-blue-600 to-cyan-500 text-white hover:from-blue-700 hover:to-cyan-600 shadow-sm hover:shadow-md transition-all duration-200"
+										whileHover={{
+											scale: 1.05,
+											y: -5,
+											backgroundColor: "#2563eb",
+											transition: { duration: 0.4 },
+										}}
+										whileTap={{ scale: 0.98 }}
+										className="group inline-flex items-center justify-center gap-3 px-10 py-5 bg-gray-900 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]"
 									>
-										<span>Send message</span>
-										<ArrowRight className="w-4 h-4" />
-									</button>
-									<p className="text-xs sm:text-sm text-gray-500">
+										<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">Send message</span>
+										<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+									</motion.button>
+									<p className="text-xs sm:text-sm text-gray-500 font-montserrat">
 										We typically respond within 1–2 business days.
 									</p>
 								</div>
@@ -124,13 +132,13 @@ export default function ContactPage() {
 
 								<div className="relative z-10 space-y-5">
 									<div>
-										<p className="text-xs font-semibold tracking-[0.18em] text-cyan-300 mb-2">
+										<p className="text-[10px] font-black uppercase tracking-[0.4em] text-cyan-300 mb-2 font-montserrat">
 											TALK TO OUR TEAM
 										</p>
-										<h2 className="text-xl sm:text-2xl font-semibold mb-2">
+										<h2 className="text-xl sm:text-2xl font-black mb-2 tracking-tight font-mclaren">
 											Prototype, but fully serious about the future.
 										</h2>
-										<p className="text-sm text-gray-300 leading-relaxed">
+										<p className="text-sm text-gray-300 leading-relaxed font-montserrat">
 											StrataDeed is an MVP demonstrating how property deeds can be
 											tokenized on-chain. Use this contact channel to discuss ideas,
 											feedback, or collaborations.
@@ -179,7 +187,7 @@ export default function ContactPage() {
 									</div>
 
 									<div className="pt-2 border-t border-white/10">
-										<p className="text-xs text-gray-400 mb-3 uppercase tracking-[0.16em]">
+										<p className="text-[10px] text-gray-400 mb-3 font-black uppercase tracking-[0.4em] font-montserrat">
 											COMMUNITY & UPDATES
 										</p>
 										<div className="flex items-center gap-3">
@@ -207,7 +215,7 @@ export default function ContactPage() {
 							</div>
 
 							<div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50/80 p-4 sm:p-5 text-xs sm:text-sm text-gray-600 space-y-2">
-								<p className="font-semibold text-gray-900">
+								<p className="font-black text-gray-900 font-montserrat">
 									Note: StrataDeed is a demo / prototype environment.
 								</p>
 								<p>

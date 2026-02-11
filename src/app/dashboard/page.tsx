@@ -28,10 +28,15 @@ export default function Dashboard() {
 	return (
 		<div className="min-h-screen bg-gray-50 font-montserrat">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-				<h1 className="text-3xl font-bold text-gray-900 mb-2 font-mclaren">
+				<div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-600/5 rounded-full mb-4 border border-blue-600/10">
+					<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
+						Portfolio Dashboard
+					</span>
+				</div>
+				<h1 className="text-3xl font-black text-gray-900 mb-2 tracking-tighter leading-[1.1] font-mclaren">
 					Dashboard
 				</h1>
-				<p className="text-gray-600 mb-6 font-montserrat">
+				<p className="text-sm text-gray-500 mb-6 font-medium leading-relaxed font-montserrat">
 					Monitor your real estate investments and portfolio performance
 				</p>
 

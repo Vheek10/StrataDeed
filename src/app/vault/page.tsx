@@ -51,21 +51,21 @@ export default function VaultPage() {
 	];
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-montserrat">
 			<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 				{/* Header */}
 				<header className="space-y-4">
 					<div className="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/5 px-4 py-2">
 						<Shield className="w-5 h-5 text-purple-500" />
-						<span className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-500">
+						<span className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-500 font-montserrat">
 							Identity Hub
 						</span>
 					</div>
 					<div>
-						<h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+						<h1 className="text-3xl sm:text-4xl font-black text-gray-900 mb-2 tracking-tight font-mclaren">
 							Your Private Vault
 						</h1>
-						<p className="text-base text-gray-600">
+						<p className="text-base text-gray-600 font-medium font-montserrat">
 							Secure key management and zero-knowledge credential storage.
 							Your identity, your control.
 						</p>
@@ -74,7 +74,7 @@ export default function VaultPage() {
 					{/* ZK Privacy Badge */}
 					<div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-200">
 						<Sparkles className="w-4 h-4 text-purple-600" />
-						<span className="text-sm font-medium text-purple-900">
+						<span className="text-sm font-black text-purple-900 font-montserrat">
 							Protected by Zero-Knowledge Proofs
 						</span>
 					</div>
@@ -84,7 +84,7 @@ export default function VaultPage() {
 				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
 					<div className="flex items-center gap-3">
 						<Key className="w-5 h-5 text-blue-500" />
-						<h2 className="text-xl font-semibold text-gray-900">
+						<h2 className="text-xl font-black text-gray-900 tracking-tight font-mclaren">
 							Connected Wallet
 						</h2>
 					</div>
@@ -139,7 +139,7 @@ export default function VaultPage() {
 				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
 					<div className="flex items-center gap-3">
 						<FileKey className="w-5 h-5 text-purple-500" />
-						<h2 className="text-xl font-semibold text-gray-900">
+						<h2 className="text-xl font-black text-gray-900 tracking-tight font-mclaren">
 							Zero-Knowledge Credentials
 						</h2>
 					</div>
@@ -194,7 +194,7 @@ export default function VaultPage() {
 				<section className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
 					<div className="flex items-center gap-3">
 						<Database className="w-5 h-5 text-cyan-500" />
-						<h2 className="text-xl font-semibold text-gray-900">
+						<h2 className="text-xl font-black text-gray-900 tracking-tight font-mclaren">
 							Encrypted Document Vault
 						</h2>
 					</div>
@@ -206,7 +206,7 @@ export default function VaultPage() {
 
 					<div className="p-8 text-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
 						<Lock className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-						<p className="text-sm font-medium text-gray-900 mb-1">
+						<p className="text-sm font-black text-gray-900 mb-1 font-montserrat">
 							Document Vault Coming Soon
 						</p>
 						<p className="text-xs text-gray-500">
@@ -220,7 +220,7 @@ export default function VaultPage() {
 				<div className="flex items-start gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200">
 					<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
 					<div className="flex-1">
-						<p className="text-sm font-medium text-amber-900 mb-1">
+						<p className="text-sm font-black text-amber-900 mb-1 font-montserrat">
 							Security Best Practices
 						</p>
 						<ul className="text-xs text-amber-700 space-y-1">

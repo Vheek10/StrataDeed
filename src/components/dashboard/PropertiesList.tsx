@@ -25,20 +25,22 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 		<div className="bg-white rounded-xl border border-gray-200 p-5">
 			<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
 				<div>
-					<h3 className="text-lg md:text-xl font-bold text-gray-900 flex items-center gap-2">
+					<h3 className="text-lg md:text-xl font-black text-gray-900 flex items-center gap-2 tracking-tight font-mclaren">
                         <Layers className="w-5 h-5 text-blue-500" />
 						Tokenized Properties
 					</h3>
-					<p className="text-sm text-gray-600">
+					<p className="text-sm text-gray-500 font-medium font-montserrat">
 						Fractional real estate ownership
 					</p>
 				</div>
 				<button 
 					onClick={() => router.push("/mint")}
-					className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors text-sm shadow-lg shadow-emerald-500/20"
+					className="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 bg-gray-900 hover:bg-blue-600 text-white font-black rounded-full transition-all shadow-lg shadow-emerald-500/20"
 				>
+					<span className="text-[10px] uppercase tracking-[0.4em] font-montserrat">
+						Tokenize Property
+					</span>
 					<Plus className="w-4 h-4" />
-					Tokenize Property
 				</button>
 			</div>
 
@@ -112,8 +114,10 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 			</div>
 
 			<div className="mt-6 pt-6 border-t border-gray-200">
-				<button className="w-full flex items-center justify-center gap-2 py-2 text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors">
-					View All Properties
+				<button className="w-full flex items-center justify-center gap-3 py-3 text-blue-600 font-black hover:bg-blue-50 rounded-full transition-colors">
+					<span className="text-[10px] uppercase tracking-[0.4em] font-montserrat">
+						View All Properties
+					</span>
 					<ChevronRight className="w-4 h-4" />
 				</button>
 			</div>
