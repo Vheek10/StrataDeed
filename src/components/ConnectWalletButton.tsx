@@ -2,23 +2,29 @@
 "use client";
 
 import { ConnectButton } from "@suiet/wallet-kit";
+import { motion } from "framer-motion";
+import { Wallet } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function ConnectWalletButton() {
 	return (
-		<div className="flex items-center justify-center">
+		<motion.div
+			whileHover={{ scale: 1.02 }}
+			whileTap={{ scale: 0.98 }}
+			className="relative">
 			<style>{`
 				/* Connect Wallet Button - Institutional Capsule */
 				.suiet-connect-button {
 					background: #111827 !important; /* gray-900 */
 					border: 1px solid rgba(255, 255, 255, 0.1) !important;
 					color: #ffffff !important;
-					font-family: inherit !important;
+					font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif !important;
 					font-weight: 900 !important;
 					font-size: 10px !important;
 					padding: 0.8rem 2rem !important;
 					border-radius: 9999px !important;
 					transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
-					box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1) !important;
+					box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
 					cursor: pointer !important;
 					display: inline-flex !important;
 					align-items: center !important;
@@ -26,31 +32,31 @@ export default function ConnectWalletButton() {
 					gap: 0.75rem !important;
 					text-transform: uppercase !important;
 					letter-spacing: 0.4em !important;
-					min-height: 52px !important;
+					min-height: 48px !important;
 				}
 
 				.suiet-connect-button:hover {
 					background: #2563eb !important; /* blue-600 */
-					box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.3) !important;
-					transform: scale(1.05) !important;
+					box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2), 0 4px 6px -2px rgba(37, 99, 235, 0.1) !important;
+					transform: translateY(-1px) !important;
 					border-color: rgba(255, 255, 255, 0.2) !important;
 				}
 
 				.suiet-connect-button:active {
-					transform: scale(0.98) !important;
+					transform: translateY(0) !important;
 				}
 
 				/* Connected state - Emerald Green */
 				.suiet-connect-button.connected {
 					background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-					border-color: rgba(52, 211, 153, 0.2) !important;
-					box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2) !important;
+					border-color: rgba(52, 211, 153, 0.3) !important;
+					box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.15) !important;
 				}
 
 				.suiet-connect-button.connected:hover {
 					background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
-					border-color: rgba(52, 211, 153, 0.4) !important;
-					box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3) !important;
+					border-color: rgba(52, 211, 153, 0.5) !important;
+					box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2) !important;
 				}
 
 				/* Dropdown menu styling - Premium Dark Theme */
@@ -67,7 +73,7 @@ export default function ConnectWalletButton() {
 				.suiet-wallet-kit-dropdown > div {
 					color: #f3f4f6 !important; /* gray-100 */
 					font-weight: 600 !important;
-					font-family: var(--font-sans) !important;
+					font-family: var(--font-montserrat), ui-sans-serif !important;
 				}
 
 				/* Dialog/Modal background */
@@ -136,7 +142,7 @@ export default function ConnectWalletButton() {
 					border-radius: 0.75rem !important;
 					padding: 0.75rem 1rem !important;
 					font-weight: 600 !important;
-					font-family: var(--font-sans) !important;
+					font-family: var(--font-montserrat) !important;
 					transition: all 0.2s !important;
 				}
 
@@ -176,7 +182,9 @@ export default function ConnectWalletButton() {
 					filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 				}
 			`}</style>
-			<ConnectButton />
-		</div>
+			<div className="flex items-center justify-center">
+				<ConnectButton />
+			</div>
+		</motion.div>
 	);
 }
