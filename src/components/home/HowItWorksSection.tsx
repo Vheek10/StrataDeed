@@ -199,9 +199,9 @@ export default function HowItWorksSection() {
 							hidden: { opacity: 0, y: 10 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 rounded-full mb-8 sm:mb-10 border border-blue-600/10">
+						className="inline-flex items-center gap-3 px-6 py-2 bg-blue-600/5 rounded-full mb-10 border border-blue-600/10">
 						<Zap className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
-						<span className="text-[9px] sm:text-[10px] font-black text-blue-700 uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
+						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
 							The StrataDeed Protocol
 						</span>
 					</motion.div>
@@ -211,7 +211,7 @@ export default function HowItWorksSection() {
 							hidden: { opacity: 0, y: 30 },
 							visible: { opacity: 1, y: 0 },
 						}}
-						className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-6 sm:mb-8 tracking-tighter leading-[1.1] font-mclaren">
+						className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tighter leading-[1.1] font-mclaren">
 						How we digitize <br />
 						<span className="text-blue-600">Global Assets.</span>
 					</motion.h2>
@@ -229,7 +229,7 @@ export default function HowItWorksSection() {
 				</motion.div>
 
 				{/* Accordion Cards */}
-				<div className="flex flex-col lg:flex-row gap-4 sm:gap-6 h-auto lg:h-[600px] mb-12 perspective-1000">
+				<div className="flex flex-col lg:flex-row gap-6 h-[800px] lg:h-[600px] mb-12 perspective-1000">
 					{steps.map((step, index) => {
 						const isActive = activeStep === index;
 						const colors = getColor(step.color);
@@ -247,7 +247,7 @@ export default function HowItWorksSection() {
 									setIsAutoPlay(false);
 								}}
 								className={cn(
-									"relative rounded-3xl overflow-hidden cursor-pointer shadow-xl min-h-[220px] sm:min-h-[260px]",
+									"relative rounded-3xl overflow-hidden cursor-pointer shadow-xl",
 									"lg:h-full",
 									isActive ? "flex-[3] lg:flex-[3]" : "flex-[1] lg:flex-[1]",
 								)}
@@ -340,7 +340,7 @@ export default function HowItWorksSection() {
 											<motion.h3
 												layout="position"
 												className={cn(
-													"text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter font-mclaren",
+													"text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter font-mclaren",
 													!isActive &&
 														"lg:rotate-[-90deg] lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:whitespace-nowrap",
 												)}>
@@ -366,7 +366,7 @@ export default function HowItWorksSection() {
 																	initial={{ opacity: 0, x: -10 }}
 																	animate={{ opacity: 1, x: 0 }}
 																	transition={{ delay: 0.1 + i * 0.1 }}
-																	className="bg-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl px-4 sm:px-5 py-2 text-[9px] sm:text-xs text-white font-black uppercase tracking-[0.2em] sm:tracking-widest flex items-center gap-3 shadow-2xl">
+																	className="bg-white/10 backdrop-blur-3xl border border-white/20 rounded-2xl px-5 py-2 text-[10px] sm:text-xs text-white font-black uppercase tracking-widest flex items-center gap-3 shadow-2xl">
 																	<div
 																		className={cn(
 																			"w-1.5 h-1.5 rounded-full shadow-[0_0_10px_currentColor]",
@@ -459,17 +459,17 @@ export default function HowItWorksSection() {
 								<motion.div
 									key={index}
 									whileHover={{ backgroundColor: "rgba(239, 246, 255, 0.5)" }}
-									className="flex-1 flex flex-col items-center justify-center py-6 sm:py-10 px-6 w-full transition-all duration-500 first:rounded-t-[2.5rem] sm:first:rounded-l-[2.5rem] sm:first:rounded-tr-none last:rounded-b-[2.5rem] sm:last:rounded-r-[2.5rem] sm:last:rounded-bl-none group cursor-default">
+									className="flex-1 flex flex-col items-center justify-center py-10 px-6 w-full transition-all duration-500 first:rounded-t-[2.5rem] sm:first:rounded-l-[2.5rem] sm:first:rounded-tr-none last:rounded-b-[2.5rem] sm:last:rounded-r-[2.5rem] sm:last:rounded-bl-none group cursor-default">
 									<motion.h3
 										whileHover={{ scale: 1.1 }}
 										className={cn(
-											"text-2xl sm:text-3xl lg:text-4xl font-black mb-3 tracking-tightest transition-colors duration-500",
+											"text-3xl lg:text-4xl font-black mb-3 tracking-tightest transition-colors duration-500",
 											stat.color,
 											"font-mclaren",
 										)}>
 										{stat.value}
 									</motion.h3>
-									<p className="text-[9px] sm:text-[10px] font-black text-gray-400 uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
+									<p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] font-montserrat">
 										{stat.label}
 									</p>
 								</motion.div>
