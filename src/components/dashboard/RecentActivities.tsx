@@ -23,7 +23,7 @@ export default function RecentActivities({
 }: RecentActivitiesProps) {
 	const getIcon = (type: RecentActivity["type"]) => {
 		switch (type) {
-			case "stake":
+			case "mint":
 				return {
 					icon: Layers,
 					color: "text-emerald-600",
@@ -41,15 +41,15 @@ export default function RecentActivities({
 					color: "text-blue-600",
 					bg: "bg-blue-100",
 				};
-			case "swap":
+			case "transfer":
 				return {
 					icon: Repeat,
 					color: "text-purple-600",
 					bg: "bg-purple-100",
 				};
-			case "liquidity":
+			case "escrow":
 				return {
-					icon: Layers,
+					icon: Shield,
 					color: "text-cyan-600",
 					bg: "bg-cyan-100",
 				};

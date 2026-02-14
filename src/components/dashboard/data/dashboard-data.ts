@@ -29,7 +29,7 @@ export interface DashboardMetric {
 
 export interface RecentActivity {
 	id: number;
-	type: "stake" | "harvest" | "bridge" | "swap" | "liquidity";
+	type: "mint" | "harvest" | "bridge" | "transfer" | "escrow";
 	property: string; // Used for "Strategy Name" or "Asset Pair"
 	amount: string | null;
 	date: string;
@@ -122,7 +122,7 @@ export const recentActivities: RecentActivity[] = [
 	},
 	{
 		id: 2,
-		type: "deposit",
+		type: "harvest",
 		property: "RWA Token Purchase",
 		amount: "500 RWA",
 		date: "2 hours ago",

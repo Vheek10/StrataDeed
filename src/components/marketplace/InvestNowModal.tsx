@@ -429,7 +429,7 @@ export default function InvestNowModal({
 												<h3 className="font-bold text-gray-900 text-base sm:text-lg mb-1 truncate font-mclaren">
 													{property.title}
 												</h3>
-												<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2">
+												<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2 font-montserrat">
 													<MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
 													<span className="truncate">{property.location}</span>
 												</div>
@@ -438,7 +438,7 @@ export default function InvestNowModal({
 														<div className="text-lg sm:text-2xl font-bold text-gray-900 font-mclaren">
 															{formatCurrency(property.price)}
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500">
+														<div className="text-[10px] sm:text-xs text-gray-500 font-montserrat">
 															Valuation
 														</div>
 													</div>
@@ -446,7 +446,7 @@ export default function InvestNowModal({
 														<div className="text-lg sm:text-2xl font-bold text-emerald-600">
 															{property.investmentReturn || 8}%
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500">
+														<div className="text-[10px] sm:text-xs text-gray-500 font-montserrat">
 															Est. ROI
 														</div>
 													</div>
@@ -454,7 +454,7 @@ export default function InvestNowModal({
 														<div className="text-lg sm:text-2xl font-bold text-blue-600">
 															{availableTokensNum}/{totalTokensNum}
 														</div>
-														<div className="text-[10px] sm:text-xs text-gray-500">
+														<div className="text-[10px] sm:text-xs text-gray-500 font-montserrat">
 															Tokens
 														</div>
 													</div>
@@ -471,7 +471,7 @@ export default function InvestNowModal({
 												initial={{ opacity: 0, y: 10 }}
 												animate={{ opacity: 1, y: 0 }}
 												transition={{ duration: 0.4, delay: 0.15 }}>
-												<label className="block text-sm font-medium text-gray-700">
+												<label className="block text-sm font-medium text-gray-700 font-montserrat">
 													Quick Select Tokens
 												</label>
 												<div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
@@ -492,13 +492,13 @@ export default function InvestNowModal({
 																	? "border-blue-500 bg-blue-50 shadow-lg"
 																	: "border-gray-200 hover:border-blue-300"
 															}`}>
-															<div className="text-base sm:text-lg font-bold text-gray-900">
+															<div className="text-base sm:text-lg font-bold text-gray-900 font-montserrat">
 																{tokens}
 															</div>
-															<div className="text-xs sm:text-sm text-gray-500">
+															<div className="text-xs sm:text-sm text-gray-500 font-montserrat">
 																Tokens
 															</div>
-															<div className="text-[10px] sm:text-xs text-blue-600 font-semibold mt-1">
+															<div className="text-[10px] sm:text-xs text-blue-600 font-semibold mt-1 font-montserrat">
 																${(tokens * tokenPriceNum).toFixed(0)}
 															</div>
 														</motion.button>
@@ -510,7 +510,7 @@ export default function InvestNowModal({
 												initial={{ opacity: 0, y: 10 }}
 												animate={{ opacity: 1, y: 0 }}
 												transition={{ duration: 0.4, delay: 0.25 }}>
-												<label className="block text-sm font-medium text-gray-700">
+												<label className="block text-sm font-medium text-gray-700 font-montserrat">
 													Custom Investment Amount
 												</label>
 												<motion.div
@@ -534,7 +534,7 @@ export default function InvestNowModal({
 														<span className="text-sm text-gray-500">USD</span>
 													</div>
 												</motion.div>
-												<div className="flex flex-col sm:flex-row justify-between text-xs sm:text-sm text-gray-500 gap-1">
+												<div className="flex flex-col sm:flex-row justify-between text-xs sm:text-sm text-gray-500 gap-1 font-montserrat">
 													<span>Min: {formatUSD(minInvestmentNum)}</span>
 													<span>Max: {formatUSD(maxInvestmentNum)}</span>
 												</div>
@@ -552,34 +552,34 @@ export default function InvestNowModal({
 													</h4>
 													<div className="grid grid-cols-2 gap-3 sm:gap-4">
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500">
+															<div className="text-xs sm:text-sm text-gray-500 font-montserrat">
 																Tokens
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-gray-900">
+															<div className="text-lg sm:text-xl font-bold text-gray-900 font-montserrat">
 																{selectedTokens}
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500">
+															<div className="text-xs sm:text-sm text-gray-500 font-montserrat">
 																Equity Stake
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-emerald-600">
+															<div className="text-lg sm:text-xl font-bold text-emerald-600 font-montserrat">
 																{calculateEquity(selectedTokens)}%
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500">
+															<div className="text-xs sm:text-sm text-gray-500 font-montserrat">
 																Token Price
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-gray-900">
+															<div className="text-lg sm:text-xl font-bold text-gray-900 font-montserrat">
 																{formatUSD(tokenPriceNum)}
 															</div>
 														</div>
 														<div>
-															<div className="text-xs sm:text-sm text-gray-500">
+															<div className="text-xs sm:text-sm text-gray-500 font-montserrat">
 																Est. Annual Return
 															</div>
-															<div className="text-lg sm:text-xl font-bold text-blue-600">
+															<div className="text-lg sm:text-xl font-bold text-blue-600 font-montserrat">
 																${calculateEstReturn(selectedTokens)}
 															</div>
 														</div>
@@ -594,7 +594,7 @@ export default function InvestNowModal({
 													animate={{ opacity: 1, y: 0 }}
 													className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-xl">
 													<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 flex-shrink-0" />
-													<p className="text-xs sm:text-sm text-red-700">
+													<p className="text-xs sm:text-sm text-red-700 font-montserrat">
 														{error}
 													</p>
 												</motion.div>
@@ -602,26 +602,26 @@ export default function InvestNowModal({
 
 											{/* Security Features */}
 											<div className="space-y-2 sm:space-y-3">
-												<h4 className="font-semibold text-gray-900 flex items-center gap-2 text-sm sm:text-base">
+												<h4 className="font-semibold text-gray-900 flex items-center gap-2 text-sm sm:text-base font-montserrat">
 													<Shield className="w-3 h-3 sm:w-4 sm:h-4" />
 													Secure Investment
 												</h4>
 												<div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
 													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<Lock className="w-3 h-3 text-blue-500" />
-														<span className="text-xs text-gray-600">
+														<span className="text-xs text-gray-600 font-montserrat">
 															Escrow Protected
 														</span>
 													</div>
 													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<CheckCircle className="w-3 h-3 text-emerald-500" />
-														<span className="text-xs text-gray-600">
+														<span className="text-xs text-gray-600 font-montserrat">
 															Verified Property
 														</span>
 													</div>
 													<div className="flex items-center gap-2 p-2 sm:p-3 bg-gray-50 rounded-lg">
 														<Coins className="w-3 h-3 text-purple-500" />
-														<span className="text-xs text-gray-600">
+														<span className="text-xs text-gray-600 font-montserrat">
 															RWA Tokens
 														</span>
 													</div>
@@ -647,10 +647,10 @@ export default function InvestNowModal({
 												<CreditCard className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600" />
 											</motion.div>
 											<div>
-												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 font-mclaren">
 													Confirm Your Investment
 												</h3>
-												<p className="text-sm sm:text-base text-gray-600">
+												<p className="text-sm sm:text-base text-gray-600 font-montserrat">
 													{isMockMode
 														? "This is a demo. In production, you would confirm the transaction in your wallet."
 														: "Please confirm the transaction in your wallet"}
@@ -658,7 +658,7 @@ export default function InvestNowModal({
 											</div>
 											<div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Property
 													</span>
 													<span className="font-semibold text-sm sm:text-base text-gray-900 truncate ml-2 font-montserrat">
@@ -666,35 +666,35 @@ export default function InvestNowModal({
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Investment Amount
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-gray-900">
+													<span className="font-semibold text-sm sm:text-base text-gray-900 font-montserrat">
 														{formatUSD(parseFloat(investmentAmount))}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Tokens to Receive
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-gray-900">
+													<span className="font-semibold text-sm sm:text-base text-gray-900 font-montserrat">
 														{selectedTokens}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Equity Stake
 													</span>
-													<span className="font-semibold text-sm sm:text-base text-emerald-600">
+													<span className="font-semibold text-sm sm:text-base text-emerald-600 font-montserrat">
 														{calculateEquity(selectedTokens)}%
 													</span>
 												</div>
 												<div className="pt-3 sm:pt-4 border-t border-gray-200">
 													<div className="flex justify-between items-center">
-														<span className="text-xs sm:text-sm text-gray-600">
+														<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 															Network Fee
 														</span>
-														<span className="font-semibold text-sm sm:text-base text-gray-900">
+														<span className="font-semibold text-sm sm:text-base text-gray-900 font-montserrat">
 															~$2.50
 														</span>
 													</div>
@@ -703,7 +703,7 @@ export default function InvestNowModal({
 											{(isProcessing || isPending) && (
 												<div className="flex items-center justify-center gap-2 sm:gap-3">
 													<div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														{isPending
 															? "Waiting for wallet confirmation..."
 															: "Processing transaction..."}
@@ -736,12 +736,12 @@ export default function InvestNowModal({
 												</motion.div>
 											</motion.div>
 											<div>
-												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+												<h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 font-mclaren">
 													{isMockMode
 														? "Demo Successful! "
 														: "Investment Successful! "}
 												</h3>
-												<p className="text-sm sm:text-base text-gray-600">
+												<p className="text-sm sm:text-base text-gray-600 font-montserrat">
 													You now own {selectedTokens} tokens in{" "}
 													<span className="font-semibold">
 														{property.title}
@@ -751,7 +751,7 @@ export default function InvestNowModal({
 											<div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
 												{hash && !isMockMode ? (
 													<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
-														<span className="text-xs sm:text-sm text-gray-600">
+														<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 															Transaction Hash
 														</span>
 														<a
@@ -764,7 +764,7 @@ export default function InvestNowModal({
 													</div>
 												) : (
 													<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
-														<span className="text-xs sm:text-sm text-gray-600">
+														<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 															Demo Transaction
 														</span>
 														<span className="font-mono text-xs sm:text-sm text-blue-600 truncate">
@@ -773,18 +773,18 @@ export default function InvestNowModal({
 													</div>
 												)}
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Tokens Issued
 													</span>
-													<span className="font-bold text-sm sm:text-base text-gray-900">
+													<span className="font-bold text-sm sm:text-base text-gray-900 font-montserrat">
 														{selectedTokens}
 													</span>
 												</div>
 												<div className="flex justify-between items-center">
-													<span className="text-xs sm:text-sm text-gray-600">
+													<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
 														Total Investment
 													</span>
-													<span className="font-bold text-sm sm:text-base text-gray-900">
+													<span className="font-bold text-sm sm:text-base text-gray-900 font-montserrat">
 														{formatUSD(parseFloat(investmentAmount))}
 													</span>
 												</div>
@@ -793,7 +793,7 @@ export default function InvestNowModal({
 												<div className="flex items-start gap-2 sm:gap-3">
 													<Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
 													<div className="text-left">
-														<p className="text-xs sm:text-sm text-gray-700">
+														<p className="text-xs sm:text-sm text-gray-700 font-montserrat">
 															{isMockMode
 																? "This was a demo transaction. In production, your RWA tokens would appear in your portfolio."
 																: "Your RWA tokens will appear in your portfolio within a few minutes. You can view and manage your investment from the dashboard."}
@@ -868,10 +868,10 @@ export default function InvestNowModal({
 									<div className="text-center space-y-3 sm:space-y-4">
 										<button
 											onClick={() => setStep("select")}
-											className="text-blue-600 font-medium hover:underline text-sm sm:text-base">
+											className="text-blue-600 font-medium hover:underline text-sm sm:text-base font-montserrat">
 											← Back to Edit
 										</button>
-										<p className="text-xs sm:text-sm text-gray-500">
+										<p className="text-xs sm:text-sm text-gray-500 font-montserrat">
 											{isMockMode
 												? "Demo mode - No real transaction will occur"
 												: isPending
