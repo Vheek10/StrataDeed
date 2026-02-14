@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import MobileSidebar from "./MobileSidebar";
 import Image from "next/image";
 import ConnectWalletButton from "./ConnectWalletButton";
-import { useSuiWallet } from "@/providers/suiet-provider";
 // Icons (Hugeicons)
 import {
 	Menu,
@@ -17,11 +16,6 @@ import {
 	Info,
 	Building,
 	Briefcase,
-	User,
-	LogOut,
-	Settings,
-	CheckCircle,
-	ChevronDown,
 	PlusCircle,
 } from "lucide-react";
 
@@ -41,7 +35,7 @@ const navItems = [
 
 /**
  * Main Navigation Bar Component.
- * Handles desktop and mobile responsive layouts, wallet connection state, and user menu.
+ * Handles desktop and mobile responsive layouts and wallet connection state.
  */
 export default function Navbar() {
 	// =========================================
@@ -49,10 +43,8 @@ export default function Navbar() {
 	// =========================================
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
 	const pathname = usePathname();
-	const { address, connected, disconnect } = useSuiWallet();
 
 	// =========================================
 	// Effects
@@ -190,91 +182,12 @@ export default function Navbar() {
 								</div>
 							</div>
 						</nav>
-						{/* User & Wallet Actions - SOLID STYLING */}
+						{/* User & Wallet Actions */}
 						<div className="flex items-center gap-2 sm:gap-3 md:gap-3 lg:gap-3 xl:gap-4 flex-shrink-0 z-10">
-							{connected ? (
-								<div className="flex items-center gap-3">
-									{/* Connected State (Desktop) */}
-									<div className="hidden lg:flex items-center gap-2 xl:gap-3">
-										<div className="flex items-center gap-2 px-3 lg:px-4 xl:px-4 py-2 lg:py-2.5 xl:py-2.5 bg-emerald-700 text-white rounded-lg border border-emerald-600 shadow-md">
-											<CheckCircle className="w-3.5 h-3.5 lg:w-4 lg:h-4 flex-shrink-0" />
-											<span className="text-xs lg:text-sm font-semibold whitespace-nowrap">
-												{address?.slice(0, 6)}...{address?.slice(-4)}
-											</span>
-										</div>
-
-										<div className="relative">
-											<button
-												onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-												className="flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white hover:bg-blue-600 rounded-full transition-all duration-500 shadow-xl hover:scale-110 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]">
-												<User className="w-4 h-4" />
-												<ChevronDown
-													className={cn(
-														"w-3 h-3 transition-transform duration-300",
-														isUserMenuOpen && "rotate-180",
-													)}
-												/>
-											</button>
-
-											{/* Dropdown Menu */}
-											{isUserMenuOpen && (
-												<>
-													<div
-														className="fixed inset-0 z-40"
-														onClick={() => setIsUserMenuOpen(false)}
-													/>
-													<div className="absolute right-0 mt-2 w-52 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
-														<div className="p-4 border-b border-gray-700 bg-gray-900">
-															<div className="text-sm font-semibold text-gray-200">
-																Connected Wallet
-															</div>
-															<div className="text-xs text-emerald-300 font-medium mt-1">
-																{address?.slice(0, 8)}...{address?.slice(-6)}
-															</div>
-														</div>
-														<div className="p-2 bg-gray-800">
-															<Link
-																href="/vault"
-																className="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
-																onClick={() => setIsUserMenuOpen(false)}>
-																<User className="w-4 h-4" />
-																Vault
-															</Link>
-
-															<Link
-																href="/settings"
-																className="flex items-center gap-3 px-4 py-3 text-sm text-gray-200 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
-																onClick={() => setIsUserMenuOpen(false)}>
-																<Settings className="w-4 h-4" />
-																Settings
-															</Link>
-															<button
-																onClick={() => {
-																	disconnect();
-																	setIsUserMenuOpen(false);
-																}}
-																className="flex items-center gap-3 w-full px-4 py-3 text-sm text-red-300 hover:text-red-200 hover:bg-red-900/30 rounded-md transition-colors">
-																<LogOut className="w-4 h-4" />
-																Disconnect
-															</button>
-														</div>
-													</div>
-												</>
-											)}
-										</div>
-									</div>
-
-									{/* Mobile: Wallet Connect Button */}
-									<div className="lg:hidden">
-										<ConnectWalletButton />
-									</div>
-								</div>
-							) : (
-								<>
-									{/* Desktop & Mobile: Connect Button */}
-									<ConnectWalletButton />
-								</>
-							)}
+							{/* Connect Wallet Button */}
+							<div className="w-full max-w-[200px]">
+								<ConnectWalletButton />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -285,8 +198,6 @@ export default function Navbar() {
 				onClose={() => setIsMobileMenuOpen(false)}
 				navItems={navItems}
 				isActive={isActive}
-				isConnected={connected}
-				address={address}
 			/>
 		</>
 	);

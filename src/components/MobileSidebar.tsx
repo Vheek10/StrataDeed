@@ -4,29 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import {
 	X,
-	Home,
-	Info,
-	Building,
 	Users,
-	Briefcase,
 	Phone,
-	Wallet,
-	CheckCircle,
-	LogOut,
-	Settings,
-	User,
 	Store,
-	LineChart,
 	Building2,
 	FileText,
 	PlusCircle,
-	ArrowUpRight,
 	Shield,
 	Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useSuiWallet } from "@/providers/suiet-provider";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import ConnectWalletButton from "./ConnectWalletButton";
 
 // Updated icon mapping for navigation items
 const navIcons = {
@@ -37,7 +26,7 @@ const navIcons = {
 	company: Users,
 	"contact-us": Phone,
 	mint: PlusCircle,
-	dashboard: Briefcase,
+	dashboard: Store,
 } as const;
 
 // Type for icon keys
@@ -88,8 +77,6 @@ interface MobileSidebarProps {
 		key: string;
 	}[];
 	isActive: (href: string) => boolean;
-	isConnected?: boolean;
-	address?: string;
 }
 
 export default function MobileSidebar({
@@ -97,16 +84,7 @@ export default function MobileSidebar({
 	onClose,
 	navItems,
 	isActive,
-	isConnected,
-	address,
 }: MobileSidebarProps) {
-	const { disconnect } = useSuiWallet();
-
-	const handleDisconnect = () => {
-		disconnect();
-		onClose();
-	};
-
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -234,114 +212,27 @@ export default function MobileSidebar({
 								</div>
 							</nav>
 
-							{/* Auth / Wallet Section */}
+							{/* Wallet Section */}
 							<div className="mt-auto p-4 pt-0">
 								{/* Divider */}
 								<div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4" />
 
-								{isConnected && address ? (
-									<motion.div
-										variants={itemVariants}
-										className="space-y-3">
-										{/* Wallet Status Card */}
-										<div className="px-4 py-4 bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl shadow-sm">
-											<div className="flex items-center gap-3 mb-3">
-												<div className="w-8 h-8 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center">
-													<CheckCircle className="w-4 h-4 text-emerald-600" />
-												</div>
-												<div>
-													<p className="text-[9px] font-black text-emerald-600 uppercase tracking-[0.3em] font-montserrat">
-														Connected
-													</p>
-													<p className="text-[10px] text-gray-500 font-mono mt-0.5">
-														{address.slice(0, 8)}...
-														{address.slice(-6)}
-													</p>
-												</div>
-											</div>
+								<motion.div
+									variants={itemVariants}
+									className="space-y-3">
+									{/* Connect Wallet Button */}
+									<div className="w-full">
+										<ConnectWalletButton />
+									</div>
 
-											{/* Network badge */}
-											<div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-xl border border-gray-200">
-												<div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-												<span className="text-[9px] font-black text-gray-500 uppercase tracking-[0.3em] font-montserrat">
-													Sui Testnet
-												</span>
-											</div>
-										</div>
-
-										{/* Connected User Links */}
-										<div className="space-y-1">
-											<Link
-												href="/vault"
-												className="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all duration-300"
-												onClick={onClose}>
-												<div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center group-hover:bg-blue-50 group-hover:border-blue-200 transition-all duration-300">
-													<Shield className="w-3.5 h-3.5 text-gray-500 group-hover:text-blue-600 transition-colors" />
-												</div>
-												<span className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-600 group-hover:text-gray-900 transition-colors font-montserrat">
-													Vault
-												</span>
-											</Link>
-
-											<Link
-												href="/settings"
-												className="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all duration-300"
-												onClick={onClose}>
-												<div className="w-8 h-8 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center group-hover:bg-gray-200 transition-all duration-300">
-													<Settings className="w-3.5 h-3.5 text-gray-500 group-hover:text-gray-700 transition-colors" />
-												</div>
-												<span className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-600 group-hover:text-gray-900 transition-colors font-montserrat">
-													Settings
-												</span>
-											</Link>
-										</div>
-
-										{/* Disconnect Button - Capsule */}
-										<motion.button
-											onClick={handleDisconnect}
-											whileHover={{ scale: 1.02, y: -2 }}
-											whileTap={{ scale: 0.98 }}
-											className="flex items-center justify-center gap-3 w-full px-6 py-4 rounded-full bg-gray-100 border border-gray-200 hover:bg-red-50 hover:border-red-200 transition-all duration-500 group">
-											<LogOut className="w-4 h-4 text-gray-500 group-hover:text-red-500 transition-colors" />
-											<span className="text-[10px] font-black text-gray-600 group-hover:text-red-600 uppercase tracking-[0.3em] font-montserrat transition-colors">
-												Disconnect
-											</span>
-										</motion.button>
-									</motion.div>
-								) : (
-									<motion.div
-										variants={itemVariants}
-										className="space-y-3">
-										{/* Connect Wallet CTA - Capsule Style */}
-										<motion.div
-											whileHover={{
-												scale: 1.03,
-												y: -3,
-												backgroundColor: "#2563eb",
-											}}
-											whileTap={{ scale: 0.98 }}
-											className="bg-gray-900 rounded-full">
-											<Link
-												href="/signup"
-												className="group flex items-center justify-center gap-3 px-8 py-5 text-white rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]"
-												onClick={onClose}>
-												<Wallet className="w-4 h-4 group-hover:scale-110 transition-transform" />
-												<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
-													Connect Wallet
-												</span>
-												<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-											</Link>
-										</motion.div>
-
-										{/* Security Badge */}
-										<div className="flex items-center justify-center gap-2 px-4 py-2">
-											<Shield className="w-3 h-3 text-gray-400" />
-											<span className="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] font-montserrat">
-												Zero-Knowledge Privacy
-											</span>
-										</div>
-									</motion.div>
-								)}
+									{/* Security Badge */}
+									<div className="flex items-center justify-center gap-2 px-4 py-2">
+										<Shield className="w-3 h-3 text-gray-400" />
+										<span className="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] font-montserrat">
+											Zero-Knowledge Privacy
+										</span>
+									</div>
+								</motion.div>
 
 								{/* Bottom branding */}
 								<div className="mt-4 pt-3 border-t border-gray-100">

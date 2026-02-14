@@ -77,7 +77,7 @@ export default function ComparisonSection() {
 
 	return (
 		<section
-			className="relative py-20 lg:py-32 px-6 lg:px-12 bg-gray-50 overflow-hidden"
+			className="relative py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gray-50 overflow-hidden"
 			style={{ perspective: "2000px" }}>
 			{/* Background Effects */}
 			<div className="absolute inset-0 pointer-events-none">
@@ -94,21 +94,21 @@ export default function ComparisonSection() {
 						<h2 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-tighter mb-6 lowercase leading-[1.1] font-mclaren">
 							Beyond <span className="text-blue-600">Tradition.</span>
 						</h2>
-						<p className="text-gray-400 text-[10px] lg:text-xs font-black uppercase tracking-[0.5em] opacity-60 font-montserrat">
+						<p className="text-gray-400 text-[9px] sm:text-[10px] lg:text-xs font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] opacity-60 font-montserrat">
 							The Evolution of Asset Settlement
 						</p>
 					</motion.div>
 				</div>
 
 				{/* Navigation Pips */}
-				<div className="flex justify-center gap-6 mb-16">
+				<div className="flex justify-center gap-3 sm:gap-6 mb-12 sm:mb-16 flex-wrap">
 					{comparisons.map((_, idx) => (
 						<button
 							key={idx}
 							onClick={() => setActive(idx)}
 							className="group relative px-2 py-4">
 							<div
-								className={`text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500 ${active === idx ? "text-blue-600 scale-110" : "text-gray-400 hover:text-gray-600"} font-montserrat`}>
+								className={`text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] transition-all duration-500 ${active === idx ? "text-blue-600 scale-110" : "text-gray-400 hover:text-gray-600"} font-montserrat`}>
 								{comparisons[idx].id}
 							</div>
 							{active === idx && (
@@ -136,7 +136,7 @@ export default function ComparisonSection() {
 								rotateX: -0.5,
 								transition: { duration: 0.8, ease: "easeOut" },
 							}}
-							className="relative rounded-[4rem] border border-gray-100 shadow-2xl overflow-hidden cursor-default group/card min-h-[550px] bg-white">
+							className="relative rounded-[4rem] border border-gray-100 shadow-2xl overflow-hidden cursor-default group/card min-h-[480px] sm:min-h-[520px] lg:min-h-[550px] bg-white">
 							{/* Cinematic Background Image Layer */}
 							<div className="absolute inset-0 z-0">
 								<motion.div
@@ -164,7 +164,7 @@ export default function ComparisonSection() {
 								</motion.div>
 							</div>
 
-							<div className="relative z-10 p-12 lg:p-24 grid lg:grid-cols-[1.1fr_0.9fr] gap-20 items-center">
+							<div className="relative z-10 p-6 sm:p-10 lg:p-24 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-12 lg:gap-20 items-center">
 								{/* Content Side */}
 								<div>
 									<div className="flex items-center gap-6 mb-10">
@@ -182,10 +182,10 @@ export default function ComparisonSection() {
 											})()}
 										</div>
 										<div>
-											<h3 className="text-3xl lg:text-5xl font-black text-gray-900 tracking-tightest mb-2 leading-none font-mclaren">
+											<h3 className="text-2xl sm:text-3xl lg:text-5xl font-black text-gray-900 tracking-tightest mb-2 leading-none font-mclaren">
 												{comparisons[active].title}
 											</h3>
-											<p className="text-[11px] font-black uppercase tracking-[0.4em] text-blue-600/90 font-montserrat">
+											<p className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] text-blue-600/90 font-montserrat">
 												{comparisons[active].subtitle}
 											</p>
 										</div>
@@ -195,7 +195,7 @@ export default function ComparisonSection() {
 										{comparisons[active].description}
 									</p>
 
-									<div className="grid grid-cols-3 gap-10">
+									<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10">
 										{comparisons[active].metrics.map((m, i) => (
 											<div
 												key={i}
@@ -213,7 +213,7 @@ export default function ComparisonSection() {
 
 								{/* Features Side */}
 								<div className="relative">
-									<div className="space-y-6 p-10 rounded-[3rem] bg-white/60 border border-gray-100 backdrop-blur-3xl shadow-xl shadow-blue-900/5">
+									<div className="space-y-6 p-6 sm:p-8 lg:p-10 rounded-[3rem] bg-white/60 border border-gray-100 backdrop-blur-3xl shadow-xl shadow-blue-900/5">
 										<div className="mb-6">
 											<p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.5em] font-montserrat">
 												Protocol Features
@@ -252,8 +252,8 @@ export default function ComparisonSection() {
 											className="mt-10 bg-blue-600 rounded-full">
 											<Link
 												href="/dashboard"
-												className="flex items-center justify-between gap-6 px-10 py-5 rounded-full transition-all duration-500 group/btn shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_30px_60px_-15px_rgba(37,99,235,0.6)]">
-												<span className="text-[10px] font-black uppercase tracking-[0.4em] text-white whitespace-nowrap font-montserrat">
+												className="flex items-center justify-between gap-4 sm:gap-6 px-6 sm:px-8 lg:px-10 py-4 sm:py-5 rounded-full transition-all duration-500 group/btn shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_30px_60px_-15px_rgba(37,99,235,0.6)]">
+												<span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] text-white whitespace-nowrap font-montserrat">
 													Institutional Access
 												</span>
 												<ArrowUpRight className="w-4 h-4 text-white transition-transform duration-500 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />

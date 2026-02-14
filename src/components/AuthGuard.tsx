@@ -24,7 +24,6 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 			<div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
 				<div className="max-w-md w-full text-center space-y-6">
 					<div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-						{/* We need to import Wallet icon here or use a span */}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="32"

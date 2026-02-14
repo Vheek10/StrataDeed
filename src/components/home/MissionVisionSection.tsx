@@ -44,7 +44,7 @@ export default function MissionVisionSection() {
 	return (
 		<section
 			ref={containerRef}
-			className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
+			className="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
 			style={{ perspective: "3000px" }}>
 			<div className="max-w-7xl mx-auto">
 				{/* Header */}
@@ -56,16 +56,16 @@ export default function MissionVisionSection() {
 					className="text-center mb-16 lg:mb-24">
 					<motion.div
 						variants={itemVariants}
-						className="inline-flex items-center gap-3 px-6 py-2.5 bg-blue-600/5 rounded-full mb-8 border border-blue-600/10">
+						className="inline-flex items-center gap-3 px-6 py-2.5 bg-blue-600/5 rounded-full mb-6 sm:mb-8 border border-blue-600/10">
 						<Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
-						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.5em] font-montserrat">
+						<span className="text-[9px] sm:text-[10px] font-black text-blue-700 uppercase tracking-[0.3em] sm:tracking-[0.5em] font-montserrat">
 							The StrataDeed North Star
 						</span>
 					</motion.div>
 
 					<motion.h2
 						variants={itemVariants}
-						className="text-3xl lg:text-4xl font-black text-gray-900 mb-8 tracking-tighter leading-[1.1] font-mclaren">
+						className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 mb-6 sm:mb-8 tracking-tighter leading-[1.1] font-mclaren">
 						Reimagining <br />
 						<span className="text-blue-600">Property Ownership</span>
 					</motion.h2>
@@ -79,7 +79,7 @@ export default function MissionVisionSection() {
 				</motion.div>
 
 				{/* Mission & Vision Giga-Cards */}
-				<div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mb-32">
+				<div className="grid lg:grid-cols-2 gap-10 lg:gap-20 mb-24 sm:mb-32">
 					{/* Mission Card */}
 					<motion.div
 						initial={{ opacity: 0, y: 100 }}
@@ -91,7 +91,7 @@ export default function MissionVisionSection() {
 							rotateY: -3,
 							transition: { duration: 0.8 },
 						}}
-						className="relative overflow-hidden rounded-[4rem] group cursor-default shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] bg-gray-900 h-[650px] lg:h-[750px]">
+						className="relative overflow-hidden rounded-[3rem] sm:rounded-[4rem] group cursor-default shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] bg-gray-900 h-[520px] sm:h-[600px] lg:h-[750px]">
 						{/* Background Image Layer */}
 						<div className="absolute inset-0">
 							<Image
@@ -120,21 +120,21 @@ export default function MissionVisionSection() {
 						/>
 
 						{/* Floating Content Glassmorphism */}
-						<div className="absolute inset-0 p-12 lg:p-24 flex flex-col justify-end z-10">
+						<div className="absolute inset-0 p-8 sm:p-10 lg:p-24 flex flex-col justify-end z-10">
 							<div className="relative">
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
 									whileInView={{ opacity: 1, scale: 1 }}
-									className="w-20 h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-10 shadow-2xl">
-									<Target className="w-9 h-9 text-white" />
+									className="w-14 h-14 sm:w-20 sm:h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
+									<Target className="w-7 h-7 sm:w-9 sm:h-9 text-white" />
 								</motion.div>
 
-								<h3 className="text-3xl lg:text-5xl font-black text-white mb-8 tracking-tightest leading-[0.9] lowercase font-mclaren">
+								<h3 className="text-2xl sm:text-3xl lg:text-5xl font-black text-white mb-6 sm:mb-8 tracking-tightest leading-[0.95] sm:leading-[0.9] lowercase font-mclaren">
 									our <br />
 									<span className="text-blue-400">Mission</span>
 								</h3>
 
-								<p className="text-base lg:text-lg text-white/90 leading-relaxed mb-12 font-medium max-w-md opacity-80 group-hover:opacity-100 transition-opacity font-montserrat">
+								<p className="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed mb-10 sm:mb-12 font-medium max-w-md opacity-80 group-hover:opacity-100 transition-opacity font-montserrat">
 									To rebuild trust in global real estate by merging legal rigor
 									with blockchain permanence.
 								</p>
@@ -149,13 +149,13 @@ export default function MissionVisionSection() {
 											transition: { duration: 0.3 },
 										}}
 										whileTap={{ scale: 0.95 }}
-										className="flex items-center gap-3 px-8 py-4 rounded-full bg-white text-gray-900 font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] font-montserrat">
+										className="flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white text-gray-900 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.4em] shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.5)] font-montserrat">
 										View Protocol
 										<ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
 									</motion.div>
 									<div className="hidden sm:flex items-center gap-3 text-white/30">
 										<Shield className="w-4 h-4" />
-										<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+										<span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											Verified Framework
 										</span>
 									</div>
@@ -175,7 +175,7 @@ export default function MissionVisionSection() {
 							rotateY: 3,
 							transition: { duration: 0.8 },
 						}}
-						className="relative overflow-hidden rounded-[4rem] group cursor-default shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] bg-gray-900 h-[650px] lg:h-[750px]">
+						className="relative overflow-hidden rounded-[3rem] sm:rounded-[4rem] group cursor-default shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] bg-gray-900 h-[520px] sm:h-[600px] lg:h-[750px]">
 						{/* Background Image Layer */}
 						<div className="absolute inset-0">
 							<Image
@@ -189,21 +189,21 @@ export default function MissionVisionSection() {
 						</div>
 
 						{/* Content Overlay */}
-						<div className="absolute inset-0 p-12 lg:p-24 flex flex-col justify-end z-10">
+						<div className="absolute inset-0 p-8 sm:p-10 lg:p-24 flex flex-col justify-end z-10">
 							<div className="relative">
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
 									whileInView={{ opacity: 1, scale: 1 }}
-									className="w-20 h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-10 shadow-2xl">
-									<Eye className="w-9 h-9 text-white" />
+									className="w-14 h-14 sm:w-20 sm:h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
+									<Eye className="w-7 h-7 sm:w-9 sm:h-9 text-white" />
 								</motion.div>
 
-								<h3 className="text-3xl lg:text-5xl font-black text-white mb-8 tracking-tightest leading-[0.9] lowercase font-mclaren">
+								<h3 className="text-2xl sm:text-3xl lg:text-5xl font-black text-white mb-6 sm:mb-8 tracking-tightest leading-[0.95] sm:leading-[0.9] lowercase font-mclaren">
 									our <br />
 									<span className="text-cyan-400">Vision</span>
 								</h3>
 
-								<p className="text-base lg:text-lg text-white/90 leading-relaxed mb-12 font-medium max-w-md opacity-80 group-hover:opacity-100 transition-opacity font-montserrat">
+								<p className="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed mb-10 sm:mb-12 font-medium max-w-md opacity-80 group-hover:opacity-100 transition-opacity font-montserrat">
 									A borderless world where property is liquid, transparent, and
 									accessible to everyone.
 								</p>
@@ -218,13 +218,13 @@ export default function MissionVisionSection() {
 											transition: { duration: 0.3 },
 										}}
 										whileTap={{ scale: 0.95 }}
-										className="flex items-center gap-3 px-8 py-4 rounded-full bg-white text-gray-900 font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(34,211,238,0.5)] font-montserrat">
+										className="flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-white text-gray-900 font-black text-[9px] sm:text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.4em] shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(34,211,238,0.5)] font-montserrat">
 										Global Roadmap
 										<ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
 									</motion.div>
 									<div className="hidden sm:flex items-center gap-3 text-white/30">
 										<Globe className="w-4 h-4" />
-										<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+										<span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											Institutional Access
 										</span>
 									</div>
@@ -287,11 +287,11 @@ export default function MissionVisionSection() {
 									viewport={{ once: true }}
 									transition={{ delay: index * 0.1 }}
 									whileHover={{ y: -10, transition: { duration: 0.3 } }}
-									className="group p-10 bg-gray-50 rounded-[3rem] border border-gray-100 hover:border-blue-100 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(37,99,235,0.1)] transition-all duration-700">
+									className="group p-6 sm:p-8 lg:p-10 bg-gray-50 rounded-[2.5rem] sm:rounded-[3rem] border border-gray-100 hover:border-blue-100 hover:bg-white hover:shadow-[0_40px_80px_-15px_rgba(37,99,235,0.1)] transition-all duration-700">
 									<div className="w-16 h-16 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
 										<Icon className="w-7 h-7 text-gray-900" />
 									</div>
-									<h4 className="text-[11px] font-black text-gray-900 uppercase tracking-[0.3em] mb-6 font-montserrat">
+									<h4 className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-4 sm:mb-6 font-montserrat">
 										{value.title}
 									</h4>
 									<p className="text-sm text-gray-500 font-medium leading-[1.8] font-montserrat">

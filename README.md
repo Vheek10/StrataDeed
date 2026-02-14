@@ -151,10 +151,10 @@ Our ZK-KYC system allows users to prove compliance without revealing personal da
 
 ### Current Implementation
 
-- ✅ Commitment storage in PropertyDeed NFT
-- ✅ Whitelist mechanism in RWA Token module
-- 🟡 ZK proof circuits (future: full Noir integration)
-- 🟡 Proof aggregation (future: optimized for gas)
+- [x] Commitment storage in PropertyDeed NFT
+- [x] Whitelist mechanism in RWA Token module
+- [ ] ZK proof circuits (future: full Noir integration)
+- [ ] Proof aggregation (future: optimized for gas)
 
 ---
 
@@ -233,10 +233,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ### Phase 1: Foundation (Current)
 
-- ✅ Core Move contracts
-- ✅ Frontend marketplace
-- ✅ Wallet integration
-- 🟡 Local testing environment
+- [x] Core Move contracts
+- [x] Frontend marketplace
+- [x] Wallet integration
+- [ ] Local testing environment
 
 ### Phase 2: ZK & Scaling
 

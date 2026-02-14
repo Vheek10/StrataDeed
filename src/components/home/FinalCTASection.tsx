@@ -58,7 +58,7 @@ export default function FinalCTASection() {
 			ref={containerRef}
 			onMouseMove={handleMouseMove}
 			onMouseLeave={handleMouseLeave}
-			className="relative py-24 lg:py-40 px-6 lg:px-12 overflow-hidden bg-gray-50">
+			className="relative py-16 sm:py-24 lg:py-40 px-4 sm:px-6 lg:px-12 overflow-hidden bg-gray-50">
 			{/* Cinematic Background Layer */}
 			<motion.div
 				style={{ x: bgX, y: bgY }}
@@ -131,7 +131,7 @@ export default function FinalCTASection() {
 							viewport={{ once: true }}
 							className="inline-flex items-center gap-3 px-6 py-2 bg-white/40 border border-gray-200 rounded-full backdrop-blur-2xl shadow-sm">
 							<div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse blur-[1px]" />
-							<span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] font-montserrat">
+							<span className="text-[9px] sm:text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] sm:tracking-[0.5em] font-montserrat">
 								Future of Ownership
 							</span>
 							<Shield className="w-3.5 h-3.5 text-blue-600/40" />
@@ -147,7 +147,7 @@ export default function FinalCTASection() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.8 }}
-							className="text-5xl lg:text-7xl font-black text-gray-900 mb-10 leading-[1.05] tracking-tightest font-mclaren">
+							className="text-3xl sm:text-4xl lg:text-7xl font-black text-gray-900 mb-8 sm:mb-10 leading-[1.05] tracking-tightest font-mclaren">
 							The Secure <span className="text-blue-600">Gateway</span> <br />
 							to Institutional Assets.
 						</motion.h2>
@@ -176,7 +176,7 @@ export default function FinalCTASection() {
 								viewport={{ once: true }}
 								transition={{ delay: idx * 0.1 }}
 								whileHover={{ y: -10, transition: { duration: 0.3 } }}
-								className="group p-8 bg-white/60 border border-gray-100 rounded-[2.5rem] hover:bg-white hover:border-blue-100 backdrop-blur-3xl transition-all duration-500 text-center shadow-sm hover:shadow-xl hover:shadow-blue-900/5">
+								className="group p-6 sm:p-8 bg-white/60 border border-gray-100 rounded-[2rem] sm:rounded-[2.5rem] hover:bg-white hover:border-blue-100 backdrop-blur-3xl transition-all duration-500 text-center shadow-sm hover:shadow-xl hover:shadow-blue-900/5">
 								<div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] transition-all duration-500">
 									<benefit.icon className="w-6 h-6 text-blue-600" />
 								</div>
@@ -202,8 +202,8 @@ export default function FinalCTASection() {
 							className="bg-white rounded-full">
 							<Link
 								href="/dashboard"
-								className="group relative px-14 py-6 text-gray-900 rounded-full font-black overflow-hidden transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(255,255,255,0.4)] text-center flex items-center justify-center gap-4">
-								<span className="text-[11px] uppercase tracking-[0.4em] font-montserrat">
+								className="group relative px-8 sm:px-14 py-4 sm:py-6 text-gray-900 rounded-full font-black overflow-hidden transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(255,255,255,0.4)] text-center flex items-center justify-center gap-4">
+								<span className="text-[9px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 									Initialize Access
 								</span>
 								<ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -222,8 +222,8 @@ export default function FinalCTASection() {
 							className="bg-white/5 border border-white/20 rounded-full backdrop-blur-2xl">
 							<Link
 								href="/mint"
-								className="group relative px-14 py-6 text-white rounded-full font-black transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(255,255,255,0.1)] text-center flex items-center justify-center gap-4">
-								<span className="text-[11px] uppercase tracking-[0.4em] font-montserrat">
+								className="group relative px-8 sm:px-14 py-4 sm:py-6 text-white rounded-full font-black transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(255,255,255,0.1)] text-center flex items-center justify-center gap-4">
+								<span className="text-[9px] sm:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 									Deploy Asset
 								</span>
 								<ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -235,7 +235,7 @@ export default function FinalCTASection() {
 					<div
 						className="pt-20 border-t border-gray-200"
 						style={{ transform: "translateZ(30px)" }}>
-						<div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+						<div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
 							{[
 								{ label: "Finality", value: "< 2.0s" },
 								{ label: "Accuracy", value: "100%" },
@@ -245,10 +245,10 @@ export default function FinalCTASection() {
 								<div
 									key={i}
 									className="text-center group">
-									<p className="text-[9px] font-black text-blue-500/60 uppercase tracking-[0.5em] mb-2 font-montserrat">
+									<p className="text-[8px] sm:text-[9px] font-black text-blue-500/60 uppercase tracking-[0.3em] sm:tracking-[0.5em] mb-2 font-montserrat">
 										{s.label}
 									</p>
-									<h4 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-widest group-hover:text-blue-600 transition-colors uppercase font-mclaren">
+									<h4 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 tracking-widest group-hover:text-blue-600 transition-colors uppercase font-mclaren">
 										{s.value}
 									</h4>
 								</div>
