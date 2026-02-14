@@ -41,8 +41,7 @@
 		"tailwindcss": "^4",
 		"ts-node": "^10.9.1",
 		"tslib": "^2.6.0",
-		"typescript": "^5",
-		"@mysten/sui.js": "^1.0.0"
+		"typescript": "^5"
 	},
 	"type": "module"
 }

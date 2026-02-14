@@ -1,11 +1,12 @@
 /** @format */
 
-import { Plus, Download, BarChart3, Users } from "lucide-react";
+import Link from "next/link";
 
 interface QuickAction {
 	id: string;
 	label: string;
 	icon: React.ComponentType<{ className?: string }>;
+	href?: string;
 }
 
 interface QuickActionsProps {
@@ -19,12 +20,24 @@ export default function QuickActions({ actions }: QuickActionsProps) {
 			<div className="grid grid-cols-2 gap-3">
 				{actions.map((action) => {
 					const Icon = action.icon;
-					return (
+					const content = (
+						<>
+							<Icon className="w-5 h-5 mb-2" />
+							<span className="text-xs font-medium">{action.label}</span>
+						</>
+					);
+					return action.href ? (
+						<Link
+							key={action.id}
+							href={action.href}
+							className="p-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors flex flex-col items-center justify-center">
+							{content}
+						</Link>
+					) : (
 						<button
 							key={action.id}
 							className="p-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors flex flex-col items-center justify-center">
-							<Icon className="w-5 h-5 mb-2" />
-							<span className="text-xs font-medium">{action.label}</span>
+							{content}
 						</button>
 					);
 				})}

@@ -1,6 +1,6 @@
 /** @format */
 
-import { SuiClient } from "@mysten/sui.js/client";
+import { SuiClient } from "@mysten/sui/client";
 import { DEFAULT_NETWORK } from "@/config/chains/mantle";
 
 // Sui RPC endpoints

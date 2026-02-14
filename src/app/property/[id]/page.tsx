@@ -1,5 +1,6 @@
 /** @format */
 
+import Link from "next/link";
 import { sampleProperties } from "../../../lib/dummy-data";
 
 export default async function PropertyPage({
@@ -38,9 +39,11 @@ export default async function PropertyPage({
 							${prop.price.toLocaleString()}
 						</div>
 					</div>
-					<button className="w-full px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
+					<Link
+						href="/marketplace"
+						className="w-full px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold inline-flex items-center justify-center">
 						Buy Property
-					</button>
+					</Link>
 				</aside>
 			</div>
 		</section>

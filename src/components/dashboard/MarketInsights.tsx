@@ -1,5 +1,7 @@
 /** @format */
 
+import Link from "next/link";
+
 interface MarketInsightsProps {
 	title?: string;
 	description?: string;
@@ -21,11 +23,13 @@ export default function MarketInsights({
 				<div>
 					<h3 className="text-xl font-bold mb-2">{title}</h3>
 					<p className="text-blue-100 mb-4 max-w-lg">{description}</p>
-					<button className="px-6 py-3 bg-white text-blue-600 font-black rounded-full hover:bg-blue-50 transition-colors">
+					<Link
+						href="/marketplace"
+						className="px-6 py-3 bg-white text-blue-600 font-black rounded-full hover:bg-blue-50 transition-colors inline-flex items-center">
 						<span className="text-[10px] uppercase tracking-[0.4em] font-montserrat">
 							View Market Report
 						</span>
-					</button>
+					</Link>
 				</div>
 				<div className="grid grid-cols-3 gap-4">
 					{metrics.map((metric, index) => (

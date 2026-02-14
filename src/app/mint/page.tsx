@@ -40,7 +40,7 @@ const keccak256 = async (str: string): Promise<string> => {
 };
 import { useTokenization } from "@/hooks/useTokenization";
 import { useStrataDeed } from "@/hooks/useStrataDeed";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveProperty, getNextPropertyId } from "@/lib/propertyStorage";
 import { sampleProperties } from "@/lib/dummy-data";
@@ -114,7 +114,6 @@ function MintFormContent() {
 		error: mintError,
 	} = useTokenization();
 	const { deployStrataDeed, isDeploying } = useStrataDeed();
-	const router = useRouter();
 
 	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 	const [txHash, setTxHash] = useState<string | undefined>(undefined);
@@ -553,15 +552,15 @@ function MintFormContent() {
 					</div>
 
 					<div className="flex flex-col sm:flex-row gap-4">
-						<button
-							onClick={() => router.push("/dashboard")}
+						<Link
+							href="/dashboard"
 							className="flex-1 px-8 py-5 bg-gray-900 text-white rounded-full hover:bg-blue-600 transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:scale-105 hover:-translate-y-1 flex items-center justify-center gap-3 group"
 							aria-label="Go to dashboard">
 							<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
 								Go to Dashboard
 							</span>
 							<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-						</button>
+						</Link>
 						<button
 							onClick={() => {
 								setTxHash(undefined);

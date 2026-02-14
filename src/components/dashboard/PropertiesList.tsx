@@ -12,7 +12,7 @@ import {
 	Clock,
 	Home,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Property } from "./types";
 
 interface PropertiesListProps {
@@ -20,7 +20,7 @@ interface PropertiesListProps {
 }
 
 export default function PropertiesList({ properties }: PropertiesListProps) {
-	const router = useRouter();
+	const MotionLink = motion(Link);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -61,8 +61,8 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						Fractional real estate ownership
 					</p>
 				</motion.div>
-				<motion.button
-					onClick={() => router.push("/mint")}
+				<MotionLink
+					href="/mint"
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.3, delay: 0.1 }}
@@ -76,7 +76,7 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						Tokenize Property
 					</span>
 					<Plus className="w-4 h-4" />
-				</motion.button>
+				</MotionLink>
 			</div>
 
 			<motion.div
@@ -180,7 +180,8 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ delay: 0.4 }}>
-				<motion.button
+				<MotionLink
+					href="/marketplace"
 					whileHover={{ backgroundColor: "rgba(219, 234, 254, 1)" }}
 					whileTap={{ scale: 0.98 }}
 					className="w-full flex items-center justify-center gap-3 py-3 text-blue-600 font-black hover:bg-blue-50 rounded-full transition-colors font-montserrat">
@@ -192,7 +193,7 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						transition={{ duration: 2, repeat: Infinity }}>
 						<ChevronRight className="w-4 h-4" />
 					</motion.div>
-				</motion.button>
+				</MotionLink>
 			</motion.div>
 		</motion.div>
 	);

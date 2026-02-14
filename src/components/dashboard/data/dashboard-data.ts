@@ -48,6 +48,7 @@ export interface QuickAction {
 	label: string;
 	icon: React.ComponentType<{ className?: string }>;
 	color: string;
+	href?: string;
 }
 
 export const metrics: DashboardMetric[] = [
@@ -154,13 +155,32 @@ export const portfolioDistribution: PortfolioDistribution[] = [
 ];
 
 export const quickActions: QuickAction[] = [
-	{ id: "new-strategy", label: "Create Strategy", icon: Plus, color: "blue" },
-	{ id: "harvest-all", label: "Harvest All", icon: Download, color: "emerald" },
+	{
+		id: "new-strategy",
+		label: "Create Strategy",
+		icon: Plus,
+		color: "blue",
+		href: "/mint",
+	},
+	{
+		id: "harvest-all",
+		label: "Harvest All",
+		icon: Download,
+		color: "emerald",
+		href: "/dashboard",
+	},
 	{
 		id: "analytics",
 		label: "Yield Analytics",
 		icon: BarChart3,
 		color: "purple",
+		href: "/dashboard",
 	},
-	{ id: "bridge", label: "Bridge Funds", icon: Repeat, color: "amber" },
+	{
+		id: "bridge",
+		label: "Bridge Funds",
+		icon: Repeat,
+		color: "amber",
+		href: "/vault",
+	},
 ];

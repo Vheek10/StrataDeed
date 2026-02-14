@@ -1,6 +1,7 @@
 /** @format */
 "use client";
 
+import Link from "next/link";
 import { X, ShoppingCart, CreditCard, Shield } from "lucide-react";
 
 interface CartItem {
@@ -148,10 +149,13 @@ export default function CartSidebar({
 							<Shield className="w-4 h-4" />
 							<span>All properties are verified and insured</span>
 						</div>
-						<button className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-600 transition-all flex items-center justify-center gap-2">
+						<Link
+							href="/dashboard"
+							onClick={onClose}
+							className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-600 transition-all flex items-center justify-center gap-2">
 							<CreditCard className="w-5 h-5" />
 							Proceed to Checkout
-						</button>
+						</Link>
 						<p className="text-xs text-gray-500 text-center">
 							By proceeding, you agree to our Terms of Service and Privacy
 							Policy
