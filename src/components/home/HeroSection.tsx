@@ -66,7 +66,7 @@ export default function HeroSection() {
 						<div className="text-center lg:text-left flex flex-col items-center lg:items-start">
 							{/* Semi-transparent badge - Institutional Standard */}
 							<div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/40 backdrop-blur-xl rounded-full mb-10 border border-gray-200/50 shadow-sm">
-								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.4em] whitespace-nowrap font-montserrat">
+								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.25em] sm:tracking-[0.4em] whitespace-nowrap font-montserrat">
 									Innovating Real Estate
 								</span>
 								<Shield className="w-3.5 h-3.5 text-blue-600/60" />
@@ -74,7 +74,7 @@ export default function HeroSection() {
 
 							{/* Main Heading - Compliance Scaled */}
 							<div className="relative mb-8 w-full">
-								<h1 className="text-4xl xs:text-5xl sm:text-5xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.85] mb-8 font-mclaren">
+								<h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.9] sm:leading-[0.85] mb-8 font-mclaren">
 									<span className="block">Tokenizing Global</span>
 									<span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
 										Real Estate Assets
@@ -125,7 +125,7 @@ export default function HeroSection() {
 							</div>
 
 							{/* CTA Buttons - Capsule Institutional Standard */}
-							<div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start items-center mb-16 px-4 lg:px-0 w-full max-w-md sm:max-w-none">
+							<div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start items-center mb-16 px-4 lg:px-0 w-full max-w-md sm:max-w-none">
 								<motion.div
 									whileHover={{
 										scale: 1.05,
@@ -137,8 +137,8 @@ export default function HeroSection() {
 									className="w-full sm:w-auto bg-gray-900 rounded-full">
 									<Link
 										href="/dashboard"
-										className="group relative px-10 py-5 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full block text-center flex items-center justify-center">
-										<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full block text-center flex items-center justify-center">
+										<span className="relative flex items-center gap-3 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											Start Investing
 											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
 										</span>
@@ -157,8 +157,8 @@ export default function HeroSection() {
 									className="w-full sm:w-auto bg-white border border-gray-200 rounded-full">
 									<Link
 										href="/mint"
-										className="group relative px-10 py-5 text-gray-900 rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] w-full block text-center flex items-center justify-center">
-										<span className="relative flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-gray-900 rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] w-full block text-center flex items-center justify-center">
+										<span className="relative flex items-center gap-3 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											List Property
 											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
 										</span>
@@ -168,7 +168,7 @@ export default function HeroSection() {
 
 							{/* Trust Indicators - Standardized Grid */}
 							<div className="w-full lg:max-w-xl px-4 lg:px-0">
-								<div className="grid grid-cols-3 gap-8 lg:gap-16">
+								<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 lg:gap-16">
 									{[
 										{ value: "100%", label: "Compliance" },
 										{ value: "24/7", label: "Settlement" },
@@ -180,7 +180,7 @@ export default function HeroSection() {
 											<div className="text-2xl sm:text-3xl xl:text-3xl font-black text-gray-900 tracking-tightest mb-3 group-hover:text-blue-600 transition-colors font-mclaren">
 												{item.value}
 											</div>
-											<div className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em] font-montserrat">
+											<div className="text-[9px] sm:text-[10px] text-gray-400 font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] font-montserrat">
 												{item.label}
 											</div>
 											<div className="h-[2px] w-8 mt-4 bg-gray-100 group-hover:bg-blue-600 group-hover:w-12 transition-all duration-500" />

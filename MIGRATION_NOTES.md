@@ -205,10 +205,10 @@ cd move/stratadeed && sui move build
 
 Expected changes:
 
-- ✅ Removed: `hardhat.config.js`, `foundry.toml`, `contracts/`, `script/`
-- ✅ Modified: `package.json`, `README.md`, `.gitignore`
-- ✅ Added: `move/` directory structure with Move.toml and .move files
-- ✅ Added: `MOVE_DEV_GUIDE.md`, `deploy-move.sh`, `MIGRATION_NOTES.md`
+- [x] Removed: `hardhat.config.js`, `foundry.toml`, `contracts/`, `script/`
+- [x] Modified: `package.json`, `README.md`, `.gitignore`
+- [x] Added: `move/` directory structure with Move.toml and .move files
+- [x] Added: `MOVE_DEV_GUIDE.md`, `deploy-move.sh`, `MIGRATION_NOTES.md`
 
 Old files in `scripts/` that depend on Hardhat can be archived or removed.
 

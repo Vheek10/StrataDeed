@@ -70,7 +70,7 @@ export default function ComplianceSection() {
 	const [active, setActive] = useState(0);
 
 	return (
-		<section className="relative py-20 lg:py-32 px-6 lg:px-12 bg-gray-50/50 overflow-hidden">
+		<section className="relative py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gray-50/50 overflow-hidden">
 			{/* Soft Ambient Effects */}
 			<div className="absolute inset-0 pointer-events-none">
 				<div className="absolute top-1/4 -left-[10%] w-[50%] h-[50%] bg-blue-600/[0.03] rounded-full blur-[150px]" />
@@ -86,7 +86,7 @@ export default function ComplianceSection() {
 					className="flex justify-center mb-10">
 					<div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-blue-600/5 border border-blue-600/10 backdrop-blur-md">
 						<Shield className="w-3.5 h-3.5 text-blue-600" />
-						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
+						<span className="text-[9px] sm:text-[10px] font-black text-blue-700 uppercase tracking-[0.3em] sm:tracking-[0.4em] font-montserrat">
 							Regulatory Infrastructure
 						</span>
 					</div>
@@ -114,7 +114,7 @@ export default function ComplianceSection() {
 									whileInView={{ opacity: 1, x: 0 }}
 									viewport={{ once: true }}
 									transition={{ delay: idx * 0.1 }}
-									className={`w-full group relative p-6 rounded-2xl border transition-all duration-700 text-left ${
+									className={`w-full group relative p-5 sm:p-6 rounded-2xl border transition-all duration-700 text-left ${
 										isActive
 											? "bg-white border-blue-100 shadow-xl shadow-blue-900/5"
 											: "bg-white/40 border-gray-100 hover:border-blue-100 hover:bg-white hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-900/5"
@@ -130,13 +130,13 @@ export default function ComplianceSection() {
 										</div>
 										<div>
 											<h3
-												className={`text-[11px] font-black uppercase tracking-widest mb-1 transition-colors ${
+												className={`text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-widest mb-1 transition-colors ${
 													isActive ? "text-gray-900" : "text-gray-400"
 												} font-montserrat`}>
 												{feature.title}
 											</h3>
 											<p
-												className={`text-[10px] font-medium tracking-tight transition-colors ${
+												className={`text-[9px] sm:text-[10px] font-medium tracking-tight transition-colors ${
 													isActive ? "text-gray-500" : "text-gray-400"
 												} font-montserrat`}>
 												Layer 0{idx + 1}
@@ -166,9 +166,9 @@ export default function ComplianceSection() {
 								transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
 								className="relative p-1 rounded-[3.5rem] overflow-hidden group/card">
 								<div className="relative bg-white border border-gray-100 shadow-2xl rounded-[2.9rem] overflow-hidden">
-									<div className="grid lg:grid-cols-[1.1fr_0.9fr] min-h-[550px]">
+									<div className="grid lg:grid-cols-[1.1fr_0.9fr] min-h-[420px] sm:min-h-[500px] lg:min-h-[550px]">
 										{/* Text Side - Now Inside the Card */}
-										<div className="p-8 lg:p-14 flex flex-col justify-center border-r border-gray-50">
+										<div className="p-6 sm:p-8 lg:p-14 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-gray-50">
 											<div className="mb-10">
 												<div className="flex items-center gap-3 mb-6">
 													<Sparkles className="w-3.5 h-3.5 text-blue-600" />
@@ -177,7 +177,7 @@ export default function ComplianceSection() {
 													</span>
 												</div>
 
-												<h2 className="text-3xl lg:text-4xl font-black text-gray-900 tracking-tighter mb-6 leading-[1.1] font-mclaren">
+												<h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 tracking-tighter mb-6 leading-[1.1] font-mclaren">
 													digitalized <br />
 													<span className="text-blue-600">
 														Legal Rigor
@@ -221,8 +221,8 @@ export default function ComplianceSection() {
 													className="bg-gray-900 rounded-full">
 													<Link
 														href="/dashboard"
-														className="group inline-flex items-center gap-4 px-8 py-4 rounded-full shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]">
-														<span className="text-[10px] font-black text-white uppercase tracking-[0.4em] font-montserrat">
+														className="group inline-flex items-center gap-4 px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-2xl transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)]">
+														<span className="text-[9px] sm:text-[10px] font-black text-white uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 															Review Framework
 														</span>
 														<ArrowUpRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -232,7 +232,7 @@ export default function ComplianceSection() {
 										</div>
 
 										{/* Visual Side */}
-										<div className="relative min-h-[300px] lg:min-h-full overflow-hidden">
+										<div className="relative min-h-[260px] sm:min-h-[300px] lg:min-h-full overflow-hidden">
 											<Image
 												src={complianceFeatures[active].image}
 												alt={complianceFeatures[active].title}
@@ -243,11 +243,11 @@ export default function ComplianceSection() {
 											<div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent" />
 
 											{/* Feature Identification */}
-											<div className="absolute bottom-8 right-8 text-right">
-												<p className="text-[9px] font-black text-white/60 uppercase tracking-[0.5em] mb-1 font-montserrat">
+											<div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 text-right">
+												<p className="text-[8px] sm:text-[9px] font-black text-white/60 uppercase tracking-[0.3em] sm:tracking-[0.5em] mb-1 font-montserrat">
 													{complianceFeatures[active].subtitle}
 												</p>
-												<h4 className="text-2xl font-black text-white tracking-widest uppercase font-mclaren">
+												<h4 className="text-xl sm:text-2xl font-black text-white tracking-widest uppercase font-mclaren">
 													{complianceFeatures[active].metric}
 												</h4>
 											</div>
