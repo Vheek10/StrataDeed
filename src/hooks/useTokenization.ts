@@ -1,19 +1,30 @@
 /** @format */
 
-// hooks/useTokenization.ts - Fix the BigInt issue
 "use client";
 
 import { useState } from "react";
 import { useSuiWallet } from "@/providers/suiet-provider";
 import { createSuiClient } from "@/lib/sui/client";
-import { tokenizePropertyOnSui } from "@/lib/sui/tokenization";
+import { mintPropertyDeedOnSui } from "@/lib/sui/tokenization";
 
+/**
+ * Hook for minting Property Deed NFTs on Sui blockchain
+ * Aligns with property_nft::mint_property_deed smart contract function
+ */
 export function useTokenization() {
-	const { address } = useSuiWallet();
+	const { address, signAndExecuteTransaction } = useSuiWallet();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [txDigest, setTxDigest] = useState<string | undefined>();
 
+	/**
+	 * Mints a Property Deed NFT
+	 * @param propertyId - Unique property identifier
+	 * @param metadataURI - IPFS or base64 encoded metadata
+	 * @param mintFee - Fee for minting (currently unused)
+	 * @param privateCommitment - ZK commitment hash
+	 * @param owner - Owner address (recipient)
+	 */
 	const tokenizeProperty = async (
 		propertyId: string,
 		metadataURI: string,
@@ -29,22 +40,34 @@ export function useTokenization() {
 				throw new Error("Wallet not connected");
 			}
 
-			// Basic validation
+			if (!signAndExecuteTransaction) {
+				throw new Error("Wallet does not support transaction signing");
+			}
+
+			// Input validation
 			if (!propertyId || propertyId.trim().length === 0) {
 				throw new Error("Property ID cannot be empty");
 			}
 			if (!metadataURI || metadataURI.trim().length === 0) {
 				throw new Error("Metadata URI cannot be empty");
 			}
+			if (!privateCommitment || privateCommitment.length === 0) {
+				throw new Error("Private commitment is required for ZK proofs");
+			}
 
 			const client = createSuiClient();
 
-			const result = await tokenizePropertyOnSui(client, address, {
+			// Build transaction for minting Property Deed NFT
+			const transaction = await mintPropertyDeedOnSui(client, address, {
 				propertyId,
-				metadataUrl: metadataURI,
+				metadataUri: metadataURI,
 				privateCommitment,
 				ownerAddress: owner,
-				mintFee,
+			});
+
+			// Sign and execute transaction using Suiet wallet
+			const result = await signAndExecuteTransaction({
+				transaction,
 			});
 
 			const digest = result.digest;
@@ -86,4 +109,3 @@ export function useTokenization() {
 		eventData: null,
 	};
 }
-

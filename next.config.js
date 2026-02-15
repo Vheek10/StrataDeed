@@ -5,13 +5,13 @@
 
 const nextConfig = {
 	reactStrictMode: true,
-	
+
 	// Add image configuration for external domains
 	images: {
 		remotePatterns: [
 			{
-				protocol: 'https',
-				hostname: 'images.unsplash.com',
+				protocol: "https",
+				hostname: "images.unsplash.com",
 			},
 		],
 	},
@@ -63,7 +63,7 @@ const nextConfig = {
 			use: "ignore-loader",
 		});
 
-		// Ignore specific viem test files that are causing re-export errors
+		// Ignore specific problematic packages
 		config.plugins.push(
 			new webpack.IgnorePlugin({
 				resourceRegExp: /^@gemini-wallet\/core$/,
@@ -73,7 +73,7 @@ const nextConfig = {
 			}),
 			new webpack.IgnorePlugin({
 				resourceRegExp: /^@react-native-async-storage\/async-storage$/,
-			})
+			}),
 		);
 
 		return config;

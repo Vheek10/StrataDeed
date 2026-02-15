@@ -1,4 +1,4 @@
 /** @format */
 
-// Sui-only project — Mantle/Wagmi providers removed.
+// Sui blockchain configuration
 export const config = {};

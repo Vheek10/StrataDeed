@@ -42,6 +42,14 @@ module stratadeed::property_nft {
         commitment: vector<u8>,
     }
 
+    // Error codes
+    const ERROR_NOT_OWNER: u64 = 101;
+    const ERROR_SAME_ADDRESS: u64 = 102;
+    const ERROR_INVALID_COMMITMENT: u64 = 201;
+    const ERROR_COMMITMENT_TOO_LONG: u64 = 202;
+
+    const MAX_COMMITMENT_LENGTH: u64 = 64;  // Hash commitment should be max 64 bytes
+
     // =========================================
     // Initialization
     // =========================================
@@ -97,6 +105,14 @@ module stratadeed::property_nft {
         ctx: &mut TxContext,
     ) {
         let from = deed.owner;
+        let caller = tx_context::sender(ctx);
+        
+        // Verify caller is the owner
+        assert!(caller == deed.owner, ERROR_NOT_OWNER);
+        
+        // Verify not transferring to self
+        assert!(to != deed.owner, ERROR_SAME_ADDRESS);
+        
         event::emit(DeedTransferred {
             from: from,
             to: to,
@@ -110,7 +126,19 @@ module stratadeed::property_nft {
     public fun update_private_commitment(
         deed: &mut PropertyDeed,
         new_commitment: vector<u8>,
+        ctx: &TxContext,
     ) {
+        let caller = tx_context::sender(ctx);
+        
+        // Verify caller is the owner
+        assert!(caller == deed.owner, ERROR_NOT_OWNER);
+        
+        // Validate commitment is not empty
+        assert!(std::vector::length(&new_commitment) > 0, ERROR_INVALID_COMMITMENT);
+        
+        // Validate commitment is reasonable length (max 64 bytes for hash)
+        assert!(std::vector::length(&new_commitment) <= MAX_COMMITMENT_LENGTH, ERROR_COMMITMENT_TOO_LONG);
+        
         deed.private_commitment = new_commitment;
         event::emit(PrivateDataUpdated {
             deed_id: object::id_to_address(&deed.id),

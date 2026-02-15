@@ -352,10 +352,18 @@ function MintFormContent() {
 			// Encode metadata
 			const metadataURI = encodeMetadataToBase64(metadata);
 
-			// Generate Property ID & Private Commitment
-			const propertyId = `PROP-${Date.now()}-${Math.random()
-				.toString(36)
-				.substr(2, 9)}`;
+			// Generate Secure Property ID using Web Crypto API
+			const generateSecurePropertyId = (): string => {
+				const timestamp = Date.now();
+				const randomBytes = new Uint8Array(16);
+				crypto.getRandomValues(randomBytes);
+				const randomHex = Array.from(randomBytes)
+					.map((b) => b.toString(16).padStart(2, "0"))
+					.join("");
+				return `PROP-${timestamp}-${randomHex}`;
+			};
+
+			const propertyId = generateSecurePropertyId();
 
 			// Create ZK Commitment
 			const fileHashes = await Promise.all(
@@ -372,9 +380,12 @@ function MintFormContent() {
 			});
 			const privateCommitment = await keccak256(privateDataString);
 
-			console.log("Calling tokenizeProperty hook...");
+			console.log("Minting Property Deed NFT on Sui...", {
+				propertyId,
+				metadataLength: metadataURI.length,
+			});
 
-			// Call Contract for NFT Minting
+			// Call Contract for NFT Minting (property_nft::mint_property_deed)
 			const result = await tokenizeProperty(
 				propertyId,
 				metadataURI,
@@ -403,7 +414,6 @@ function MintFormContent() {
 					const rwaHash = await deployStrataDeed(
 						formData.targetRaise,
 						address!,
-						[],
 					);
 
 					if (rwaHash) {

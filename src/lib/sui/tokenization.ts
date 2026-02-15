@@ -1,54 +1,139 @@
 /** @format */
 
-import { SuiClient } from "@mysten/sui";
+import { Transaction } from "@mysten/sui/transactions";
+import { SuiClient } from "@mysten/sui/client";
+import {
+	PROPERTY_NFT_PACKAGE_ID,
+	PROPERTY_RWA_PACKAGE_ID,
+	MODULES,
+} from "@/config/contracts";
 
-// Example Sui Move package + module identifiers.
-// Replace these with your deployed package / module IDs.
-export const PROPERTY_PACKAGE_ID =
-	process.env.NEXT_PUBLIC_SUI_PROPERTY_PACKAGE_ID ||
-	"0xPROPERTY_PACKAGE_ID";
-export const PROPERTY_MODULE = "property_tokenization";
-
-export interface SuiTokenizeInput {
+export interface SuiMintPropertyDeedInput {
 	propertyId: string;
-	metadataUrl: string;
+	metadataUri: string;
 	privateCommitment: string;
 	ownerAddress: string;
-	mintFee?: string;
 }
 
-export async function tokenizePropertyOnSui(
+export interface SuiMintRWATokenInput {
+	propertyId: string;
+	tokens: number;
+	ownerAddress: string;
+}
+
+/**
+ * Mints a Property Deed NFT on Sui blockchain
+ * Calls: property_nft::mint_property_deed
+ */
+export async function mintPropertyDeedOnSui(
 	client: SuiClient,
 	walletAddress: string,
 	{
 		propertyId,
-		metadataUrl,
+		metadataUri,
 		privateCommitment,
 		ownerAddress,
-		mintFee = "0",
-	}: SuiTokenizeInput,
+	}: SuiMintPropertyDeedInput,
 ) {
-	// This assumes a Move entry function with signature:
-	// public entry fun mint_property(
-	//   property_id: String,
-	//   metadata_url: String,
-	//   private_commitment: vector<u8>,
-	//   owner: address,
-	//   ctx: &mut TxContext
-	// )
+	if (!PROPERTY_NFT_PACKAGE_ID) {
+		throw new Error(
+			"PROPERTY_NFT_PACKAGE_ID not configured. Deploy contracts first.",
+		);
+	}
 
-	const tx = await client.executeMoveCall({
-		packageObjectId: PROPERTY_PACKAGE_ID,
-		module: PROPERTY_MODULE,
-		function: "mint_property",
-		arguments: [propertyId, metadataUrl, privateCommitment, ownerAddress],
-		sender: walletAddress,
-		// For a free mint set gasBudget; for paid flows, attach coins via a
-		// programmable transaction instead.
-		gasBudget: Number(process.env.NEXT_PUBLIC_SUI_GAS_BUDGET || 50_000_000),
+	const tx = new Transaction();
+
+	// Convert private commitment string to vector<u8>
+	const commitmentBytes = Array.from(
+		new TextEncoder().encode(privateCommitment),
+	);
+
+	// Call: public fun mint_property_deed(
+	//   property_id: String,
+	//   metadata_uri: String,
+	//   private_commitment: vector<u8>,
+	//   to: address,
+	//   ctx: &mut TxContext
+	// ): PropertyDeed
+	tx.moveCall({
+		target: `${PROPERTY_NFT_PACKAGE_ID}::${MODULES.PROPERTY_NFT}::mint_property_deed`,
+		arguments: [
+			tx.pure.string(propertyId),
+			tx.pure.string(metadataUri),
+			tx.pure.vector("u8", commitmentBytes),
+			tx.pure.address(ownerAddress),
+		],
 	});
+
+	tx.setSender(walletAddress);
 
 	return tx;
 }
 
+/**
+ * Mints RWA tokens for fractional ownership
+ * Calls: property_rwa::mint_rwa_token
+ */
+export async function mintRWATokenOnSui(
+	client: SuiClient,
+	walletAddress: string,
+	{ propertyId, tokens, ownerAddress }: SuiMintRWATokenInput,
+) {
+	if (!PROPERTY_RWA_PACKAGE_ID) {
+		throw new Error(
+			"PROPERTY_RWA_PACKAGE_ID not configured. Deploy contracts first.",
+		);
+	}
 
+	const tx = new Transaction();
+
+	// Call: public fun mint_rwa_token(
+	//   property_id: String,
+	//   tokens: u64,
+	//   to: address,
+	//   ctx: &mut TxContext
+	// ): RWAToken
+	tx.moveCall({
+		target: `${PROPERTY_RWA_PACKAGE_ID}::${MODULES.PROPERTY_RWA}::mint_rwa_token`,
+		arguments: [
+			tx.pure.string(propertyId),
+			tx.pure.u64(tokens),
+			tx.pure.address(ownerAddress),
+		],
+	});
+
+	tx.setSender(walletAddress);
+
+	return tx;
+}
+
+/**
+ * Creates a new RWA Treasury for escrow management
+ * Calls: property_rwa::create_treasury
+ */
+export async function createTreasuryOnSui(
+	client: SuiClient,
+	walletAddress: string,
+	fundingCap: number,
+) {
+	if (!PROPERTY_RWA_PACKAGE_ID) {
+		throw new Error(
+			"PROPERTY_RWA_PACKAGE_ID not configured. Deploy contracts first.",
+		);
+	}
+
+	const tx = new Transaction();
+
+	// Call: public fun create_treasury(
+	//   funding_cap: u64,
+	//   ctx: &mut TxContext
+	// ): (RWATreasury, TreasuryAdminCap)
+	tx.moveCall({
+		target: `${PROPERTY_RWA_PACKAGE_ID}::${MODULES.PROPERTY_RWA}::create_treasury`,
+		arguments: [tx.pure.u64(fundingCap)],
+	});
+
+	tx.setSender(walletAddress);
+
+	return tx;
+}

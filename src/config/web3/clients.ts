@@ -1,7 +1,7 @@
 /** @format */
 
 import { SuiClient } from "@mysten/sui/client";
-import { DEFAULT_NETWORK } from "@/config/chains/mantle";
+import { CURRENT_NETWORK } from "@/config/web3/chains";
 
 // Sui RPC endpoints
 const SUI_RPC_ENDPOINTS: Record<string, string> = {
@@ -20,7 +20,7 @@ export const suiMainnetClient = new SuiClient({
 export const suiDevnetClient = new SuiClient({ url: SUI_RPC_ENDPOINTS.devnet });
 
 // Get client for current network
-export const getSuiClient = (network: string = DEFAULT_NETWORK): SuiClient => {
+export const getSuiClient = (network: string = CURRENT_NETWORK): SuiClient => {
 	switch (network) {
 		case "mainnet":
 			return suiMainnetClient;
@@ -31,8 +31,3 @@ export const getSuiClient = (network: string = DEFAULT_NETWORK): SuiClient => {
 			return suiTestnetClient;
 	}
 };
-
-// Backwards compatibility exports
-export const mantlePublicClient = undefined;
-export const mantleSepoliaPublicClient = undefined;
-export const getPublicClient = (_chainId?: number) => getSuiClient();

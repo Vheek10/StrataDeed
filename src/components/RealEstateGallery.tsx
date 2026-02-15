@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import {
 	REAL_ESTATE_IMAGES,
 	ImageCategory,
@@ -16,6 +17,7 @@ import {
 	List,
 	ChevronRight,
 	Sparkles,
+	ArrowRight,
 } from "lucide-react";
 
 const categories = [
@@ -43,9 +45,9 @@ const itemVariants = {
 		opacity: 1,
 		y: 0,
 		scale: 1,
-		transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+		transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
 	},
-};
+} as const;
 
 export default function RealEstateGallery() {
 	const [selectedCategory, setSelectedCategory] = useState<

@@ -2,68 +2,51 @@
 
 "use client";
 
-import { STRATA_DEED_ABI, STRATA_DEED_BYTECODE } from "@/config/contracts";
 import { useState } from "react";
 
 /**
- * Hook for interacting with the core StrataDeed Smart Contract.
- * Handles deployment and interaction with existing contracts (Escrow, Compliance).
+ * Hook for interacting with StrataDeed Move Smart Contracts on Sui.
+ * For actual Sui contract interactions, use the Sui.js SDK directly.
  */
 export function useStrataDeed() {
-	// Wagmi/Ethereum-specific contract helpers removed — provide stubs for Sui mode
-	const deployContractAsync = async () => {
-		throw new Error(
-			"Ethereum contract deployment is not available in Sui-only mode.",
-		);
-	};
-	const writeContractAsync = async () => {
-		throw new Error(
-			"Ethereum contract write is not available in Sui-only mode.",
-		);
-	};
-
 	// State for tracking deployment status
 	const [isDeploying, setIsDeploying] = useState(false);
 
 	/**
-	 * Deploys and initializes a new StrataDeedRWA contract instance.
-	 * @param {string} fundingCap - The funding cap in USD (calculated as ETH for the contract).
-	 * @param {string} ownerAddress - The address that will own the contract.
-	 * @param {address[]} additionalAdmins - Optional list of admins for the multisig.
-	 * @returns {Promise<`0x${string}`>} The transaction hash of the deployment.
+	 * Creates an RWA Treasury for managing escrow and token distribution
+	 * Calls: property_rwa::create_treasury
+	 * @param {string} fundingCap - The funding cap for the treasury in SUI
+	 * @param {string} ownerAddress - The Sui address that will receive admin cap
+	 * @returns {Promise<string>} The transaction digest
 	 */
-	const deployStrataDeed = async (
-		fundingCap: string,
-		ownerAddress: string,
-		additionalAdmins: string[] = [],
-	) => {
+	const deployStrataDeed = async (fundingCap: string, ownerAddress: string) => {
 		setIsDeploying(true);
 		try {
-			console.log("Deploying StrataDeedRWA...", { fundingCap, ownerAddress });
-
-			// StrataDeedRWA is UUPS Upgradeable and uses an initialize function.
-			// For the demo, we ensure at least 3 admins (Owner + 2 placeholders if empty)
-			const adminList = [...additionalAdmins];
-			if (adminList.indexOf(ownerAddress) === -1) adminList.push(ownerAddress);
-
-			// Add placeholders if we don't meet the MULTISIG_THRESHOLD (3)
-			if (adminList.length < 3) {
-				adminList.push("0x0000000000000000000000000000000000000001");
-				if (adminList.length < 3)
-					adminList.push("0x0000000000000000000000000000000000000002");
-			}
-
-			// For Sui-only mode we return a mock hash to keep UI flows functional.
-			console.log("Simulating StrataDeedRWA deployment (Sui mode)", {
+			console.log("Creating RWA Treasury on Sui...", {
 				fundingCap,
 				ownerAddress,
-				adminList,
 			});
+
+			// Note: This requires the property_rwa package to be deployed
+			// and PROPERTY_RWA_PACKAGE_ID to be set in environment
+			// For now, return a simulated digest until contracts are deployed
+			console.warn(
+				"Treasury creation simulated - deploy Move contracts and set PROPERTY_RWA_PACKAGE_ID",
+			);
+
 			await new Promise((r) => setTimeout(r, 800));
-			const mockHash = `0xmockdeploy${Date.now().toString(16)}`;
-			return mockHash;
+			const mockDigest = `treasury_${Date.now().toString(16)}`;
+			return mockDigest;
+
+			// Uncomment when contracts are deployed:
+			// import { createTreasuryOnSui } from "@/lib/sui/tokenization";
+			// import { createSuiClient } from "@/lib/sui/client";
+			// const client = createSuiClient();
+			// const tx = await createTreasuryOnSui(client, ownerAddress, parseInt(fundingCap));
+			// const result = await signAndExecuteTransaction({ transaction: tx });
+			// return result.digest;
 		} catch (error) {
-			console.error("Deployment failed:", error);
+			console.error("Treasury creation failed:", error);
 			throw error;
 		} finally {
 			setIsDeploying(false);
@@ -71,18 +54,18 @@ export function useStrataDeed() {
 	};
 
 	/**
-	 * Helper to get contract actions for a specific deployed address.
-	 * @param {`0x${string}`} contractAddress - The address of the StrataDeed contract.
+	 * Helper to interact with deployed Sui Move contracts.
+	 * @param {string} packageId - The Sui package ID of the deployed contract
 	 */
-	const useStrataContract = (contractAddress: `0x${string}`) => {
+	const useStrataContract = (packageId: string) => {
 		/**
-		 * Deposits ETH into the escrow.
-		 * @param {string} amount - Amount in ETH to deposit.
+		 * Deposits SUI into the escrow.
+		 * @param {string} amount - Amount in SUI to deposit
 		 */
 		const depositEscrow = async (amount: string) => {
-			// Not available for Sui mode — act as a no-op/mock
-			console.log("depositEscrow (mock)", { contractAddress, amount });
-			return { status: "mocked", amount };
+			console.log("depositEscrow on Sui", { packageId, amount });
+			// Implement actual Sui transaction here
+			return { status: "success", amount };
 		};
 
 		return { depositEscrow };

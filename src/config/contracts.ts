@@ -1,23 +1,65 @@
 /** @format */
 
-import StrataDeedArtifact from "../contracts/artifacts/contracts/StrataDeedRWA.sol/StrataDeedRWA.json";
-
 /**
- * Centralized configuration for Smart Contracts.
- * Exports ABI, Bytecode, and deployed addresses for easy access across the app.
+ * Centralized configuration for Sui Move Smart Contracts.
+ *
+ * Move Contracts Location: move/stratadeed/sources/
+ * - property.move: Core property tokenization
+ * - property_nft.move: NFT deed representation
+ * - property_rwa.move: RWA treasury and escrow management
  */
 
-export const STRATA_DEED_ABI = StrataDeedArtifact.abi;
-export const STRATA_DEED_BYTECODE = StrataDeedArtifact.bytecode as `0x${string}`;
+// Sui Network Configuration
+export const SUI_NETWORK = process.env.NEXT_PUBLIC_SUI_NETWORK || "testnet";
 
-// Default to the most recently deployed address from env, or a zero address fallback
-export const STRATA_DEED_ADDRESS = (process.env.NEXT_PUBLIC_STRATA_DEED_ADDRESS as `0x${string}`) || "0x4C7e8Cd47EE5782c948Ee65F0D93F4D4e27EF93C";
-export const STRATA_DEED_RWA_ADDRESS = "0x4C7e8Cd47EE5782c948Ee65F0D93F4D4e27EF93C" as `0x${string}`;
-/**
- * Convenience object for Wagmi hooks
- */
-export const STRATA_DEED_CONFIG = {
-  address: STRATA_DEED_ADDRESS,
-  abi: STRATA_DEED_ABI,
-  bytecode: STRATA_DEED_BYTECODE, // Typically needed for deployment, not interaction
+// Sui Move Package Addresses (set after deployment)
+// These should be set in your .env.local file after deploying to Sui
+export const PROPERTY_PACKAGE_ID =
+	process.env.NEXT_PUBLIC_PROPERTY_PACKAGE_ID || "";
+export const PROPERTY_NFT_PACKAGE_ID =
+	process.env.NEXT_PUBLIC_PROPERTY_NFT_PACKAGE_ID || "";
+export const PROPERTY_RWA_PACKAGE_ID =
+	process.env.NEXT_PUBLIC_PROPERTY_RWA_PACKAGE_ID || "";
+
+// Module Names - correspond to Move module declarations
+export const MODULES = {
+	PROPERTY: "property",
+	PROPERTY_NFT: "property_nft",
+	PROPERTY_RWA: "property_rwa",
 } as const;
+
+// Admin Capability Object IDs (set after deployment)
+export const ADMIN_CAP_PROPERTY =
+	process.env.NEXT_PUBLIC_ADMIN_CAP_PROPERTY || "";
+export const ADMIN_CAP_PROPERTY_NFT =
+	process.env.NEXT_PUBLIC_ADMIN_CAP_PROPERTY_NFT || "";
+export const TREASURY_ADMIN_CAP =
+	process.env.NEXT_PUBLIC_TREASURY_ADMIN_CAP || "";
+
+/**
+ * Sui Move Contract Configuration
+ * Use this for actual Sui blockchain interactions
+ */
+export const SUI_CONTRACTS = {
+	network: SUI_NETWORK,
+	packages: {
+		property: PROPERTY_PACKAGE_ID,
+		propertyNFT: PROPERTY_NFT_PACKAGE_ID,
+		propertyRWA: PROPERTY_RWA_PACKAGE_ID,
+	},
+	modules: MODULES,
+	adminCaps: {
+		property: ADMIN_CAP_PROPERTY,
+		propertyNFT: ADMIN_CAP_PROPERTY_NFT,
+		treasuryAdmin: TREASURY_ADMIN_CAP,
+	},
+} as const;
+
+// Helper to check if Move contracts are configured
+export const isSuiContractsConfigured = () => {
+	return !!(
+		PROPERTY_PACKAGE_ID &&
+		PROPERTY_NFT_PACKAGE_ID &&
+		PROPERTY_RWA_PACKAGE_ID
+	);
+};
