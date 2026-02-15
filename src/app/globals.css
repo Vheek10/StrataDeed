@@ -3,9 +3,9 @@
  * @format
  */
 
+@import url("https://fonts.googleapis.com/css2?family=McLaren&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 @import "@suiet/wallet-kit/style.css";
-@import url("https://fonts.googleapis.com/css2?family=McLaren&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
 :root {
 	/* Color System - Light mode */
@@ -92,14 +92,14 @@
 	--animate-shimmer: shimmer 2s infinite linear;
 	--animate-scan: scan 4s linear infinite;
 	--animate-spin-slow: spin 8s linear infinite;
+}
 
-	@keyframes scan {
-		from {
-			transform: translateY(-100%);
-		}
-		to {
-			transform: translateY(1000%);
-		}
+@keyframes scan {
+	from {
+		transform: translateY(-100%);
+	}
+	to {
+		transform: translateY(1000%);
 	}
 }
 

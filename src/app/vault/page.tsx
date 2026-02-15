@@ -51,7 +51,7 @@ export default function VaultPage() {
 	];
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-montserrat">
+		<div className="min-h-screen bg-linear-to-b from-gray-50 to-white font-montserrat">
 			<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 				{/* Header */}
 				<header className="space-y-4">
@@ -66,13 +66,13 @@ export default function VaultPage() {
 							Your Private Vault
 						</h1>
 						<p className="text-base text-gray-600 font-medium font-montserrat">
-							Secure key management and zero-knowledge credential storage.
-							Your identity, your control.
+							Secure key management and zero-knowledge credential storage. Your
+							identity, your control.
 						</p>
 					</div>
 
 					{/* ZK Privacy Badge */}
-					<div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-200">
+					<div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-200">
 						<Sparkles className="w-4 h-4 text-purple-600" />
 						<span className="text-sm font-black text-purple-900 font-montserrat">
 							Protected by Zero-Knowledge Proofs
@@ -93,7 +93,7 @@ export default function VaultPage() {
 						<div className="space-y-3">
 							<div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
 								<div className="flex items-center gap-3 flex-1 min-w-0">
-									<div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
+									<div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-cyan-400 flex items-center justify-center shrink-0">
 										<Fingerprint className="w-5 h-5 text-white" />
 									</div>
 									<div className="min-w-0">
@@ -107,7 +107,7 @@ export default function VaultPage() {
 								</div>
 								<button
 									onClick={() => handleCopy(address)}
-									className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
+									className="p-2 hover:bg-gray-200 rounded-lg transition-colors shrink-0"
 									aria-label="Copy address">
 									{copied ? (
 										<Check className="w-4 h-4 text-green-500" />
@@ -118,7 +118,7 @@ export default function VaultPage() {
 							</div>
 
 							<div className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-								<Info className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+								<Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
 								<p className="text-xs text-blue-700">
 									Your wallet is your identity. StrataDeed never stores your
 									private keys.
@@ -145,15 +145,15 @@ export default function VaultPage() {
 					</div>
 
 					<p className="text-sm text-gray-600">
-						Your compliance credentials are stored as cryptographic
-						commitments. Prove eligibility without revealing personal data.
+						Your compliance credentials are stored as cryptographic commitments.
+						Prove eligibility without revealing personal data.
 					</p>
 
 					<div className="space-y-3">
 						{mockCredentials.map((credential) => (
 							<div
 								key={credential.id}
-								className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
+								className="p-4 bg-linear-to-r from-purple-50 to-blue-50 rounded-xl border border-purple-100">
 								<div className="flex items-start justify-between mb-2">
 									<div className="flex-1">
 										<div className="font-semibold text-gray-900 mb-1">
@@ -181,7 +181,7 @@ export default function VaultPage() {
 					</div>
 
 					<div className="flex items-start gap-2 p-3 bg-purple-50 rounded-lg">
-						<Shield className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
+						<Shield className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
 						<p className="text-xs text-purple-700">
 							<strong>Privacy First:</strong> Only cryptographic hashes are
 							stored on-chain. Your actual identity data never leaves your
@@ -200,8 +200,8 @@ export default function VaultPage() {
 					</div>
 
 					<p className="text-sm text-gray-600">
-						Store sensitive property documents with client-side encryption.
-						Only you can decrypt and access your files.
+						Store sensitive property documents with client-side encryption. Only
+						you can decrypt and access your files.
 					</p>
 
 					<div className="p-8 text-center bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
@@ -218,7 +218,7 @@ export default function VaultPage() {
 
 				{/* Security Notice */}
 				<div className="flex items-start gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200">
-					<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+					<AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
 					<div className="flex-1">
 						<p className="text-sm font-black text-amber-900 mb-1 font-montserrat">
 							Security Best Practices

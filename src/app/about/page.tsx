@@ -52,6 +52,7 @@ export default function About() {
 		mouseY.set(0);
 	};
 
+	const staggerEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 	const staggerVariants = {
 		hidden: { opacity: 0, y: 30 },
 		visible: (i: number) => ({
@@ -60,7 +61,7 @@ export default function About() {
 			transition: {
 				delay: i * 0.1,
 				duration: 0.8,
-				ease: [0.16, 1, 0.3, 1],
+				ease: staggerEase,
 			},
 		}),
 	};
@@ -72,7 +73,7 @@ export default function About() {
 				ref={containerRef}
 				onMouseMove={handleMouseMove}
 				onMouseLeave={handleMouseLeave}
-				className="relative min-h-[100vh] flex items-center px-4 sm:px-6 lg:px-8 xl:px-12 overflow-hidden bg-gray-50 pt-24 md:pt-32 pb-16 md:pb-24">
+				className="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 xl:px-12 overflow-hidden bg-gray-50 pt-24 md:pt-32 pb-16 md:pb-24">
 				{/* Background Layer with Parallax */}
 				<motion.div
 					style={{ x: bgX, y: bgY }}
@@ -84,7 +85,7 @@ export default function About() {
 						className="object-cover opacity-60 scale-110"
 						priority
 					/>
-					<div className="absolute inset-0 bg-gradient-to-br from-blue-50/90 via-white/40 to-cyan-50/50" />
+					<div className="absolute inset-0 bg-linear-to-br from-blue-50/90 via-white/40 to-cyan-50/50" />
 					<div className="absolute inset-0 bg-blue-100/5 mix-blend-overlay" />
 				</motion.div>
 
@@ -224,7 +225,7 @@ export default function About() {
 								className="relative rounded-3xl lg:rounded-[4rem] border border-gray-200/50 shadow-2xl lg:shadow-3xl overflow-hidden bg-white/70 backdrop-blur-2xl lg:backdrop-blur-3xl p-8 lg:p-12"
 								style={{ transform: "translateZ(100px)" }}>
 								{/* Scanline Effect */}
-								<div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent h-[10%] w-full animate-scan pointer-events-none" />
+								<div className="absolute inset-0 bg-linear-to-b from-transparent via-blue-500/5 to-transparent h-[10%] w-full animate-scan pointer-events-none" />
 
 								<div className="grid grid-cols-2 gap-6 lg:gap-12 relative z-10">
 									{[
@@ -247,7 +248,7 @@ export default function About() {
 										</div>
 									))}
 								</div>
-								<div className="mt-8 lg:mt-12 h-[1px] w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+								<div className="mt-8 lg:mt-12 h-px w-full bg-linear-to-r from-transparent via-gray-200 to-transparent" />
 								<div className="mt-8 lg:mt-10 flex items-center gap-4 lg:gap-6">
 									<div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl lg:rounded-3xl bg-blue-600 flex items-center justify-center text-white shadow-lg lg:shadow-xl shadow-blue-600/40">
 										<Shield className="w-6 h-6 lg:w-8 lg:h-8" />
@@ -290,7 +291,7 @@ export default function About() {
 								fill
 								className="object-cover transition-transform duration-[10s] group-hover:scale-110"
 							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+							<div className="absolute inset-0 bg-linear-to-t from-gray-900/60 via-transparent to-transparent" />
 
 							<div className="absolute bottom-6 left-6 right-6 lg:bottom-12 lg:left-12 lg:right-12 p-4 lg:p-8 bg-white/10 backdrop-blur-xl lg:backdrop-blur-2xl border border-white/20 rounded-2xl lg:rounded-3xl">
 								<p className="text-white text-sm lg:text-lg font-medium font-montserrat">
@@ -361,7 +362,7 @@ export default function About() {
 										viewport={{ once: true }}
 										transition={{ delay: i * 0.2 }}
 										className="flex items-start gap-4 lg:gap-8 group">
-										<div className="w-12 h-12 lg:w-16 lg:h-16 rounded-xl lg:rounded-[2rem] bg-gray-50 flex items-center justify-center text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 shadow-sm group-hover:shadow-blue-600/30 flex-shrink-0">
+										<div className="w-12 h-12 lg:w-16 lg:h-16 rounded-xl lg:rounded-4xl bg-gray-50 flex items-center justify-center text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 shadow-sm group-hover:shadow-blue-600/30 shrink-0">
 											<item.icon className="w-6 h-6 lg:w-8 lg:h-8" />
 										</div>
 										<div>
@@ -413,7 +414,7 @@ export default function About() {
 									fill
 									className="object-cover opacity-40 transition-transform duration-[20s] group-hover:scale-110"
 								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
+								<div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/40 to-transparent" />
 								<div className="absolute inset-0 bg-blue-900/10 mix-blend-color group-hover:bg-blue-600/20 transition-colors duration-1000" />
 							</div>
 
@@ -429,7 +430,7 @@ export default function About() {
 									ease: "linear",
 									repeatDelay: 2,
 								}}
-								className="absolute top-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
+								className="absolute top-0 w-1/2 h-full bg-linear-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
 							/>
 
 							<div className="relative z-10 space-y-4 lg:space-y-8">
@@ -487,7 +488,7 @@ export default function About() {
 									fill
 									className="object-cover opacity-40 transition-transform duration-[20s] group-hover:scale-110"
 								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
+								<div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/40 to-transparent" />
 								<div className="absolute inset-0 bg-cyan-900/10 mix-blend-color group-hover:bg-cyan-600/20 transition-colors duration-1000" />
 							</div>
 
@@ -503,7 +504,7 @@ export default function About() {
 									ease: "linear",
 									repeatDelay: 3,
 								}}
-								className="absolute top-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
+								className="absolute top-0 w-1/2 h-full bg-linear-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
 							/>
 
 							<div className="relative z-10 space-y-4 lg:space-y-8">
@@ -619,7 +620,7 @@ export default function About() {
 				</div>
 
 				{/* Background Grid Lines */}
-				<div className="absolute inset-x-0 bottom-0 h-48 lg:h-96 bg-gradient-to-t from-blue-50/50 to-transparent pointer-events-none" />
+				<div className="absolute inset-x-0 bottom-0 h-48 lg:h-96 bg-linear-to-t from-blue-50/50 to-transparent pointer-events-none" />
 				<div
 					className="absolute inset-0 opacity-[0.03] pointer-events-none"
 					style={{

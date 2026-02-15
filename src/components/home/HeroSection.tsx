@@ -57,7 +57,7 @@ export default function HeroSection() {
 
 			{/* Subtle pattern overlay - very transparent */}
 			<div className="absolute inset-0 opacity-[0.01] z-1 pointer-events-none">
-				<div className="h-full w-full bg-[linear-gradient(45deg,transparent_48%,rgba(90,127,176,0.015)_48%,rgba(90,127,176,0.015)_52%,transparent_52%)] bg-[length:100px_100px]" />
+				<div className="h-full w-full bg-[linear-gradient(45deg,transparent_48%,rgba(90,127,176,0.015)_48%,rgba(90,127,176,0.015)_52%,transparent_52%)] bg-size-[100px_100px]" />
 			</div>
 
 			<div className="relative z-20 w-full">
@@ -76,7 +76,7 @@ export default function HeroSection() {
 							<div className="relative mb-8 w-full">
 								<h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.9] sm:leading-[0.85] mb-8 font-mclaren">
 									<span className="block">Tokenizing Global</span>
-									<span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+									<span className="block bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
 										Real Estate Assets
 									</span>
 								</h1>
@@ -137,7 +137,7 @@ export default function HeroSection() {
 									className="w-full sm:w-auto bg-gray-900 rounded-full">
 									<Link
 										href="/dashboard"
-										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full block text-center flex items-center justify-center">
+										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-white rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] w-full text-center flex items-center justify-center">
 										<span className="relative flex items-center gap-3 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											Start Investing
 											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -157,7 +157,7 @@ export default function HeroSection() {
 									className="w-full sm:w-auto bg-white border border-gray-200 rounded-full">
 									<Link
 										href="/mint"
-										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-gray-900 rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] w-full block text-center flex items-center justify-center">
+										className="group relative px-6 sm:px-10 py-4 sm:py-5 text-gray-900 rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] w-full text-center flex items-center justify-center">
 										<span className="relative flex items-center gap-3 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] sm:tracking-[0.4em] font-montserrat">
 											List Property
 											<ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -183,7 +183,7 @@ export default function HeroSection() {
 											<div className="text-[9px] sm:text-[10px] text-gray-400 font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] font-montserrat">
 												{item.label}
 											</div>
-											<div className="h-[2px] w-8 mt-4 bg-gray-100 group-hover:bg-blue-600 group-hover:w-12 transition-all duration-500" />
+											<div className="h-0.5 w-8 mt-4 bg-gray-100 group-hover:bg-blue-600 group-hover:w-12 transition-all duration-500" />
 										</div>
 									))}
 								</div>
@@ -192,8 +192,8 @@ export default function HeroSection() {
 
 						{/* Right column: floating card */}
 						<div className="hidden lg:block relative group/card">
-							<div className="absolute -inset-4 bg-gradient-to-tr from-blue-500/10 via-mist-400/10 to-emerald-400/10 blur-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700" />
-							<div className="relative rounded-[2rem] border border-platinum-300/50 bg-white/70 backdrop-blur-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] p-8 space-y-6 transform transition-all duration-700 hover:-translate-y-2 hover:rotate-1">
+							<div className="absolute -inset-4 bg-linear-to-tr from-blue-500/10 via-mist-400/10 to-emerald-400/10 blur-3xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700" />
+							<div className="relative rounded-4xl border border-platinum-300/50 bg-white/70 backdrop-blur-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.15)] p-8 space-y-6 transform transition-all duration-700 hover:-translate-y-2 hover:rotate-1">
 								<div className="flex items-center justify-between gap-3">
 									<div>
 										<p className="text-xs font-semibold text-blue-700 uppercase tracking-[0.2em] font-montserrat">
@@ -276,7 +276,7 @@ export default function HeroSection() {
 				<div className="flex flex-col items-center">
 					<div className="animate-bounce">
 						<div className="w-6 h-10 sm:w-7 sm:h-12 border border-gray-400/50 rounded-full flex justify-center backdrop-blur-sm bg-platinum-200/30 shadow-lg">
-							<div className="w-1.5 h-3 sm:h-4 bg-gradient-to-b from-blue-600 to-mist-600 rounded-full mt-3 sm:mt-4 animate-pulse" />
+							<div className="w-1.5 h-3 sm:h-4 bg-linear-to-b from-blue-600 to-mist-600 rounded-full mt-3 sm:mt-4 animate-pulse" />
 						</div>
 					</div>
 					<span className="text-xs text-gray-700 mt-2 sm:mt-3 tracking-wider font-medium font-montserrat">
@@ -286,12 +286,12 @@ export default function HeroSection() {
 			</div>
 
 			{/* Subtle decorative elements - Hide on mobile */}
-			<div className="absolute top-1/4 left-4 sm:left-8 w-0.5 h-20 sm:h-32 lg:h-40 bg-gradient-to-b from-blue-500/15 via-mist-400/5 to-transparent hidden md:block" />
-			<div className="absolute bottom-1/3 right-4 sm:right-8 w-0.5 h-16 sm:h-24 lg:h-32 bg-gradient-to-b from-blue-500/15 via-mist-400/5 to-transparent hidden md:block" />
+			<div className="absolute top-1/4 left-4 sm:left-8 w-0.5 h-20 sm:h-32 lg:h-40 bg-linear-to-b from-blue-500/15 via-mist-400/5 to-transparent hidden md:block" />
+			<div className="absolute bottom-1/3 right-4 sm:right-8 w-0.5 h-16 sm:h-24 lg:h-32 bg-linear-to-b from-blue-500/15 via-mist-400/5 to-transparent hidden md:block" />
 
 			{/* Corner accents for depth - Hide on mobile */}
-			<div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500/3 to-transparent hidden lg:block" />
-			<div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tl from-mist-500/3 to-transparent hidden lg:block" />
+			<div className="absolute top-0 left-0 w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-blue-500/3 to-transparent hidden lg:block" />
+			<div className="absolute bottom-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-tl from-mist-500/3 to-transparent hidden lg:block" />
 		</section>
 	);
 }

@@ -100,7 +100,7 @@ export default function MissionVisionSection() {
 								fill
 								className="object-cover transition-transform duration-[20s] group-hover:scale-110"
 							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+							<div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
 							<div className="absolute inset-0 bg-blue-900/10 mix-blend-color group-hover:bg-blue-600/20 transition-colors duration-1000" />
 						</div>
 
@@ -116,7 +116,7 @@ export default function MissionVisionSection() {
 								ease: "linear",
 								repeatDelay: 2,
 							}}
-							className="absolute top-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
+							className="absolute top-0 w-1/2 h-full bg-linear-to-r from-transparent via-white to-transparent -skew-x-12 z-20 pointer-events-none"
 						/>
 
 						{/* Floating Content Glassmorphism */}
@@ -125,7 +125,7 @@ export default function MissionVisionSection() {
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
 									whileInView={{ opacity: 1, scale: 1 }}
-									className="w-14 h-14 sm:w-20 sm:h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
+									className="w-14 h-14 sm:w-20 sm:h-20 rounded-4xl bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
 									<Target className="w-7 h-7 sm:w-9 sm:h-9 text-white" />
 								</motion.div>
 
@@ -184,7 +184,7 @@ export default function MissionVisionSection() {
 								fill
 								className="object-cover transition-transform duration-[20s] group-hover:scale-110"
 							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
+							<div className="absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/40 to-transparent" />
 							<div className="absolute inset-0 bg-cyan-900/10 mix-blend-color group-hover:bg-cyan-600/20 transition-colors duration-1000" />
 						</div>
 
@@ -194,7 +194,7 @@ export default function MissionVisionSection() {
 								<motion.div
 									initial={{ opacity: 0, scale: 0.8 }}
 									whileInView={{ opacity: 1, scale: 1 }}
-									className="w-14 h-14 sm:w-20 sm:h-20 rounded-[2rem] bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
+									className="w-14 h-14 sm:w-20 sm:h-20 rounded-4xl bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center mb-8 sm:mb-10 shadow-2xl">
 									<Eye className="w-7 h-7 sm:w-9 sm:h-9 text-white" />
 								</motion.div>
 
@@ -244,7 +244,7 @@ export default function MissionVisionSection() {
 						<h3 className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em] mb-4 font-montserrat">
 							The RealFi Advantage
 						</h3>
-						<div className="h-[2px] w-12 bg-blue-600 mx-auto" />
+						<div className="h-0.5 w-12 bg-blue-600 mx-auto" />
 					</motion.div>
 
 					<div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">

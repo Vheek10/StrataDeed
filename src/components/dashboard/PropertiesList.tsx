@@ -92,7 +92,7 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300 group">
 						<div className="flex w-full sm:w-auto items-center gap-4">
 							<motion.div
-								className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 flex items-center justify-center border border-gray-200"
+								className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100 flex items-center justify-center border border-gray-200"
 								whileHover={{ scale: 1.05 }}
 								transition={{ duration: 0.2 }}>
 								{/* Placeholder for Token/Strategy Icon since we don't have strategy images yet */}

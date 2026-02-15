@@ -6,10 +6,10 @@ import { forwardRef } from "react";
 import { ConnectButton, useWallet } from "@suiet/wallet-kit";
 
 const ConnectWalletButtonContent = () => {
-	const { currentAccount } = useWallet();
+	const { account } = useWallet();
 
-	if (currentAccount) {
-		const address = currentAccount.address;
+	if (account) {
+		const address = account.address;
 		const truncated = `${address.slice(0, 6)}...${address.slice(-4)}`;
 		return <span>{truncated}</span>;
 	}
@@ -22,7 +22,7 @@ const ConnectWalletButton = forwardRef<HTMLDivElement>((props, ref) => {
 		<div
 			className="sd-connect-button"
 			ref={ref}>
-			<ConnectButton showBalance={false}>
+			<ConnectButton>
 				<ConnectWalletButtonContent />
 			</ConnectButton>
 		</div>

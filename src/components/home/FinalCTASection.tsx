@@ -70,7 +70,7 @@ export default function FinalCTASection() {
 					className="object-cover opacity-70 scale-110"
 					priority
 				/>
-				<div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-white/40 to-cyan-50/50" />
+				<div className="absolute inset-0 bg-linear-to-br from-blue-50/80 via-white/40 to-cyan-50/50" />
 				<div className="absolute inset-0 bg-blue-100/10 mix-blend-overlay" />
 			</motion.div>
 
@@ -176,7 +176,7 @@ export default function FinalCTASection() {
 								viewport={{ once: true }}
 								transition={{ delay: idx * 0.1 }}
 								whileHover={{ y: -10, transition: { duration: 0.3 } }}
-								className="group p-6 sm:p-8 bg-white/60 border border-gray-100 rounded-[2rem] sm:rounded-[2.5rem] hover:bg-white hover:border-blue-100 backdrop-blur-3xl transition-all duration-500 text-center shadow-sm hover:shadow-xl hover:shadow-blue-900/5">
+								className="group p-6 sm:p-8 bg-white/60 border border-gray-100 rounded-4xl sm:rounded-[2.5rem] hover:bg-white hover:border-blue-100 backdrop-blur-3xl transition-all duration-500 text-center shadow-sm hover:shadow-xl hover:shadow-blue-900/5">
 								<div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.1)] transition-all duration-500">
 									<benefit.icon className="w-6 h-6 text-blue-600" />
 								</div>

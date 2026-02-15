@@ -15,7 +15,7 @@ interface QuickActionsProps {
 
 export default function QuickActions({ actions }: QuickActionsProps) {
 	return (
-		<div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-5 text-white">
+		<div className="bg-linear-to-br from-gray-900 to-gray-800 rounded-xl p-5 text-white">
 			<h3 className="font-bold mb-4">Quick Actions</h3>
 			<div className="grid grid-cols-2 gap-3">
 				{actions.map((action) => {

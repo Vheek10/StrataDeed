@@ -18,7 +18,7 @@ export default function MarketInsights({
 	],
 }: MarketInsightsProps) {
 	return (
-		<div className="bg-gradient-to-r from-blue-500 to-cyan-400 rounded-xl p-6 text-white">
+		<div className="bg-linear-to-r from-blue-500 to-cyan-400 rounded-xl p-6 text-white">
 			<div className="flex flex-col lg:flex-row items-center justify-between gap-6">
 				<div>
 					<h3 className="text-xl font-bold mb-2">{title}</h3>

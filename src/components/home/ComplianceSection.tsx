@@ -73,8 +73,8 @@ export default function ComplianceSection() {
 		<section className="relative py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-12 bg-gray-50/50 overflow-hidden">
 			{/* Soft Ambient Effects */}
 			<div className="absolute inset-0 pointer-events-none">
-				<div className="absolute top-1/4 -left-[10%] w-[50%] h-[50%] bg-blue-600/[0.03] rounded-full blur-[150px]" />
-				<div className="absolute bottom-1/4 -right-[10%] w-[50%] h-[50%] bg-indigo-600/[0.03] rounded-full blur-[150px]" />
+				<div className="absolute top-1/4 -left-[10%] w-[50%] h-[50%] bg-blue-600/3 rounded-full blur-[150px]" />
+				<div className="absolute bottom-1/4 -right-[10%] w-[50%] h-[50%] bg-indigo-600/3 rounded-full blur-[150px]" />
 			</div>
 
 			<div className="max-w-7xl mx-auto relative z-10">
@@ -99,7 +99,7 @@ export default function ComplianceSection() {
 							<h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-3 font-montserrat">
 								Select Protocol Layer
 							</h3>
-							<div className="h-[1px] w-20 bg-blue-600/20" />
+							<div className="h-px w-20 bg-blue-600/20" />
 						</div>
 
 						{complianceFeatures.map((feature, idx) => {
@@ -239,8 +239,8 @@ export default function ComplianceSection() {
 												fill
 												className="object-cover transition-transform duration-[10s] group-hover/card:scale-110"
 											/>
-											<div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:opacity-100 opacity-0" />
-											<div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 to-transparent" />
+											<div className="absolute inset-0 bg-linear-to-r from-white via-transparent to-transparent lg:opacity-100 opacity-0" />
+											<div className="absolute inset-0 bg-linear-to-t from-gray-900/10 to-transparent" />
 
 											{/* Feature Identification */}
 											<div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 text-right">
@@ -264,7 +264,7 @@ export default function ComplianceSection() {
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
-					className="mt-16 p-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600/10 via-indigo-600/10 to-cyan-600/10 border border-gray-100 overflow-hidden">
+					className="mt-16 p-1 rounded-[2.5rem] bg-linear-to-r from-blue-600/10 via-indigo-600/10 to-cyan-600/10 border border-gray-100 overflow-hidden">
 					<div className="bg-white rounded-[2.4rem] p-10 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left shadow-lg shadow-blue-900/5">
 						<div>
 							<h3 className="text-2xl lg:text-3xl font-black text-gray-900 tracking-tighter mb-4 font-mclaren">

@@ -131,11 +131,11 @@ export default function InvestNowModal({
 		isPending,
 		error: contractError,
 	} = {
-		data: undefined,
+		data: undefined as string | undefined,
 		writeContract: async () => ({}),
 		isPending: false,
-		error: null,
-	} as const;
+		error: undefined as Error | undefined,
+	};
 	const { isLoading: isConfirming, isSuccess: isConfirmed } = {
 		isLoading: false,
 		isSuccess: false,
@@ -257,7 +257,11 @@ export default function InvestNowModal({
 	// Handle contract errors
 	useEffect(() => {
 		if (contractError && !isMockMode) {
-			setError(contractError.message || "Contract transaction failed");
+			setError(
+				contractError instanceof Error
+					? contractError.message
+					: "Contract transaction failed",
+			);
 			setStep("select");
 			setIsProcessing(false);
 		}
@@ -325,11 +329,11 @@ export default function InvestNowModal({
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						onClick={onClose}
-						className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]"
+						className="fixed inset-0 bg-black/60 backdrop-blur-sm z-9999"
 					/>
 
 					{/* Modal Container */}
-					<div className="fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4">
+					<div className="fixed inset-0 z-10000 flex items-center justify-center p-2 sm:p-4">
 						<motion.div
 							initial={{ opacity: 0, scale: 0.92, y: 30 }}
 							animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -339,7 +343,7 @@ export default function InvestNowModal({
 							{/* Header */}
 							<div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-100">
 								<div className="flex items-center gap-2 sm:gap-3">
-									<div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0">
+									<div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-linear-to-br from-blue-500 to-cyan-400 flex items-center justify-center shrink-0">
 										<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
 									</div>
 									<div className="min-w-0">
@@ -353,7 +357,7 @@ export default function InvestNowModal({
 								</div>
 								<button
 									onClick={onClose}
-									className="p-1 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
+									className="p-1 sm:p-2 hover:bg-gray-100 rounded-lg transition-colors shrink-0"
 									aria-label="Close modal">
 									<motion.div
 										whileHover={{ rotate: 90, scale: 1.1 }}
@@ -374,7 +378,7 @@ export default function InvestNowModal({
 											animate={{ opacity: 1, y: 0 }}
 											className="bg-blue-50 border border-blue-200 rounded-xl p-4">
 											<div className="flex items-center gap-3">
-												<Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
+												<Info className="w-5 h-5 text-blue-600 shrink-0" />
 												<div>
 													<p className="text-sm font-medium text-blue-800 font-montserrat">
 														Demo Mode
@@ -395,7 +399,7 @@ export default function InvestNowModal({
 											animate={{ opacity: 1, y: 0 }}
 											className="bg-amber-50 border border-amber-200 rounded-xl p-4">
 											<div className="flex items-center gap-3">
-												<AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+												<AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
 												<div>
 													<p className="text-sm font-medium text-amber-800 font-montserrat">
 														Wrong Network
@@ -413,10 +417,10 @@ export default function InvestNowModal({
 										initial={{ opacity: 0, y: -15 }}
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.5, delay: 0.1 }}
-										className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 sm:p-5 border border-blue-100">
+										className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl p-4 sm:p-5 border border-blue-100">
 										<div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
 											<motion.div
-												className="w-full sm:w-20 h-48 sm:h-20 rounded-xl overflow-hidden flex-shrink-0"
+												className="w-full sm:w-20 h-48 sm:h-20 rounded-xl overflow-hidden shrink-0"
 												whileHover={{ scale: 1.05 }}
 												transition={{ duration: 0.3 }}>
 												<img
@@ -430,7 +434,7 @@ export default function InvestNowModal({
 													{property.title}
 												</h3>
 												<div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2 font-montserrat">
-													<MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+													<MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
 													<span className="truncate">{property.location}</span>
 												</div>
 												<div className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -545,7 +549,7 @@ export default function InvestNowModal({
 												<motion.div
 													initial={{ opacity: 0, height: 0 }}
 													animate={{ opacity: 1, height: "auto" }}
-													className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-5 border border-emerald-100">
+													className="bg-linear-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-5 border border-emerald-100">
 													<h4 className="font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2 font-mclaren">
 														<PieChart className="w-3 h-3 sm:w-4 sm:h-4" />
 														Investment Summary
@@ -593,7 +597,7 @@ export default function InvestNowModal({
 													initial={{ opacity: 0, y: -10 }}
 													animate={{ opacity: 1, y: 0 }}
 													className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-xl">
-													<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 flex-shrink-0" />
+													<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 shrink-0" />
 													<p className="text-xs sm:text-sm text-red-700 font-montserrat">
 														{error}
 													</p>
@@ -748,7 +752,7 @@ export default function InvestNowModal({
 													</span>
 												</p>
 											</div>
-											<div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+											<div className="bg-linear-to-r from-emerald-50 to-teal-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4">
 												{hash && !isMockMode ? (
 													<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-0">
 														<span className="text-xs sm:text-sm text-gray-600 font-montserrat">
@@ -791,7 +795,7 @@ export default function InvestNowModal({
 											</div>
 											<div className="bg-blue-50 rounded-xl p-3 sm:p-4">
 												<div className="flex items-start gap-2 sm:gap-3">
-													<Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+													<Info className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 shrink-0 mt-0.5" />
 													<div className="text-left">
 														<p className="text-xs sm:text-sm text-gray-700 font-montserrat">
 															{isMockMode

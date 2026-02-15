@@ -42,7 +42,7 @@ export default function DashboardTabs({
 	];
 
 	return (
-		<div className="mb-6 md:mb-8 sticky top-14 md:top-20 z-10 bg-gradient-to-b from-gray-50/95 to-gray-50/95 backdrop-blur-sm -mx-4 px-4 py-2 md:mx-0 md:px-0 md:py-0 md:static md:bg-none">
+		<div className="mb-6 md:mb-8 sticky top-14 md:top-20 z-10 bg-linear-to-b from-gray-50/95 to-gray-50/95 backdrop-blur-sm -mx-4 px-4 py-2 md:mx-0 md:px-0 md:py-0 md:static md:bg-none">
 			{/* Desktop Tabs */}
 			<motion.div
 				className="hidden md:flex items-center gap-1 p-1 bg-white rounded-xl border border-gray-200 shadow-sm"

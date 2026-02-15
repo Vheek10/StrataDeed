@@ -64,7 +64,7 @@ export default function PerformanceChart({
 			</div>
 
 			<motion.div
-				className="h-64 relative bg-gradient-to-b from-gray-50 to-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden"
+				className="h-64 relative bg-linear-to-b from-gray-50 to-white rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5, delay: 0.2 }}>

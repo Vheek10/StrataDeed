@@ -37,7 +37,7 @@ export default function Dashboard() {
 		type: "tween",
 		ease: "anticipate",
 		duration: 0.5,
-	};
+	} as const;
 
 	return (
 		<div className="min-h-screen bg-gray-50 font-montserrat">

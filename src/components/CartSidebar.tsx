@@ -152,7 +152,7 @@ export default function CartSidebar({
 						<Link
 							href="/dashboard"
 							onClick={onClose}
-							className="w-full py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-600 transition-all flex items-center justify-center gap-2">
+							className="w-full py-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-600 transition-all flex items-center justify-center gap-2">
 							<CreditCard className="w-5 h-5" />
 							Proceed to Checkout
 						</Link>

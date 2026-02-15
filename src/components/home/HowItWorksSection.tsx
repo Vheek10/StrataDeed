@@ -249,7 +249,7 @@ export default function HowItWorksSection() {
 								className={cn(
 									"relative rounded-3xl overflow-hidden cursor-pointer shadow-xl",
 									"lg:h-full",
-									isActive ? "flex-[3] lg:flex-[3]" : "flex-[1] lg:flex-[1]",
+									isActive ? "flex-3 lg:flex-3" : "flex-1 lg:flex-1",
 								)}
 								animate={{
 									flex: isActive ? 3 : 1,
@@ -281,7 +281,7 @@ export default function HowItWorksSection() {
 										className={cn(
 											"absolute inset-0 transition-all duration-500",
 											isActive
-												? "bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-90"
+												? "bg-linear-to-t from-gray-900 via-gray-900/40 to-transparent opacity-90"
 												: "bg-black/60 hover:bg-black/40",
 										)}
 									/>
@@ -325,7 +325,7 @@ export default function HowItWorksSection() {
 												className={cn(
 													"w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center text-white backdrop-blur-md border border-white/20 shadow-lg transition-all duration-500",
 													isActive
-														? `bg-gradient-to-br ${colors.from} ${colors.to}`
+														? `bg-linear-to-br ${colors.from} ${colors.to}`
 														: "bg-white/10",
 												)}>
 												<step.icon className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -342,7 +342,7 @@ export default function HowItWorksSection() {
 												className={cn(
 													"text-3xl lg:text-4xl font-black text-white leading-tight transition-all duration-300 drop-shadow-lg tracking-tighter font-mclaren",
 													!isActive &&
-														"lg:rotate-[-90deg] lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:whitespace-nowrap",
+														"lg:-rotate-90 lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:whitespace-nowrap",
 												)}>
 												{step.title}
 											</motion.h3>

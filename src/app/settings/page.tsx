@@ -37,8 +37,8 @@ const SettingsPage = () => {
 							</h2>
 						</div>
 						<p className="text-xs text-gray-600">
-							Connect or disconnect your wallet using the button in the
-							navbar. StrataDeed does not custody your assets or private keys.
+							Connect or disconnect your wallet using the button in the navbar.
+							StrataDeed does not custody your assets or private keys.
 						</p>
 					</section>
 
@@ -58,15 +58,19 @@ const SettingsPage = () => {
 							href="/vault"
 							className="group inline-flex items-center gap-3 px-8 py-4 bg-gray-900 hover:bg-purple-600 text-white rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(147,51,234,0.4)] hover:scale-105 hover:-translate-y-1">
 							<Shield className="w-4 h-4" />
-							<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">Open Identity Vault</span>
+							<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
+								Open Identity Vault
+							</span>
 						</Link>
 					</section>
 
 					{/* Network */}
 					<section className="bg-white rounded-xl border border-gray-200 p-5 space-y-3">
 						<div className="flex items-center gap-2">
-							<div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400" />
-							<h2 className="text-sm font-black text-gray-900 font-montserrat">Network</h2>
+							<div className="w-4 h-4 rounded-full bg-linear-to-br from-blue-500 to-cyan-400" />
+							<h2 className="text-sm font-black text-gray-900 font-montserrat">
+								Network
+							</h2>
 						</div>
 						<p className="text-xs text-gray-600">
 							StrataDeed operates on Sui Testnet. Ensure your wallet is

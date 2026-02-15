@@ -81,7 +81,7 @@ export default function ComparisonSection() {
 			style={{ perspective: "2000px" }}>
 			{/* Background Effects */}
 			<div className="absolute inset-0 pointer-events-none">
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-600/[0.03] rounded-full blur-[180px]" />
+				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-600/3 rounded-full blur-[180px]" />
 			</div>
 
 			<div className="max-w-7xl mx-auto relative z-10">
@@ -114,7 +114,7 @@ export default function ComparisonSection() {
 							{active === idx && (
 								<motion.div
 									layoutId="nav-line-comparison"
-									className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+									className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.3)]"
 								/>
 							)}
 						</button>
@@ -151,7 +151,7 @@ export default function ComparisonSection() {
 										className="object-cover transition-transform duration-[20s] group-hover/card:scale-110"
 									/>
 									{/* Gradients Layer */}
-									<div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+									<div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10" />
 									<div
 										className={`absolute inset-0 opacity-10 mix-blend-color ${
 											active === 2
@@ -169,7 +169,7 @@ export default function ComparisonSection() {
 								<div>
 									<div className="flex items-center gap-6 mb-10">
 										<div
-											className={`p-5 rounded-[1.5rem] bg-gray-50 border border-gray-100 backdrop-blur-2xl shadow-sm ${
+											className={`p-5 rounded-3xl bg-gray-50 border border-gray-100 backdrop-blur-2xl shadow-sm ${
 												active === 2
 													? "text-blue-600"
 													: active === 1
@@ -218,7 +218,7 @@ export default function ComparisonSection() {
 											<p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.5em] font-montserrat">
 												Protocol Features
 											</p>
-											<div className="h-[1px] w-12 bg-gray-200 mt-2" />
+											<div className="h-px w-12 bg-gray-200 mt-2" />
 										</div>
 										{comparisons[active].features.map((f, i) => (
 											<div

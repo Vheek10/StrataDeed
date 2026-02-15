@@ -65,7 +65,7 @@ function withErrorBoundary(WrappedComponent: React.ComponentType) {
 
 		if (hasError && error) {
 			return (
-				<div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-4">
+				<div className="min-h-screen flex items-center justify-center bg-linear-to-b from-gray-50 to-white p-4">
 					<div className="max-w-md w-full bg-white rounded-2xl p-8 shadow-xl border border-gray-200">
 						<div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
 							<AlertCircle className="w-8 h-8 text-red-600" />
@@ -494,7 +494,7 @@ function MintFormContent() {
 					animate={{ opacity: 1, scale: 1, y: 0 }}
 					className="bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-gray-100 max-w-lg w-full text-center relative overflow-hidden">
 					{/* Success Background Decoration */}
-					<div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-teal-500" />
+					<div className="absolute top-0 left-0 w-full h-2 bg-linear-to-r from-emerald-400 to-teal-500" />
 
 					<div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8 relative">
 						<CheckCircle className="w-10 h-10 text-emerald-600" />
@@ -658,7 +658,7 @@ function MintFormContent() {
 
 	return (
 		<motion.div
-			className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 transition-colors duration-300"
+			className="min-h-screen bg-linear-to-b from-gray-50 to-white py-8 transition-colors duration-300"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}>
 			<motion.div
@@ -748,7 +748,7 @@ function MintFormContent() {
 							className="mb-8 p-6 bg-red-50/50 border border-red-100 rounded-3xl flex items-start gap-4 shadow-xl shadow-red-500/5 backdrop-blur-sm"
 							role="alert"
 							aria-live="assertive">
-							<div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center flex-shrink-0">
+							<div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center shrink-0">
 								<AlertCircle className="w-6 h-6 text-red-600" />
 							</div>
 							<div className="flex-1">
@@ -792,7 +792,7 @@ function MintFormContent() {
 						initial={{ opacity: 0, y: -10 }}
 						animate={{ opacity: 1, y: 0 }}
 						className="mb-8">
-						<div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-100 rounded-2xl p-6">
+						<div className="bg-linear-to-r from-blue-50 to-cyan-50 border border-blue-100 rounded-2xl p-6">
 							<div className="flex items-center gap-4">
 								<div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
 									<Clock className="w-6 h-6 text-blue-600" />
@@ -809,7 +809,7 @@ function MintFormContent() {
 									<div className="mt-3 flex items-center gap-3">
 										<div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
 											<motion.div
-												className="h-full bg-gradient-to-r from-blue-500 to-cyan-400"
+												className="h-full bg-linear-to-r from-blue-500 to-cyan-400"
 												initial={{ width: "0%" }}
 												animate={{
 													width: currentStep === "minting" ? "50%" : "100%",
@@ -1078,7 +1078,7 @@ function MintFormContent() {
 													key={index}
 													className="flex items-center justify-between bg-white rounded-xl p-4 border border-gray-200 shadow-sm transition-all">
 													<div className="flex items-center gap-4 overflow-hidden">
-														<div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+														<div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
 															<FileText className="w-5 h-5 text-blue-600" />
 														</div>
 														<div className="flex flex-col min-w-0">
@@ -1345,8 +1345,8 @@ function MintFormContent() {
 									disabled={isProcessing || !connected}
 									className={`w-full px-6 py-5 rounded-full shadow-lg transition-all duration-500 flex items-center justify-center ${
 										isProcessing || !connected
-											? "bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-80"
-											: "bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:via-blue-600 hover:to-cyan-600 hover:shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:shadow-lg"
+											? "bg-linear-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-80"
+											: "bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:via-blue-600 hover:to-cyan-600 hover:shadow-blue-500/30 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:shadow-lg"
 									}`}
 									aria-label={
 										formData.tokenizationEnabled
@@ -1386,7 +1386,7 @@ export default function MintPage() {
 	return (
 		<Suspense
 			fallback={
-				<div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
+				<div className="min-h-screen flex items-center justify-center bg-linear-to-b from-gray-50 to-white">
 					<div className="text-center">
 						<div className="w-16 h-16 mx-auto mb-4 relative">
 							<Loader2 className="w-16 h-16 text-blue-600 animate-spin" />
