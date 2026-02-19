@@ -12,6 +12,7 @@ import {
 	PlusCircle,
 	Shield,
 	Sparkles,
+	ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, Variants } from "framer-motion";
@@ -32,7 +33,6 @@ const navIcons = {
 // Type for icon keys
 type IconKey = keyof typeof navIcons;
 
-// Fixed framer-motion variants with proper types
 const sidebarVariants: Variants = {
 	closed: { x: "-100%", opacity: 0 },
 	open: {
@@ -42,23 +42,23 @@ const sidebarVariants: Variants = {
 			type: "spring",
 			stiffness: 300,
 			damping: 30,
-			staggerChildren: 0.05,
-			delayChildren: 0.1,
+			staggerChildren: 0.06,
+			delayChildren: 0.12,
 		},
 	},
 	exit: {
 		x: "-100%",
 		opacity: 0,
-		transition: { duration: 0.25, ease: "easeInOut" },
+		transition: { duration: 0.2, ease: "easeInOut" },
 	},
 };
 
 const itemVariants: Variants = {
-	closed: { opacity: 0, x: -20 },
+	closed: { opacity: 0, x: -16 },
 	open: {
 		opacity: 1,
 		x: 0,
-		transition: { duration: 0.4, ease: "easeOut" },
+		transition: { duration: 0.35, ease: "easeOut" },
 	},
 };
 
@@ -95,7 +95,7 @@ export default function MobileSidebar({
 						initial="closed"
 						animate="open"
 						exit="exit"
-						className="fixed inset-0 z-40 bg-black/50 backdrop-blur-md lg:hidden"
+						className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
 						onClick={onClose}
 						aria-hidden="true"
 					/>
@@ -106,59 +106,56 @@ export default function MobileSidebar({
 						initial="closed"
 						animate="open"
 						exit="exit"
-						className="fixed inset-y-0 left-0 z-50 w-[300px] sm:w-[340px] lg:hidden">
-						<div className="h-full bg-white border-r border-gray-200 shadow-[0_0_60px_-15px_rgba(0,0,0,0.15)] overflow-y-auto flex flex-col">
+						className="fixed inset-y-0 left-0 z-50 w-[280px] sm:w-[320px] lg:hidden">
+						<div className="h-full bg-white/95 backdrop-blur-xl border-r border-gray-200/80 shadow-2xl overflow-y-auto flex flex-col">
 							{/* Header */}
-							<div className="p-6 pb-4">
-								<div className="flex items-center justify-between mb-2">
-									{/* Logo */}
+							<div className="p-5 pb-3">
+								<div className="flex items-center justify-between">
 									<motion.div
 										variants={itemVariants}
-										className="flex items-center gap-3">
-										<div className="relative w-10 h-10 flex-shrink-0">
+										className="flex items-center gap-2.5">
+										<div className="relative w-9 h-9 flex-shrink-0">
 											<Image
 												src="/logo.png"
 												alt="StrataDeed Logo"
 												fill
 												className="object-contain"
-												sizes="40px"
+												sizes="36px"
 											/>
 										</div>
 										<div className="flex flex-col">
-											<span className="text-lg font-black text-gray-900 leading-tight tracking-tight font-mclaren">
+											<span className="text-base font-black text-gray-900 leading-tight tracking-tight font-mclaren">
 												StrataDeed
 											</span>
-											<span className="text-[9px] font-black text-blue-600 uppercase tracking-[0.4em] leading-none mt-0.5 font-montserrat">
+											<span className="text-[8px] font-black text-blue-600 uppercase tracking-[0.35em] leading-none mt-0.5 font-montserrat">
 												Tokenization
 											</span>
 										</div>
 									</motion.div>
 
-									{/* Close Button */}
 									<motion.button
 										variants={itemVariants}
 										onClick={onClose}
-										whileHover={{ scale: 1.1 }}
-										whileTap={{ scale: 0.9 }}
-										className="p-2.5 text-gray-500 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors duration-300 border border-gray-200"
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										className="p-2 text-gray-400 hover:text-gray-700 bg-gray-100/80 hover:bg-gray-200/80 rounded-lg transition-colors duration-200"
 										aria-label="Close menu">
 										<X className="w-4 h-4" />
 									</motion.button>
 								</div>
 
-								{/* Subtle divider */}
-								<div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mt-4" />
+								<div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mt-4" />
 							</div>
 
 							{/* Navigation */}
-							<nav className="flex-1 px-4 pb-4">
+							<nav className="flex-1 px-3 pb-3">
 								<motion.div variants={itemVariants}>
-									<p className="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em] px-3 mb-3 font-montserrat">
-										Navigation
+									<p className="text-[8px] font-black text-gray-400 uppercase tracking-[0.4em] px-3 mb-2 font-montserrat">
+										Navigate
 									</p>
 								</motion.div>
 
-								<div className="space-y-1">
+								<div className="space-y-0.5">
 									{navItems.map((item, index) => {
 										const Icon = navIcons[item.key as IconKey] || Building2;
 										const active = isActive(item.href);
@@ -171,39 +168,34 @@ export default function MobileSidebar({
 												<Link
 													href={item.href}
 													className={cn(
-														"group flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 relative overflow-hidden",
+														"group flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 relative",
 														active
-															? "bg-blue-50 border border-blue-100"
-															: "hover:bg-gray-50 border border-transparent hover:border-gray-100",
+															? "bg-blue-600 shadow-lg shadow-blue-600/20"
+															: "hover:bg-gray-50",
 													)}
 													onClick={onClose}>
-													{/* Active indicator bar */}
-													{active && (
-														<div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-blue-600 rounded-r-full" />
-													)}
-
 													<div
 														className={cn(
-															"w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 flex-shrink-0",
+															"w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0",
 															active
-																? "bg-blue-600 text-white shadow-lg shadow-blue-600/30"
-																: "bg-gray-100 text-gray-500 group-hover:text-blue-600 group-hover:bg-blue-50 border border-gray-200",
+																? "bg-white/20 text-white"
+																: "bg-gray-100 text-gray-500 group-hover:text-blue-600 group-hover:bg-blue-50",
 														)}>
 														<Icon className="w-4 h-4" />
 													</div>
 
 													<span
 														className={cn(
-															"text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-300 font-montserrat",
+															"text-[11px] font-black uppercase tracking-[0.18em] transition-colors duration-200 font-montserrat flex-1",
 															active
-																? "text-blue-600"
+																? "text-white"
 																: "text-gray-600 group-hover:text-gray-900",
 														)}>
 														{item.label}
 													</span>
 
 													{active && (
-														<div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+														<ChevronRight className="w-3.5 h-3.5 text-white/60" />
 													)}
 												</Link>
 											</motion.div>
@@ -214,31 +206,27 @@ export default function MobileSidebar({
 
 							{/* Wallet Section */}
 							<div className="mt-auto p-4 pt-0">
-								{/* Divider */}
-								<div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4" />
+								<div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4" />
 
 								<motion.div
 									variants={itemVariants}
 									className="space-y-3">
-									{/* Connect Wallet Button */}
 									<div className="w-full">
 										<ConnectWalletButton />
 									</div>
 
-									{/* Security Badge */}
-									<div className="flex items-center justify-center gap-2 px-4 py-2">
+									<div className="flex items-center justify-center gap-1.5 px-3 py-1.5">
 										<Shield className="w-3 h-3 text-gray-400" />
-										<span className="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] font-montserrat">
+										<span className="text-[7px] font-black text-gray-400 uppercase tracking-[0.3em] font-montserrat">
 											Zero-Knowledge Privacy
 										</span>
 									</div>
 								</motion.div>
 
-								{/* Bottom branding */}
-								<div className="mt-4 pt-3 border-t border-gray-100">
-									<div className="flex items-center justify-center gap-2">
-										<Sparkles className="w-3 h-3 text-gray-400" />
-										<span className="text-[8px] font-black text-gray-400 uppercase tracking-[0.5em] font-montserrat">
+								<div className="mt-3 pt-3 border-t border-gray-100">
+									<div className="flex items-center justify-center gap-1.5">
+										<Sparkles className="w-2.5 h-2.5 text-gray-300" />
+										<span className="text-[7px] font-black text-gray-300 uppercase tracking-[0.5em] font-montserrat">
 											Institutional Standard
 										</span>
 									</div>
