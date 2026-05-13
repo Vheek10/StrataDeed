@@ -11,6 +11,7 @@ import {
 	Shield,
 	Building,
 	Lock,
+	Brain,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -69,10 +70,11 @@ export default function HeroSection() {
 						<div className="text-center lg:text-left flex flex-col items-center lg:items-start">
 							{/* Semi-transparent badge - Institutional Standard */}
 							<div className="inline-flex items-center gap-3 px-6 py-2.5 bg-white/40 backdrop-blur-xl rounded-full mb-10 border border-gray-200/50 shadow-sm">
+								<Brain className="w-3.5 h-3.5 text-blue-600/60" />
 								<span className="text-[10px] sm:text-[11px] font-black text-gray-900 uppercase tracking-[0.2em] sm:tracking-[0.4em] sm:whitespace-nowrap font-montserrat">
-									Innovating Real Estate
+									AI-Powered Real Estate
 								</span>
-								<Shield className="w-3.5 h-3.5 text-blue-600/60" />
+								<Sparkles className="w-3.5 h-3.5 text-blue-600/60" />
 							</div>
 
 							{/* Main Heading - Compliance Scaled */}
@@ -80,7 +82,7 @@ export default function HeroSection() {
 								<h1
 									className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tightest leading-[0.9] sm:leading-[0.85] mb-8 font-mclaren"
 									style={{ textShadow: "0 2px 18px rgba(0, 0, 0, 0.25)" }}>
-									<span className="block">Tokenizing Global</span>
+									<span className="block">AI-Powered Global</span>
 									<span className="block bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
 										Real Estate Assets
 									</span>
@@ -90,9 +92,9 @@ export default function HeroSection() {
 								<p
 									className="text-sm lg:text-base text-gray-500 leading-relaxed font-medium max-w-2xl px-2 lg:px-0 font-montserrat"
 									style={{ textShadow: "0 1px 12px rgba(0, 0, 0, 0.2)" }}>
-									Verified digital deeds. Borderless ownership.{" "}
+									AI-verified digital deeds. Borderless ownership.{" "}
 									<span className="text-blue-600 font-black">
-										Unprecedented liquidity.
+										Intelligent liquidity.
 									</span>
 								</p>
 							</div>
@@ -207,7 +209,7 @@ export default function HeroSection() {
 											LIVE ON SUI
 										</p>
 										<p className="mt-1 text-sm text-gray-700 font-montserrat">
-											ZK-powered property tokenization with real-time
+											AI-powered property tokenization with real-time
 											settlement.
 										</p>
 									</div>

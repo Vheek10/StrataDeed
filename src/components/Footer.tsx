@@ -18,6 +18,7 @@ import {
 	Linkedin,
 	Github,
 	Globe,
+	ArrowUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -43,7 +44,7 @@ export default function Footer() {
 								StrataDeed
 							</h2>
 							<p className="text-[9px] font-black text-blue-600 uppercase tracking-[0.4em] leading-none mt-0.5 font-montserrat">
-								Property Tokenization
+								AI-Powered Tokenization
 							</p>
 						</div>
 					</div>
@@ -83,12 +84,22 @@ export default function Footer() {
 					</div>
 				</div>
 
-				{/* Copyright */}
-				<div className="text-center mt-8 pt-6 border-t border-gray-200">
+				{/* Copyright + Back to Top */}
+				<div className="flex flex-col sm:flex-row items-center justify-between mt-8 pt-6 border-t border-gray-200 gap-4">
 					<p className="text-gray-500 text-sm font-montserrat">
-						© {new Date().getFullYear()} StrataDeed. Revolutionizing real estate
-						investment.
+						{new Date().getFullYear()} StrataDeed. AI-powered real estate
+						tokenization.
 					</p>
+					<button
+						type="button"
+						onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+						className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-50 text-gray-500 hover:bg-blue-600 hover:text-white hover:shadow-[0_15px_30px_-5px_rgba(37,99,235,0.3)] transition-all duration-500 hover:scale-105"
+						aria-label="Back to top">
+						<ArrowUp className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+						<span className="text-[10px] font-black uppercase tracking-[0.25em] font-montserrat">
+							Back to Top
+						</span>
+					</button>
 				</div>
 			</div>
 		</footer>

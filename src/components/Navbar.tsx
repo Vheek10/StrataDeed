@@ -97,13 +97,13 @@ export default function Navbar({
 					"px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10",
 				)}>
 				<div className="relative mx-auto w-full max-w-screen-2xl">
-					<div className="flex items-center justify-between h-16 sm:h-[68px] md:h-[72px] lg:h-20 relative">
+					<div className="flex items-center justify-between h-14 sm:h-16 md:h-[72px] lg:h-20 relative">
 						{/* Mobile Menu Toggle */}
 						<div className="flex lg:hidden items-center flex-shrink-0 z-10">
 							<button
 								onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 								className={cn(
-									"p-2.5 rounded-xl transition-all duration-300",
+									"p-2 rounded-xl transition-all duration-300",
 									scrolled
 										? "text-gray-700 hover:text-blue-600 hover:bg-blue-50/80"
 										: "text-gray-800 hover:text-blue-600 hover:bg-white/20",
@@ -111,9 +111,9 @@ export default function Navbar({
 								aria-label="Toggle menu"
 								aria-expanded={isMobileMenuOpen}>
 								{isMobileMenuOpen ? (
-									<X className="w-5 h-5 sm:w-6 sm:h-6" />
+									<X className="w-5 h-5" />
 								) : (
-									<Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+									<Menu className="w-5 h-5" />
 								)}
 							</button>
 						</div>
@@ -144,7 +144,7 @@ export default function Navbar({
 										StrataDeed
 									</span>
 									<span className="text-[8px] xl:text-[9px] font-black text-blue-600 uppercase tracking-[0.35em] leading-none mt-0.5 font-montserrat">
-										Property Tokenization
+										AI-Powered Tokenization
 									</span>
 								</div>
 							</Link>
@@ -197,7 +197,7 @@ export default function Navbar({
 
 						{/* Wallet Actions */}
 						<div className="flex items-center gap-2 sm:gap-3 lg:gap-3 flex-shrink-0 z-10">
-							<div className="w-full max-w-[140px] sm:max-w-[200px]">
+							<div className="w-full max-w-[120px] sm:max-w-[200px]">
 								<ConnectWalletButton />
 							</div>
 						</div>

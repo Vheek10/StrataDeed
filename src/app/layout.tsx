@@ -11,6 +11,8 @@ const Footer = dynamic(() => import("@/components/Footer"), {
 	ssr: true,
 });
 
+import AIAssistantButton from "@/components/AIAssistantButton";
+
 // Configure Montserrat font from Google Fonts with optimization
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -30,9 +32,9 @@ const mclaren = McLaren({
 });
 
 export const metadata = {
-	title: "StrataDeed — Tokenized Property Deeds on Sui",
+	title: "StrataDeed — AI-Powered Tokenized Property Deeds on Sui",
 	description:
-		"Mint, list, and discover tokenized property deeds on the Sui Network.",
+		"AI-powered real estate tokenization. Mint, list, and discover verified property deeds on the Sui Network.",
 	keywords: [
 		"real estate",
 		"blockchain",
@@ -41,6 +43,8 @@ export const metadata = {
 		"Sui Network",
 		"RWA",
 		"NFT",
+		"AI-powered",
+		"artificial intelligence",
 	],
 	authors: [{ name: "StrataDeed" }],
 	viewport: "width=device-width, initial-scale=1",
@@ -71,8 +75,9 @@ export default function RootLayout({
 							hideOnHome
 						/>
 						<main className="flex-1 w-full">{children}</main>
-						<Footer />
+					<Footer />
 					</div>
+					<AIAssistantButton />
 				</SuietProvider>
 			</body>
 		</html>

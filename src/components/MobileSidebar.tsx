@@ -106,10 +106,10 @@ export default function MobileSidebar({
 						initial="closed"
 						animate="open"
 						exit="exit"
-						className="fixed inset-y-0 left-0 z-50 w-[280px] sm:w-[320px] lg:hidden">
-						<div className="h-full bg-white/95 backdrop-blur-xl border-r border-gray-200/80 shadow-2xl overflow-y-auto flex flex-col">
+						className="fixed inset-y-0 left-0 z-50 w-[88vw] max-w-[320px] lg:hidden">
+						<div className="h-full bg-white/95 backdrop-blur-xl border-r border-gray-200/80 shadow-2xl overflow-y-auto flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
 							{/* Header */}
-							<div className="p-5 pb-3">
+							<div className="p-4 sm:p-5 pb-3">
 								<div className="flex items-center justify-between">
 									<motion.div
 										variants={itemVariants}
@@ -148,7 +148,7 @@ export default function MobileSidebar({
 							</div>
 
 							{/* Navigation */}
-							<nav className="flex-1 px-3 pb-3">
+							<nav className="flex-1 px-2 sm:px-3 pb-3">
 								<motion.div variants={itemVariants}>
 									<p className="text-[8px] font-black text-gray-400 uppercase tracking-[0.4em] px-3 mb-2 font-montserrat">
 										Navigate
@@ -205,7 +205,7 @@ export default function MobileSidebar({
 							</nav>
 
 							{/* Wallet Section */}
-							<div className="mt-auto p-4 pt-0">
+							<div className="mt-auto p-3 sm:p-4 pt-0">
 								<div className="h-px w-full bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4" />
 
 								<motion.div

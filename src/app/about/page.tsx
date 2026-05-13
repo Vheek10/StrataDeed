@@ -30,7 +30,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+
 
 const faqItems = [
 	{
@@ -181,7 +181,7 @@ export default function About() {
 								className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-1.5 md:py-2 bg-white/40 border border-gray-200 rounded-full backdrop-blur-xl md:backdrop-blur-2xl shadow-sm">
 								<div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-blue-500 rounded-full animate-pulse" />
 								<span className="text-[9px] md:text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] md:tracking-[0.5em] font-montserrat">
-									Institutional Standard
+									AI-Powered Standard
 								</span>
 							</motion.div>
 
@@ -205,8 +205,8 @@ export default function About() {
 								custom={2}
 								variants={staggerVariants}
 								className="text-sm lg:text-base text-gray-600 max-w-xl leading-relaxed font-medium font-montserrat">
-								We are rebuilding the trust architecture of global real estate.
-								Merging sovereign law with digital permanence.
+								We are rebuilding the trust architecture of global real estate
+								with AI-driven verification and digital permanence.
 							</motion.p>
 
 							<motion.div
@@ -375,7 +375,7 @@ export default function About() {
 								viewport={{ once: true }}
 								className="text-sm lg:text-base text-gray-600 mb-8 lg:mb-16 leading-relaxed font-medium font-montserrat">
 								Traditional settlement is bound by regional bureaucracy.
-								StrataDeed protocols automate title verification and asset
+								StrataDeed's AI protocols automate title verification and asset
 								fractionalization.
 							</motion.p>
 
@@ -488,8 +488,8 @@ export default function About() {
 									<span className="text-blue-500">Statement</span>
 								</h3>
 								<p className="text-base lg:text-xl text-white/80 leading-relaxed font-medium max-w-sm font-montserrat">
-									Merging legal rigor with digital permanence to rebuild trust
-									in global property settlement.
+									Merging AI-driven intelligence with digital permanence to
+									rebuild trust in global property settlement.
 								</p>
 
 								<div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 lg:gap-6 cursor-pointer pt-4 lg:pt-6">
@@ -1183,7 +1183,7 @@ export default function About() {
 				/>
 			</section>
 
-			<ScrollToTopButton />
+
 		</div>
 	);
 }

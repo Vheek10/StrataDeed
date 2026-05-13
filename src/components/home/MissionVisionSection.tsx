@@ -59,7 +59,7 @@ export default function MissionVisionSection() {
 						className="inline-flex items-center gap-3 px-6 py-2.5 bg-blue-600/5 rounded-full mb-6 sm:mb-8 border border-blue-600/10">
 						<Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
 						<span className="text-[9px] sm:text-[10px] font-black text-blue-700 uppercase tracking-[0.3em] sm:tracking-[0.5em] font-montserrat">
-							The StrataDeed North Star
+							AI-Powered North Star
 						</span>
 					</motion.div>
 
@@ -73,8 +73,8 @@ export default function MissionVisionSection() {
 					<motion.p
 						variants={itemVariants}
 						className="text-sm lg:text-base text-gray-500 max-w-3xl mx-auto font-medium leading-relaxed font-montserrat">
-						We aren't just building a platform; we're establishing the legal and
-						social protocols for the global RealFi economy.
+						We aren't just building a platform — we're using AI to establish
+						the legal and social protocols for the global RealFi economy.
 					</motion.p>
 				</motion.div>
 
@@ -135,8 +135,8 @@ export default function MissionVisionSection() {
 								</h3>
 
 								<p className="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed mb-10 sm:mb-12 font-medium max-w-md opacity-80 group-hover:opacity-100 transition-opacity font-montserrat">
-									To rebuild trust in global real estate by merging legal rigor
-									with blockchain permanence.
+									To rebuild trust in global real estate by merging AI-driven
+									verification with blockchain permanence.
 								</p>
 
 								<div className="flex items-center gap-6 group/btn cursor-pointer">

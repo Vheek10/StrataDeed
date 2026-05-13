@@ -1,33 +1,35 @@
 /** @format */
 
-import React from "react";
+import Image from "next/image";
 
 /**
- * Loading component with optimized skeleton UI
+ * Branded loading state — logo only with a subtle pulse animation.
  */
 export default function LoadingUI() {
 	return (
-		<div className="min-h-screen bg-white animate-pulse">
-			{/* Header skeleton */}
-			<div className="h-16 bg-gray-200"></div>
+		<div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#060a13]">
+			{/* Soft ambient glow behind the logo */}
+			<div className="absolute h-64 w-64 rounded-full bg-blue-600/10 blur-[100px] animate-pulse" />
 
-			{/* Hero skeleton */}
-			<div className="max-w-7xl mx-auto px-4 py-20">
-				<div className="h-12 bg-gray-300 rounded w-3/4 mb-4"></div>
-				<div className="h-6 bg-gray-200 rounded w-1/2 mb-8"></div>
-				<div className="h-12 bg-gray-300 rounded w-1/4"></div>
+			{/* Logo with pulse */}
+			<div className="relative h-24 w-24 animate-[logoPulse_2s_ease-in-out_infinite] sm:h-28 sm:w-28">
+				<Image
+					src="/logo.png"
+					alt="StrataDeed"
+					fill
+					sizes="(max-width: 640px) 96px, 112px"
+					className="object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.35)]"
+					priority
+				/>
 			</div>
 
-			{/* Content skeleton */}
-			<div className="max-w-7xl mx-auto px-4 py-12">
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-					{[1, 2, 3].map((i) => (
-						<div
-							key={i}
-							className="bg-gray-200 h-64 rounded-lg"></div>
-					))}
-				</div>
-			</div>
+			{/* Keyframes injected via style tag */}
+			<style>{`
+				@keyframes logoPulse {
+					0%, 100% { opacity: 1; transform: scale(1); }
+					50% { opacity: 0.7; transform: scale(0.92); }
+				}
+			`}</style>
 		</div>
 	);
 }

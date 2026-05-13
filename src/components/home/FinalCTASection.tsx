@@ -132,7 +132,7 @@ export default function FinalCTASection() {
 							className="inline-flex items-center gap-3 px-6 py-2 bg-white/40 border border-gray-200 rounded-full backdrop-blur-2xl shadow-sm">
 							<div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse blur-[1px]" />
 							<span className="text-[9px] sm:text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] sm:tracking-[0.5em] font-montserrat">
-								Future of Ownership
+								AI-Powered Ownership
 							</span>
 							<Shield className="w-3.5 h-3.5 text-blue-600/40" />
 						</motion.div>
@@ -159,8 +159,8 @@ export default function FinalCTASection() {
 							transition={{ duration: 0.8, delay: 0.1 }}
 							className="text-sm lg:text-lg text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed font-montserrat">
 							No hidden processes. No manual errors. No silent title issues.
-							Just secure, transparent, and accessible real estate ownership for
-							everyone.
+							AI-powered verification, secure settlement, and accessible real estate
+							ownership for everyone.
 						</motion.p>
 					</div>
 
