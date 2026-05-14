@@ -5,6 +5,8 @@ published-at = "0x0"
 
 [dependencies]
 Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "mainnet" }
+openzeppelin_math = { git = "https://github.com/OpenZeppelin/contracts-sui.git", subdir = "math/core", rev = "main" }
+walrus_site = { git = "https://github.com/MystenLabs/walrus-sites.git", subdir = "move/walrus_site", rev = "main" }
 
 [addresses]
 stratadeed = "0x0"

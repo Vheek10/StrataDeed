@@ -4,12 +4,15 @@ module stratadeed::property_nft {
     use sui::tx_context::{Self, TxContext};
     use std::string::String;
     use sui::event;
+    use std::option;
+    use walrus_site::metadata::{Self, Metadata};
 
     /// Property Deed NFT - Represents a tokenized property deed
     public struct PropertyDeed has key, store {
         id: UID,
         property_id: String,
         metadata_uri: String,
+        walrus_metadata: Metadata,
         private_commitment: vector<u8>,  // Hash commitment to private data (ZK-ready)
         owner: address,
         minted_at: u64,
@@ -74,10 +77,19 @@ module stratadeed::property_nft {
         to: address,
         ctx: &mut TxContext,
     ): PropertyDeed {
+        let walrus_metadata = walrus_site::metadata::new_metadata(
+            option::some(metadata_uri.clone()),
+            option::none<String>(),
+            option::none<String>(),
+            option::none<String>(),
+            option::none<String>(),
+        );
+
         let deed = PropertyDeed {
             id: object::new(ctx),
             property_id: property_id,
             metadata_uri: metadata_uri,
+            walrus_metadata,
             private_commitment: private_commitment,
             owner: to,
             minted_at: get_timestamp(ctx),
@@ -152,6 +164,7 @@ module stratadeed::property_nft {
             id,
             property_id: _,
             metadata_uri: _,
+            walrus_metadata: _,
             private_commitment: _,
             owner: _,
             minted_at: _,
@@ -178,6 +191,11 @@ module stratadeed::property_nft {
     /// Get the metadata URI
     public fun get_metadata_uri(deed: &PropertyDeed): String {
         deed.metadata_uri
+    }
+
+    /// Get the Walrus metadata payload attached to the deed.
+    public fun get_walrus_metadata(deed: &PropertyDeed): Metadata {
+        deed.walrus_metadata
     }
 
     /// Get the private commitment (for ZK verification)

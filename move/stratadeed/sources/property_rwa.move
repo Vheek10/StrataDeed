@@ -8,6 +8,8 @@ module stratadeed::property_rwa {
     use std::string::String;
     use sui::event;
     use std::vector;
+    use openzeppelin_math::rounding;
+    use openzeppelin_math::u64 as oz_u64;
 
     /// RWA Token representing fractional ownership of a property
     public struct RWAToken has key, store {
@@ -317,6 +319,11 @@ module stratadeed::property_rwa {
     /// Get treasury balance
     public fun get_treasury_balance(treasury: &RWATreasury): u64 {
         balance::value(&treasury.balance)
+    }
+
+    /// Returns a midpoint-style snapshot of escrow progress using OpenZeppelin math helpers.
+    public fun get_escrow_progress_midpoint(treasury: &RWATreasury): u64 {
+        oz_u64::average(treasury.total_escrow_raised, treasury.total_escrow_processed, rounding::down())
     }
 
     /// Get total escrow raised
