@@ -129,7 +129,7 @@ export default function Navbar({
 										src="/logo.png"
 										alt="StrataDeed Logo"
 										fill
-										className="object-contain"
+										className="object-contain brightness-0"
 										priority
 										sizes="(max-width: 640px) 36px, (max-width: 1024px) 44px, 52px"
 									/>

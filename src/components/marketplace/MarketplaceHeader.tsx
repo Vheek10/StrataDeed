@@ -21,11 +21,6 @@ export default function MarketplaceHeader({
 			{/* Header */}
 			<div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
 				<div>
-					<div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-600/5 rounded-full mb-4 border border-blue-600/10">
-						<span className="text-[10px] font-black text-blue-700 uppercase tracking-[0.4em] font-montserrat">
-							Asset Marketplace
-						</span>
-					</div>
 					<h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 tracking-tighter leading-[1.1] font-mclaren">
 						Asset Marketplace
 					</h1>

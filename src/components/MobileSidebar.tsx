@@ -119,7 +119,7 @@ export default function MobileSidebar({
 												src="/logo.png"
 												alt="StrataDeed Logo"
 												fill
-												className="object-contain"
+												className="object-contain brightness-0"
 												sizes="36px"
 											/>
 										</div>

@@ -261,7 +261,7 @@ export default function HeroSection() {
 														alt=""
 														width={24}
 														height={24}
-														className="w-full h-full object-contain"
+														className="w-full h-full object-contain brightness-0"
 													/>
 												</div>
 											))}

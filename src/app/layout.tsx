@@ -70,12 +70,9 @@ export default function RootLayout({
 			<body className="font-montserrat antialiased bg-bg text-text">
 				<SuietProvider>
 					<div className="min-h-screen flex flex-col">
-						<Navbar
-							placement="hero"
-							hideOnHome
-						/>
+						<Navbar hideOnHome />
 						<main className="flex-1 w-full">{children}</main>
-					<Footer />
+						<Footer />
 					</div>
 					<AIAssistantButton />
 				</SuietProvider>

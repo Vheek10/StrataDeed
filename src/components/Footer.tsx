@@ -35,7 +35,7 @@ export default function Footer() {
 								src="/logo.png"
 								alt="StrataDeed Logo"
 								fill
-								className="object-contain"
+								className="object-contain brightness-0"
 								sizes="40px"
 							/>
 						</div>
