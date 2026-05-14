@@ -14,6 +14,7 @@ import {
 	FileText,
 	TrendingUp,
 	ArrowRight,
+	ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -36,12 +37,7 @@ const AGENTS: AgentCard[] = [
 		icon: <Building2 className="w-6 h-6 lg:w-8 lg:h-8" />,
 		status: "available",
 		href: "/agents/valuation",
-		features: [
-			"Market Analysis",
-			"Risk Assessment",
-			"Comparable Properties",
-			"Chain-of-Thought",
-		],
+		features: [],
 	},
 	{
 		id: "matching",
@@ -51,209 +47,194 @@ const AGENTS: AgentCard[] = [
 		icon: <Users className="w-6 h-6 lg:w-8 lg:h-8" />,
 		status: "available",
 		href: "/agents/matching",
-		features: [
-			"Profile Analysis",
-			"Fit Scoring",
-			"Recommendations",
-			"Yield Calculation",
-		],
-	},
-	{
-		id: "due-diligence",
-		title: "Due Diligence",
-		description:
-			"Document analysis and legal risk identification for property transactions.",
-		icon: <FileText className="w-6 h-6 lg:w-8 lg:h-8" />,
-		status: "coming-soon",
-		href: "/agents/due-diligence",
-		features: [
-			"Document Analysis",
-			"Risk Detection",
-			"Key Term Extraction",
-			"Recommendations",
-		],
-	},
-	{
-		id: "portfolio",
-		title: "Portfolio Manager",
-		description:
-			"Autonomous portfolio analysis, optimization, and rebalancing recommendations.",
-		icon: <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8" />,
-		status: "coming-soon",
-		href: "/agents/portfolio",
-		features: [
-			"Allocation Analysis",
-			"Rebalancing",
-			"Opportunity Detection",
-			"Performance Tracking",
-		],
+		features: [],
 	},
 ];
 
 export default function AgentsPage() {
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-12 md:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 xl:px-12">
-			<div className="max-w-7xl mx-auto">
-				{/* Header */}
-				<motion.div
-					initial={{ opacity: 0, y: -20 }}
+		<div className="min-h-screen bg-gray-50 px-4 py-10 sm:px-6 lg:px-8 xl:px-12 lg:py-14">
+			<div className="relative mx-auto max-w-7xl">
+				{/* Hero */}
+				<motion.section
+					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
-					className="text-center mb-16 lg:mb-24">
-					<p className="text-sm font-black uppercase text-blue-600 tracking-widest mb-4 font-montserrat">
-						AI-Powered Intelligence
-					</p>
-					<h1 className="text-4xl lg:text-6xl font-black mb-4 text-gray-900 font-mclaren">
-						Autonomous Agents
-					</h1>
-					<p className="text-lg text-gray-600 max-w-2xl mx-auto font-montserrat">
-						Meet StrataDeed's suite of specialized AI agents designed to
-						revolutionize real estate tokenization and portfolio management on
-						Sui.
-					</p>
-				</motion.div>
+					transition={{ duration: 0.55 }}
+					className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+					<div className="space-y-5">
+						<div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.35em] text-blue-700 font-montserrat">
+							AI Intelligence Suite
+						</div>
+						<h1 className="max-w-3xl text-4xl font-black tracking-tight text-gray-900 sm:text-5xl lg:text-6xl font-mclaren">
+							Agents
+						</h1>
+						<p className="max-w-2xl text-base leading-7 text-gray-600 sm:text-lg font-montserrat">
+							Simple tools for valuation, matching, and upcoming workflows.
+						</p>
+						<div className="flex flex-wrap gap-3 pt-2">
+							<Link
+								href="/agents/valuation"
+								className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-[10px] font-black uppercase tracking-[0.35em] text-white font-montserrat">
+								Valuation
+							</Link>
+							<Link
+								href="/agents/matching"
+								className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3 text-[10px] font-black uppercase tracking-[0.35em] text-gray-800 font-montserrat">
+								Matching
+							</Link>
+						</div>
+					</div>
+				</motion.section>
 
 				{/* Agents Grid */}
-				<div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+				<div className="mt-8 grid gap-4 md:grid-cols-2">
 					{AGENTS.map((agent, index) => (
 						<motion.div
 							key={agent.id}
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5, delay: index * 0.1 }}>
-							<Link href={agent.href}>
-								<motion.div
-									whileHover={{ scale: 1.02, y: -4 }}
-									whileTap={{ scale: 0.98 }}
-									className={cn(
-										"relative h-full group cursor-pointer",
-										agent.status === "coming-soon" && "opacity-60",
-									)}>
-									<div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-cyan-600/5 rounded-2xl lg:rounded-[2rem] blur-2xl group-hover:blur-3xl transition-all opacity-0 group-hover:opacity-100" />
-
-									<div className="relative bg-white border border-gray-200/60 hover:border-blue-200 rounded-2xl lg:rounded-[2rem] p-8 lg:p-10 transition-all duration-300 space-y-6 shadow-sm hover:shadow-2xl hover:shadow-blue-600/10">
-										{/* Status Badge */}
-										<div className="flex items-center justify-between">
-											<div
-												className={cn(
-													"inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest font-montserrat",
-													agent.status === "available"
-														? "bg-green-100 text-green-700"
-														: "bg-amber-100 text-amber-700",
-												)}>
+							{agent.status === "available" ? (
+								<Link href={agent.href}>
+									<motion.div
+										whileHover={{ y: -2 }}
+										whileTap={{ scale: 0.99 }}
+										className={cn(
+											"relative h-full group cursor-pointer overflow-hidden",
+											agent.status === "coming-soon" && "opacity-60",
+										)}>
+										<div className="relative h-full rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 sm:p-7 lg:p-8">
+											{/* Status Badge */}
+											<div className="flex items-center justify-between gap-4">
 												<div
 													className={cn(
-														"w-2 h-2 rounded-full",
+														"inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] font-montserrat",
 														agent.status === "available"
-															? "bg-green-600"
-															: "bg-amber-600",
-													)}
-												/>
+															? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+															: "bg-amber-50 text-amber-700 border border-amber-200",
+													)}>
+													<div
+														className={cn(
+															"w-2 h-2 rounded-full",
+															agent.status === "available"
+																? "bg-emerald-600"
+																: "bg-amber-600",
+														)}
+													/>
+													{agent.status === "available"
+														? "Available"
+														: "Coming Soon"}
+												</div>
+
+												<ArrowRight className="w-5 h-5 text-gray-300" />
+											</div>
+
+											<div className="mt-6 w-12 h-12 rounded-2xl border border-gray-200 bg-gray-50 flex items-center justify-center text-blue-600">
+												{agent.icon}
+											</div>
+
+											{/* Content */}
+											<div className="pt-4">
+												<h3 className="text-xl font-black text-gray-900 mb-2 font-mclaren">
+													{agent.title}
+												</h3>
+												<p className="text-sm leading-7 text-gray-600 font-montserrat">
+													{agent.description}
+												</p>
+											</div>
+
+											{/* CTA */}
+											<button
+												onClick={(e) => {
+													if (agent.status === "coming-soon") {
+														e.preventDefault();
+													}
+												}}
+												disabled={agent.status === "coming-soon"}
+												className={cn(
+													"mt-5 w-full rounded-full px-4 py-3 text-[10px] font-black uppercase tracking-[0.35em] transition-colors duration-300 flex items-center justify-center gap-2 font-montserrat",
+													agent.status === "available"
+														? "bg-blue-600 text-white hover:bg-blue-700"
+														: "border border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed",
+												)}>
 												{agent.status === "available"
-													? "Available"
+													? "Launch Agent"
 													: "Coming Soon"}
-											</div>
-
-											<motion.div
-												animate={{ x: [0, 4, 0] }}
-												transition={{ duration: 2, repeat: Infinity }}
-												className="text-gray-300 group-hover:text-blue-600 transition-colors">
-												<ArrowRight className="w-5 h-5" />
-											</motion.div>
+												{agent.status === "available" && (
+													<ArrowRight className="w-4 h-4" />
+												)}
+											</button>
 										</div>
-
-										{/* Icon */}
-										<div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200/40 w-16 h-16 rounded-xl lg:rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-gradient-to-br group-hover:from-blue-100 group-hover:to-cyan-100 transition-all">
-											{agent.icon}
-										</div>
-
-										{/* Content */}
-										<div>
-											<h3 className="text-xl lg:text-2xl font-black text-gray-900 mb-2 font-mclaren">
-												{agent.title}
-											</h3>
-											<p className="text-sm lg:text-base text-gray-600 font-montserrat">
-												{agent.description}
-											</p>
-										</div>
-
-										{/* Features */}
-										<div className="pt-4 border-t border-gray-200/60">
-											<p className="text-xs font-black uppercase text-gray-400 tracking-widest mb-3 font-montserrat">
-												Capabilities
-											</p>
-											<div className="flex flex-wrap gap-2">
-												{agent.features.map((feature) => (
-													<span
-														key={feature}
-														className="text-xs font-bold bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-montserrat">
-														{feature}
-													</span>
-												))}
-											</div>
-										</div>
-
-										{/* CTA */}
-										<button
-											onClick={(e) => {
-												if (agent.status === "coming-soon") {
-													e.preventDefault();
-												}
-											}}
-											disabled={agent.status === "coming-soon"}
-											className={cn(
-												"w-full py-3 px-4 rounded-xl font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 font-montserrat",
-												agent.status === "available"
-													? "bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg hover:shadow-blue-600/30"
-													: "bg-gray-100 text-gray-400 cursor-not-allowed",
-											)}>
-											{agent.status === "available"
-												? "Launch Agent"
-												: "Coming Soon"}
-											{agent.status === "available" && (
-												<ArrowRight className="w-4 h-4" />
-											)}
-										</button>
+									</motion.div>
+								</Link>
+							) : (
+								<motion.div className="relative h-full rounded-3xl border border-gray-200 bg-white p-6 opacity-90 shadow-sm sm:p-7 lg:p-8">
+									<div className="absolute right-5 top-5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-amber-700 font-montserrat">
+										Coming Soon
 									</div>
+									<div className="mt-6 w-14 h-14 rounded-2xl border border-gray-200 bg-gray-50 flex items-center justify-center text-blue-600">
+										{agent.icon}
+									</div>
+									<div className="pt-5">
+										<h3 className="text-xl font-black text-gray-900 mb-2 font-mclaren">
+											{agent.title}
+										</h3>
+										<p className="text-sm leading-7 text-gray-600 font-montserrat">
+											{agent.description}
+										</p>
+									</div>
+									<button
+										disabled
+										className="mt-6 w-full rounded-full border border-gray-200 bg-gray-100 px-4 py-3.5 text-[10px] font-black uppercase tracking-[0.35em] text-gray-400 font-montserrat cursor-not-allowed">
+										Coming Soon
+									</button>
 								</motion.div>
-							</Link>
+							)}
 						</motion.div>
 					))}
 				</div>
 
 				{/* Info Section */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
+				<motion.section
+					initial={{ opacity: 0, y: 24 }}
 					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5, delay: 0.4 }}
-					className="mt-16 lg:mt-24 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/60 rounded-2xl lg:rounded-[2rem] p-8 lg:p-12">
-					<div className="max-w-3xl mx-auto">
-						<h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 font-mclaren">
-							How Agents Work
-						</h2>
-						<p className="text-gray-700 mb-6 font-montserrat">
-							StrataDeed's AI agents leverage OpenAI's GPT-4 Turbo with advanced
-							prompt engineering to provide intelligent analysis. Each agent:
-						</p>
-						<ul className="grid md:grid-cols-2 gap-4 text-sm font-montserrat">
+					transition={{ duration: 0.5, delay: 0.35 }}
+					className="mt-8 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+					<div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+						<div>
+							<p className="text-[10px] font-black uppercase tracking-[0.35em] text-blue-700 font-montserrat">
+								Agent Framework
+							</p>
+							<h2 className="mt-3 text-3xl font-black text-gray-900 font-mclaren sm:text-4xl">
+								How the agents operate
+							</h2>
+							<p className="mt-4 max-w-2xl text-sm leading-7 text-gray-600 font-montserrat sm:text-base">
+								Each agent is tuned for a specific workflow: analysis, matching,
+								verification, and future portfolio automation.
+							</p>
+						</div>
+
+						<div className="grid gap-3 sm:grid-cols-2">
 							{[
 								"Processes structured input data",
-								"Performs chain-of-thought reasoning",
-								"Validates output with schemas",
 								"Returns transparent explanations",
+								"Validates output with schemas",
 								"Handles errors gracefully",
-								"Tracks token usage & latency",
+								"Tracks token usage and latency",
+								"Designed for real estate workflows",
 							].map((item, i) => (
-								<li
+								<div
 									key={i}
-									className="flex gap-3 text-gray-700">
-									<span className="text-blue-600 font-black">✓</span>
-									{item}
-								</li>
+									className="flex items-start gap-3 rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700 font-montserrat">
+									<span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-xs font-black">
+										✓
+									</span>
+									<span>{item}</span>
+								</div>
 							))}
-						</ul>
+						</div>
 					</div>
-				</motion.div>
+				</motion.section>
 			</div>
 		</div>
 	);

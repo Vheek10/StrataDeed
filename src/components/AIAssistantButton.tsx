@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Bot, X, Send, Sparkles } from "lucide-react";
+import { X, Send } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -94,15 +94,21 @@ export default function AIAssistantButton() {
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 20, scale: 0.95 }}
 						transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-						className="fixed bottom-24 right-6 z-[9998] w-[calc(100vw-3rem)] max-w-[400px] rounded-3xl border border-gray-200/60 bg-white shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden"
+						className="fixed bottom-24 right-6 z-9998 w-[calc(100vw-3rem)] max-w-[400px] rounded-3xl border border-gray-200/60 bg-white shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] overflow-hidden"
 						id="ai-assistant-panel">
 						{/* Header */}
-						<div className="relative bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 px-5 py-4">
+						<div className="relative bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 px-5 py-4">
 							<div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_60%)]" />
 							<div className="relative flex items-center justify-between">
 								<div className="flex items-center gap-3">
-									<div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/30">
-										<Bot className="w-5 h-5 text-white" />
+									<div className="relative w-10 h-10 rounded-2xl bg-white flex items-center justify-center shadow-lg shadow-blue-500/30 overflow-hidden border border-gray-100">
+										<Image
+											src="/logo.png"
+											alt="StrataDeed Logo"
+											width={40}
+											height={40}
+											className="object-contain brightness-0"
+										/>
 										<div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-gray-900" />
 									</div>
 									<div>
@@ -124,7 +130,7 @@ export default function AIAssistantButton() {
 						</div>
 
 						{/* Messages */}
-						<div className="h-[320px] overflow-y-auto px-4 py-4 space-y-4 bg-gradient-to-b from-gray-50/50 to-white scrollbar-thin">
+						<div className="h-80 overflow-y-auto px-4 py-4 space-y-4 bg-linear-to-b from-gray-50/50 to-white scrollbar-thin">
 							{messages.map((msg, i) => (
 								<motion.div
 									key={i}
@@ -133,13 +139,17 @@ export default function AIAssistantButton() {
 									transition={{ delay: i === messages.length - 1 ? 0.1 : 0 }}
 									className={cn(
 										"flex gap-2.5",
-										msg.role === "user"
-											? "justify-end"
-											: "justify-start",
+										msg.role === "user" ? "justify-end" : "justify-start",
 									)}>
 									{msg.role === "assistant" && (
-										<div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-											<Bot className="w-3.5 h-3.5 text-white" />
+										<div className="w-7 h-7 rounded-xl bg-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm overflow-hidden border border-gray-100">
+											<Image
+												src="/logo.png"
+												alt="StrataDeed Logo"
+												width={28}
+												height={28}
+												className="object-contain brightness-0"
+											/>
 										</div>
 									)}
 									<div
@@ -159,8 +169,14 @@ export default function AIAssistantButton() {
 									initial={{ opacity: 0, y: 10 }}
 									animate={{ opacity: 1, y: 0 }}
 									className="flex gap-2.5 justify-start">
-									<div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-										<Bot className="w-3.5 h-3.5 text-white" />
+									<div className="w-7 h-7 rounded-xl bg-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm overflow-hidden border border-gray-100">
+										<Image
+											src="/logo.png"
+											alt="StrataDeed Logo"
+											width={28}
+											height={28}
+											className="object-contain brightness-0"
+										/>
 									</div>
 									<div className="bg-white text-gray-400 border border-gray-100 shadow-sm rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-1.5">
 										<div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:0ms]" />
@@ -193,7 +209,7 @@ export default function AIAssistantButton() {
 
 						{/* Input */}
 						<div className="border-t border-gray-100 px-4 py-3 bg-white">
-							<div className="flex items-center gap-2 bg-gray-50 rounded-2xl border border-gray-200 px-4 py-2 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 transition-all duration-300">
+							<div className="flex items-center gap-2 bg-gray-50 rounded-full border border-gray-200 px-3 py-2 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 transition-all duration-300 shadow-sm">
 								<input
 									ref={inputRef}
 									type="text"
@@ -201,16 +217,16 @@ export default function AIAssistantButton() {
 									onChange={(e) => setInput(e.target.value)}
 									onKeyDown={handleKeyDown}
 									placeholder="Ask me anything..."
-									className="flex-1 bg-transparent text-sm text-gray-900 placeholder:text-gray-400 outline-none font-montserrat"
+									className="flex-1 bg-transparent text-sm text-gray-900 placeholder:text-gray-400 outline-none font-montserrat px-2"
 									id="ai-assistant-input"
 								/>
 								<button
 									onClick={() => handleSend()}
 									disabled={!input.trim() || isTyping}
 									className={cn(
-										"w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-300",
+										"w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shrink-0",
 										input.trim() && !isTyping
-											? "bg-gray-900 text-white hover:bg-blue-600 hover:scale-110 shadow-sm"
+											? "bg-gray-900 text-white hover:bg-blue-600 hover:scale-105 shadow-sm"
 											: "bg-gray-200 text-gray-400 cursor-not-allowed",
 									)}
 									aria-label="Send message">
@@ -231,18 +247,18 @@ export default function AIAssistantButton() {
 				whileHover={{ scale: 1.1, y: -3 }}
 				whileTap={{ scale: 0.95 }}
 				className={cn(
-					"fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group",
+					"fixed bottom-6 right-6 z-9999 w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group",
 					isOpen
 						? "bg-gray-900 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]"
-						: "bg-gradient-to-br from-blue-600 to-cyan-500 shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-10px_rgba(37,99,235,0.5)]",
+						: "bg-linear-to-br from-blue-600 to-cyan-500 shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-10px_rgba(37,99,235,0.5)]",
 				)}
 				aria-label="Toggle AI Assistant"
 				id="ai-assistant-toggle">
 				{/* Ambient glow ring */}
 				{!isOpen && (
 					<>
-						<div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 animate-ping opacity-20" />
-						<div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-blue-400/20 to-cyan-400/20 blur-md" />
+						<div className="absolute inset-0 rounded-2xl bg-linear-to-br from-blue-600 to-cyan-500 animate-ping opacity-20" />
+						<div className="absolute -inset-1 rounded-2xl bg-linear-to-br from-blue-400/20 to-cyan-400/20 blur-md" />
 					</>
 				)}
 
@@ -263,7 +279,15 @@ export default function AIAssistantButton() {
 							animate={{ rotate: 0, opacity: 1 }}
 							exit={{ rotate: -90, opacity: 0 }}
 							transition={{ duration: 0.2 }}>
-							<Bot className="w-6 h-6 text-white relative z-10" />
+							<div className="relative z-10 w-7 h-7 rounded-xl bg-white flex items-center justify-center overflow-hidden shadow-sm border border-gray-100">
+								<Image
+									src="/logo.png"
+									alt="StrataDeed Logo"
+									width={28}
+									height={28}
+									className="object-contain brightness-0"
+								/>
+							</div>
 						</motion.div>
 					)}
 				</AnimatePresence>

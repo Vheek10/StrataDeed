@@ -9,8 +9,6 @@ import {
 	ChevronRight,
 	Activity,
 	DollarSign,
-	Clock,
-	Home,
 } from "lucide-react";
 import Link from "next/link";
 import { Property } from "./types";
@@ -21,6 +19,7 @@ interface PropertiesListProps {
 
 export default function PropertiesList({ properties }: PropertiesListProps) {
 	const MotionLink = motion(Link);
+	const fallbackImage = "/images/unsplash-7fde63acd811.jpg";
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -84,7 +83,7 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 				variants={containerVariants}
 				initial="hidden"
 				animate="visible">
-				{properties.slice(0, 3).map((property, index) => (
+				{properties.slice(0, 3).map((property) => (
 					<motion.div
 						key={property.id}
 						variants={itemVariants}
@@ -92,11 +91,17 @@ export default function PropertiesList({ properties }: PropertiesListProps) {
 						className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300 group">
 						<div className="flex w-full sm:w-auto items-center gap-4">
 							<motion.div
-								className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100 flex items-center justify-center border border-gray-200"
+								className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100 border border-gray-200"
 								whileHover={{ scale: 1.05 }}
 								transition={{ duration: 0.2 }}>
-								{/* Placeholder for Token/Strategy Icon since we don't have strategy images yet */}
-								<Home className="w-8 h-8 text-gray-400" />
+								<img
+									src={property.image || fallbackImage}
+									alt={property.title}
+									className="h-full w-full object-cover"
+									onError={(event) => {
+										event.currentTarget.src = fallbackImage;
+									}}
+								/>
 								{/* Status Indicator */}
 								<motion.div
 									initial={{ scale: 0 }}
