@@ -44,6 +44,11 @@ const faqItems = [
 			"Properties are verified through our institutional-grade compliance layer, then minted as on-chain tokens on the Sui blockchain. Each token cryptographically represents legal ownership rights, enabling fractional purchases as small as 0.01% of a property while maintaining full legal enforceability.",
 	},
 	{
+		question: "What are AI Agents in StrataDeed?",
+		answer:
+			"Our AI Intelligence Suite features specialized autonomous agents designed for institutional real estate workflows. These agents instantly process structured market data for accurate property valuation, and seamlessly match investors with optimal properties based on their unique profiles and investment preferences.",
+	},
+	{
 		question: "Is my investment legally protected?",
 		answer:
 			"Absolutely. Every tokenized property on StrataDeed is backed by real-world legal documentation and verified through zero-knowledge proofs via our Tier-1 Institutional Node framework — no KYC required. Smart contracts enforce ownership rights, and all transactions are immutably and privately recorded on-chain.",
