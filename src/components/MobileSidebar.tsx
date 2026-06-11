@@ -13,6 +13,7 @@ import {
 	Shield,
 	Sparkles,
 	ChevronRight,
+	Bot,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, Variants } from "framer-motion";
@@ -24,6 +25,7 @@ const navIcons = {
 	"about-us": FileText,
 	about: FileText,
 	marketplace: Store,
+	agents: Bot,
 	company: Users,
 	"contact-us": Phone,
 	mint: PlusCircle,

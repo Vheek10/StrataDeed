@@ -824,7 +824,7 @@ export default function InvestNowModal({
 												y: -2,
 											}}
 											whileTap={{ scale: 0.95 }}
-											className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-black rounded-full hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3">
+											className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-900 text-white font-black rounded-full hover:bg-[#4DA2FF] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3">
 											{isProcessing ? (
 												<>
 													<motion.div

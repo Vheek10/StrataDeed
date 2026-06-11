@@ -16,6 +16,7 @@ import {
 	Building,
 	Briefcase,
 	PlusCircle,
+	Bot,
 } from "lucide-react";
 
 // Navigation configuration
@@ -28,6 +29,7 @@ const navItems = [
 		key: "marketplace",
 		icon: Building,
 	},
+	{ href: "/agents", label: "AI Agents", key: "agents", icon: Bot },
 	{ href: "/mint", label: "Mint", key: "mint", icon: PlusCircle },
 	{ href: "/dashboard", label: "Dashboard", key: "dashboard", icon: Briefcase },
 ];

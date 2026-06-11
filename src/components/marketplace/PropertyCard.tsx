@@ -236,12 +236,12 @@ export default function PropertyCard({
 										whileHover={{
 											scale: 1.05,
 											y: -5,
-											backgroundColor: "#9f2149",
+											backgroundColor: "#4DA2FF",
 											color: "#ffffff",
 											transition: { duration: 0.4 },
 										}}
 										whileTap={{ scale: 0.98 }}
-										className="flex-1 px-6 py-4 bg-gray-900 text-white rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(159,33,73,0.4)] flex items-center justify-center gap-3">
+										className="flex-1 px-6 py-4 bg-gray-900 text-white rounded-full transition-all duration-500 hover:shadow-[0_20px_40px_-10px_rgba(77,162,255,0.4)] flex items-center justify-center gap-3">
 										<span className="text-[10px] font-black uppercase tracking-[0.4em] font-montserrat">
 											Invest Now
 										</span>

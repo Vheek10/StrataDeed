@@ -5,28 +5,32 @@
 import { forwardRef } from "react";
 import { ConnectButton, useWallet } from "@suiet/wallet-kit";
 
-const ConnectWalletButtonContent = () => {
+const ConnectWalletButton = forwardRef<HTMLDivElement>((props, ref) => {
 	const { account } = useWallet();
 
-	if (account) {
-		const address = account.address;
-		const truncated = `${address.slice(0, 4)}...${address.slice(-4)}`;
-		return <span className="sd-connect-text sd-connected">{truncated}</span>;
-	}
-
-	return (
-		<span className="sd-connect-text sd-disconnected">Connect Wallet</span>
-	);
-};
-
-const ConnectWalletButton = forwardRef<HTMLDivElement>((props, ref) => {
 	return (
 		<div
-			className="sd-connect-button"
+			className="sd-connect-button relative w-full"
 			ref={ref}>
-			<ConnectButton>
-				<ConnectWalletButtonContent />
-			</ConnectButton>
+			{account ? (
+				<>
+					{/* Custom styled visual button that exactly matches our desired layout */}
+					<div className="sd-wallet-btn sd-connected w-full pointer-events-none">
+						<span className="sd-connected-dot mr-2"></span>
+						<span className="sd-address">
+							{`${account.address.slice(0, 4)}...${account.address.slice(-4)}`}
+						</span>
+					</div>
+					{/* Invisible interactive layer to trigger Suiet modal */}
+					<div className="absolute inset-0 z-10 opacity-0 overflow-hidden cursor-pointer *:w-full *:h-full">
+						<ConnectButton />
+					</div>
+				</>
+			) : (
+				<ConnectButton>
+					<span>Connect Wallet</span>
+				</ConnectButton>
+			)}
 		</div>
 	);
 });

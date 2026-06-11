@@ -33,7 +33,7 @@ export default function MarketplaceHeader({
 				<div className="flex items-center gap-2 sm:gap-3">
 					<Link
 						href="/agents"
-						className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-gray-200 bg-white px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-gray-800 hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-sm font-montserrat">
+						className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-gray-200 bg-white px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-gray-800 hover:bg-[#4DA2FF] hover:border-[#4DA2FF] hover:text-white transition-all duration-300 shadow-sm font-montserrat">
 						<Bot className="w-3.5 h-3.5" />
 						<span>AI Agents</span>
 					</Link>

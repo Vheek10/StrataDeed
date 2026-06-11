@@ -100,7 +100,7 @@ export default function FilterSidebar({
 								</div>
 								<button
 									onClick={clearFilters}
-									className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
+									className="text-sm text-blue-600 hover:text-[#4DA2FF] font-medium flex items-center gap-1">
 									<X className="w-3 h-3" />
 									Clear all
 								</button>

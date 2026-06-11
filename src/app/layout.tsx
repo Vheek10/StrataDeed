@@ -26,7 +26,7 @@ const montserrat = Montserrat({
 const mclaren = McLaren({
 	subsets: ["latin"],
 	weight: ["400"],
-	variable: "--font-mclaren",
+	variable: "--font-outfit",
 	display: "swap",
 	preload: true,
 });
@@ -70,7 +70,7 @@ export default function RootLayout({
 			<body className="font-montserrat antialiased bg-bg text-text">
 				<SuietProvider>
 					<div className="min-h-screen flex flex-col">
-						<Navbar hideOnHome />
+						<Navbar />
 						<main className="flex-1 w-full">{children}</main>
 						<Footer />
 					</div>
