@@ -7,9 +7,7 @@ const nextConfig = {
 	reactStrictMode: true,
 
 	// Production optimizations
-	compress: true,
-	poweredByHeader: false,
-	optimizeFonts: true,
+
 
 	// Add image configuration for external domains
 	images: {
@@ -24,9 +22,8 @@ const nextConfig = {
 		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 	},
-
-	// Enable SWC minification (faster than Terser)
-	swcMinify: true,
+	compress: true,
+	poweredByHeader: false,
 
 	// Compiler optimizations
 	compiler: {

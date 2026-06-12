@@ -40,7 +40,7 @@ export async function POST(
 		const body = await request.json();
 
 		// Validate input
-		const valuationRequest = validateData(
+		const valuationRequest = validateData<ValuationRequest>(
 			body,
 			ValuationRequestSchema,
 			"Valuation Request",
@@ -85,7 +85,7 @@ export async function POST(
 			);
 
 		// Validate output
-		const validatedResult = validateData(
+		const validatedResult = validateData<ValuationResult>(
 			valuationResult,
 			ValuationResultSchema,
 			"Valuation Result",
