@@ -26,7 +26,8 @@
 		"react": "19.2.0",
 		"react-dom": "19.2.0",
 		"tailwind-merge": "^3.4.0",
-		"three": "^0.182.0"
+		"three": "^0.182.0",
+		"zod": "^3.25.76"
 	},
 	"devDependencies": {
 		"@shadcn/ui": "^0.0.4",
