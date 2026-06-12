@@ -8,11 +8,18 @@
 import OpenAI from "openai";
 import { OpenAIError } from "@/types/agents";
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-	apiKey: process.env.OPENAI_API_KEY,
-	timeout: 60000, // 60 second timeout
-});
+// Lazy-initialize OpenAI client (deferred to avoid build-time errors when API key is unavailable)
+let _openai: OpenAI | null = null;
+
+function getOpenAIClient(): OpenAI {
+	if (!_openai) {
+		_openai = new OpenAI({
+			apiKey: process.env.OPENAI_API_KEY,
+			timeout: 60000, // 60 second timeout
+		});
+	}
+	return _openai;
+}
 
 const MODEL = process.env.OPENAI_MODEL || "gpt-4-turbo";
 const TEMPERATURE = 0.7;
@@ -74,7 +81,7 @@ export async function sendChatCompletion(
 				`[OpenAI] Sending completion request (attempt ${attempt + 1}/${retries})`,
 			);
 
-			const response = await openai.chat.completions.create({
+			const response = await getOpenAIClient().chat.completions.create({
 				model: MODEL,
 				messages: messages as any,
 				temperature,
@@ -257,7 +264,7 @@ export function extractReasoningSteps(content: string): string[] {
  */
 export async function verifyOpenAIConnection(): Promise<boolean> {
 	try {
-		await openai.models.list();
+		await getOpenAIClient().models.list();
 		console.log("[OpenAI] API connection verified");
 		return true;
 	} catch (error) {
@@ -266,4 +273,4 @@ export async function verifyOpenAIConnection(): Promise<boolean> {
 	}
 }
 
-export default openai;
+export default getOpenAIClient;
