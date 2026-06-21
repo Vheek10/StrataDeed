@@ -14,7 +14,7 @@
 ## 🚀 Quick Links
 
 **🎥 Video Demo**: [Watch 3-Minute Walkthrough](#) _(Coming Soon)_  
-**🌐 Live Demo**: [Try StrataDeed](https://strata-deed.vercel.app)  
+**🌐 Live Demo**: [Try StrataDeed](https://stratadeed.xyz)  
 **📜 Smart Contracts**: View on [Sui Explorer](https://suiscan.xyz/) _(Deploy to testnet)_  
 **📖 Documentation**: [Technical Docs](./MIGRATION_NOTES.md) | [Security Fixes](./SMART_CONTRACT_FIXES_SUMMARY.md)  
 **⚡ Quick Reference**: [Developer Commands & Tips](./QUICK_REFERENCE.md)
@@ -672,7 +672,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 ## 📞 Contact & Support
 
-- **Website**: [stratadeed.com](#) _(Coming Soon)_
+- **Website**: [stratadeed.xyz](#) 
 - **Twitter**: [@StrataDeed](#) _(Coming Soon)_
 - **Discord**: [Join Community](#) _(Coming Soon)_
 - **Email**: support@stratadeed.com
